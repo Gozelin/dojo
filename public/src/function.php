@@ -193,4 +193,15 @@ function getQuill($name) {
 	return ($str);
 }
 
+function getDiscWidget($categ, &$nd) {
+	$str = "";
+	$nd = -1;
+	$discs = $categ->getDisciplines();
+	foreach($discs as $d) {
+		$nd++;
+		$str .= "<div class='disc-content'>".$d->getName()."</div>";
+	}
+	return ($str);
+}
+
 ?>

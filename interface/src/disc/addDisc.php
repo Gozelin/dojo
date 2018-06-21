@@ -13,11 +13,11 @@ header('Location: ../../pages/content.php');
 
 $title = $_POST["title"];
 $desc = $_POST["desc"];
-$descDelta = $_POST["descDelta"];
+$descDelta = ($_POST["descDelta"] != NULL) ? $_POST["descDelta"] : "none";
 $link = $_POST["link"];
 $categ = $_POST["categ"];
 
-if($_POST["profs"] != NULL)
+if(isset($_POST["profs"]))
 	$profs = $_POST["profs"];
 else
 	$profs = array();

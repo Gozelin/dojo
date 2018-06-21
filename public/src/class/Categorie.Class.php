@@ -159,6 +159,15 @@ class cCategorie {
 		return $res;
 	}
 
+	public function getDisciplines() {
+		$arr = [];
+		$discs =  getAllDiscs();
+		foreach($discs as $d) {
+			if ($d->getCateg() == $this->_id)
+				array_push($arr, $d);
+		}
+		return ($arr);
+	}
 
 	private function deleteDisciplines()
 	{

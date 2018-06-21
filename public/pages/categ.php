@@ -29,6 +29,7 @@ $tabSelected['disc'] = "tab-selected";
 		<link rel="stylesheet" type="text/css" href="librairies/slick/slick-theme.css">
 		<script src="js/jquery-3.1.1.min.js"></script>
 		<script src="js/function.js"></script>
+		<script src="js/disc-widget.js"></script>
 		<script src="./librairies/parallax.js"></script>
 		<script src="librairies/slick/slick.js"></script>
 	</head>
@@ -44,6 +45,12 @@ $tabSelected['disc'] = "tab-selected";
 				</div>
 				<h1 class="categ-disc-big-title" >Disciplines associées</h1>
 				<div class="categ-boxu categ-disc-box">
+					<div id="disc-content-box" style="display:none"><?php echo getDiscWidget($categ, $nd) ?></div>
+					<div id="widg-arr-left" class="vertical-center pointer">left</div>
+					<div class="disc-widget">
+						<div class='widg-content wc-displayed'></div>
+					</div>
+					<div id="widg-arr-right" class="vertical-center pointer">right</div>
 				</div>
 				<?php include("footer.php"); ?>
 			</div>
@@ -52,6 +59,10 @@ $tabSelected['disc'] = "tab-selected";
 </html>
 
 <script>
+	 
+var nbd = <?php echo $nd ?>;
+var currd = 0;
+
 $(document).ready(function(){
 
 	$("body").fadeIn();
@@ -60,22 +71,6 @@ $(document).ready(function(){
 
 	$("#categ-desc").append("<?php echo $desc ?>");
 
-	$(document).on({
-	    mouseenter: function () {
-	        $(this).children("img").addClass("disc-img-effect");
-	        $(this).children("h1").addClass("disc-title-hovered");
-	    },
-	    mouseleave: function () {
-	        $(this).children("img").removeClass("disc-img-effect");
-	        $(this).children("h1").removeClass("disc-title-hovered");
-	    }
-	}, ".disc-box");
-
-	$(document).on("click", ".disc-box", function(){
-		id = $(this).attr("id");
-		window.location.href = 'discipline.php?id='+id;
-	});
-
+	start_widget();
 });
-	
 </script>

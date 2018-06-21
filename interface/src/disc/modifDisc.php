@@ -9,18 +9,22 @@ require_once(PATH_CLASS."Prof.Class.php");
 
 $dataBase = new cDataBase(DATABASE_HOST, DATABASE_ADMIN_LOG, DATABASE_ADMIN_PASSWORD, DATABASE_ADMIN_NAME);
 
-header('Location: ../../pages/content.php');
+// header('Location: ../../pages/content.php');
 
 echo "<pre>";
 
 $id = $_POST["id"];
 $title = $_POST["title"];
 $desc = $_POST["desc"];
+$link = NULL;
 $descDelta = $_POST["descDelta"];
-$link = $_POST["link"];
 $categ = $_POST["categ"];
 
-var_dump($link);
+if (!empty($_POST["link"][0])) {
+	unset($_POST["link"][count($_POST["link"]) - 1]);
+	$link = $_POST["link"];
+}
+var_dump($_POST);
 
 if($_POST["profs"] != NULL)
 	$profs = $_POST["profs"];
@@ -76,5 +80,5 @@ echo "</pre>";
 
 $_SESSION["tab-click"] = "disc";
 
-exit();
+// exit();
 ?>

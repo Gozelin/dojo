@@ -87,7 +87,7 @@ $profs = getAllProfs();
 							 	$name = $prof->getName();
 							 	$surname = $prof->getSurname();
 							 	echo "<label class='prof-label' for='$id-prof'>$name $surname</label>";
-							 	echo "<input class='prof-chkbox' value=$id type='checkbox' id='$id-prof' name='profs[]'>";
+								echo "<input class='prof-chkbox' value=$id type='checkbox' id='$id-prof' name='profs[]'>";
 							 }
 							 echo "</div>";
 						?>
@@ -199,38 +199,6 @@ $(document).ready(function(){
 		theme: 'snow'
 	 });
 	});
-
-	// //disc text editor
-	// quillHome = new Quill('#editor-home', {
-	// 	modules: {
-	// 		toolbar: '#toolbar-home'
-	// 	},
-	// 	theme: 'snow'
-	//  });
-
-	// //disc text editor
-	// quillDisc = new Quill('#editor-disc', {
-	// 	modules: {
-	// 		toolbar: '#toolbar-disc'
-	// 	},
-	// 	theme: 'snow'
-	//  });
-
-	// //categ text editor
-	// quillCateg = new Quill('#editor-categ', {
-	// 	modules: {
-	// 		toolbar: '#toolbar-categ'
-	// 	},
-	// 	theme: 'snow'
-	//  });
-
-	// //prof text editor
-	// quillProf = new Quill('#editor-prof', {
-	// 	modules: {
-	// 		toolbar: '#toolbar-prof'
-	// 	},
-	// 	theme: 'snow'
-	//  });
 
 	//categ radio change
 	$(document).on("change", ".radio-categ", function(){

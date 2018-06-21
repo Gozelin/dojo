@@ -214,12 +214,15 @@ function displayModifForm(type, id)
 				$(form).children("input[name=title]").val(disc["name"]);
 				aQuill["disc"].setContents(disc["descDelta"]);
 
-				linkNo = disc["link"].length;
-
-				for(i=0;i<linkNo;i++)
-				{
+				if (disc["link"] != "undefined")
 					addLinkInput();
-					$("#link-"+i).val(disc["link"][i]);
+				else {
+					linkNo = disc["link"].length;
+					for(i=0;i<linkNo;i++)
+					{
+						addLinkInput();
+						$("#link-"+i).val(disc["link"][i]);
+					}
 				}
 
 				$(form).children(".info-input-container").children(".categ-input-box").children("input[value="+disc["categ"]+"]").prop("checked", true);
@@ -396,7 +399,7 @@ function undisplayForm()
 			//DISCIPLINE
 			case "disc":
 				$(form).children("input[type=text]").val("");
-				aQuill["disc'"].setContents(" ");
+				aQuill["disc"].setContents(" ");
 				$("#link-input-container").empty();
 				resetFileInput($(form).children(".file-input-container").children(".file-input-box"));
 				$(form).children(".info-input-container").children(".categ-input-box").children("input[type=radio]").prop("checked", false);
@@ -551,7 +554,7 @@ $(".submit-btn").click(function(){
 			descDelta = JSON.stringify(descDelta);
 		break;
 		case "disc":
-			descDelta = aQuill["disc'"].getContents();
+			descDelta = aQuill["disc"].getContents();
 			descDelta = JSON.stringify(descDelta);
 		break;
 		case "categ":
@@ -568,6 +571,7 @@ $(".submit-btn").click(function(){
 		break;
 	}
 
+	console.log(desc);
 	$(this).siblings("input[name=desc]").val(desc);
 	$(this).siblings("input[name=descDelta]").val(descDelta);
 });
