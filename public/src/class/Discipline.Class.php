@@ -40,7 +40,9 @@ class cDiscipline {
 	public function getName() { return $this->_name; }
 	public function setName($value) { $this->_name = $value; }
 	
-	public function getDesc() { return $this->_desc; }
+	public function getDesc() {
+		return str_replace('"', "'", htmlspecialchars_decode($this->_desc));
+	}
 	public function setDesc($value) { $this->_desc = $value; }
 
 	public function getDescDelta() { return $this->_descDelta; }

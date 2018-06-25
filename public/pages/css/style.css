@@ -28,6 +28,7 @@ body
 	/*overflow-x: hidden;*/
 	background-color: white;
 	padding-top: 0px;
+	user-select: none;	
 }
 
 a
@@ -49,6 +50,15 @@ h3
 .pointer {
 	cursor:pointer;
 }
+
+.noselect {
+	-webkit-touch-callout: none;
+	  -webkit-user-select: none;
+	   -khtml-user-select: none;
+		 -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+  }
 
 .parallax
 {
@@ -221,6 +231,8 @@ h3
 	z-index: 1;
 	display:flex;
 	justify-content: center;
+	display: block;
+	height: auto;
 }
 
 .categ-title
@@ -242,9 +254,8 @@ h3
 
 .disc-title
 {
-	margin: auto;
-	color:white;
-	transition-duration: 1s;
+	text-align: center;
+	padding: 20px;
 }
 
 .disc-img
@@ -380,6 +391,7 @@ h3
 	background-color: white;
 	text-align: center;
 	width: -webkit-fill-available;
+	padding: 20px;
 }
 
 #categ-desc *
@@ -389,26 +401,17 @@ h3
 
 #categ-info
 {
-	/* width: 40%; */
+	width: fit-content;
 	background-color: lightgrey;
     display: flex;
-    flex-direction: column
+	flex-direction: column;
+	height: fit-content;
 }
 
 .categ-disc-box
 {
 	background-color: white;
-}
-
-.categ-disc-big-title
-{
-	text-align: center;
-	background: white;
-	padding: 20px;
-	margin: 0;
-	margin-top: 20px;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+	width: 100%;
 }
 
 .disc-categ-box
@@ -800,11 +803,24 @@ h3
 	display: flex;
 	flex-direction: column;
 	text-align: center;
-	width: -webkit-fill-available;
+	width: 100%;
 	padding: 15px;
 }
 
-/*HOME CATEGORIE WIDGET                                                                            */
+.categ-disc-big-title {
+    text-align: center;
+    padding: 17px;
+	background-color: white;
+}
+
+.categ-disc-big-title h1{
+	padding-left: 50px;
+	padding-right: 50px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+/*HOME CATEGORIE WIDGET*/
 
 h1, h2
 {
@@ -829,7 +845,7 @@ h1, h2
 	min-height: 150px;
 	margin-top: 40px;
 	color: whitesmoke;
-	box-shadow: 10px 3px 28px black;
+	box-shadow: 10px 8px 30px black;
 	z-index: 1;
 }
 
@@ -888,7 +904,7 @@ h1, h2
     height: 100%;
 }
 
-.more-btn a
+.more-btn h1
 {
     opacity: 0;
     margin: auto;
@@ -897,7 +913,7 @@ h1, h2
     padding: 12px;
 }
 
-.categ-cover:hover, .categ-box:hover .more-btn a
+.categ-cover:hover, .categ-box:hover .more-btn h1
 {
     font-size: 50px;
     opacity: 1;
@@ -914,15 +930,50 @@ h1, h2
 {
 	position: relative;
 	width: 100%;
-	height: 700px;
 	overflow-x: hidden;
+	min-height: 700px;
 }
 
 .widg-content
 {
-	position: absolute;
     background-color: lightgrey;
     width: 100%;
-	height: 100%;
 	z-index: 3;
+	min-height: 700px;
+}
+
+.disc-content {
+	text-align: center;
+	padding: 30px;
+	min-height: 700px;
+}
+
+.disc-content img
+{
+	height: 50%;
+	object-fit: cover;
+}
+
+.arrow-widg {
+    border: solid 1px;
+    padding: 9px;
+    border-radius: 50%;
+}
+
+.arrow-widg:hover {
+	background:#7ca9bd;
+}
+
+.arrow-widg img {
+	background: inherit;
+	height: 40px;
+	transition-duration: 0.2;
+}
+
+#widg-arr-left {
+	margin-left: auto;
+}
+
+#widg-arr-right {
+	margin-right: auto;
 }

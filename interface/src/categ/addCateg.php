@@ -1,5 +1,8 @@
 <?php
 session_start();
+
+include("../secure.php");
+
 header('Location: ../../pages/content.php');
 
 require_once("../../../public/src/defines.php");

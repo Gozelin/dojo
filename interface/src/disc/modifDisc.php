@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+include("../secure.php");
+
 require_once('../../../public/src/defines.php');
 require_once(PATH_SRC.'function.php');
 require_once(PATH_CLASS."DataBase.Class.php");
@@ -9,7 +11,7 @@ require_once(PATH_CLASS."Prof.Class.php");
 
 $dataBase = new cDataBase(DATABASE_HOST, DATABASE_ADMIN_LOG, DATABASE_ADMIN_PASSWORD, DATABASE_ADMIN_NAME);
 
-// header('Location: ../../pages/content.php');
+header('Location: ../../pages/content.php');
 
 echo "<pre>";
 
@@ -80,5 +82,5 @@ echo "</pre>";
 
 $_SESSION["tab-click"] = "disc";
 
-// exit();
+exit();
 ?>

@@ -96,7 +96,7 @@ function get_header($categs) {
 
 function getHomeCateg() {
 	$str = "";
-	$margin_top = "style='margin-top:180px'";
+	$margin_top = "style='margin-top:100px'";
 	$categs = getAllCategs();
 	$i = 0;
 	foreach ($categs as $categ) {
@@ -118,9 +118,10 @@ function getHomeCateg() {
 						<div class='categ-slider'>
 							<div class='categ-cover'></div>
 							<img src=./images/categorie/".$categ->getImage().">
+							<a href='categ.php?id=".$categ->getId()."'>
 							<div class='more-btn'>
-								<a href='categ.php?id=".$categ->getId()."'<h1>Decouvrir</h1></a>
-							</div>
+								<h1>Decouvrir</h1>
+							</div></a>
 						</div>
 						$content1
 					</div>";
@@ -193,13 +194,30 @@ function getQuill($name) {
 	return ($str);
 }
 
-function getDiscWidget($categ, &$nd) {
+function GetDiscWidget($categ, &$nd) {
+	$content = getContentWidget($categ, $nd);
+	$str = "<div style='display:flex; box-shadow: 10px 8px 30px black; margin-bottom: 100px;'>
+	<div class='categ-boxu categ-disc-box'>
+		<div id='disc-content-box' style='display:none'>".$content."</div>
+		<div class='disc-widget'>
+			<div class='widg-content wc-displayed'></div>
+		</div>
+	</div>
+	</div>";
+	return ($str);
+}
+
+function getContentWidget($categ, &$nd) {
 	$str = "";
 	$nd = -1;
 	$discs = $categ->getDisciplines();
 	foreach($discs as $d) {
 		$nd++;
-		$str .= "<div class='disc-content'>".$d->getName()."</div>";
+		$str .= "	<div class='disc-content'>
+						<h1 class='disc-title'>".$d->getName()."</h1>
+						<img src=images/disciplines/".$d->getImage()[0].">
+						<div class='disc-desc'>".$d->getDesc()."</div>
+					</div>";
 	}
 	return ($str);
 }

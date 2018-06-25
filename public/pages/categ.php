@@ -21,7 +21,6 @@ $desc = str_replace('"', "'", $desc);
 $tabSelected['disc'] = "tab-selected";
 
 ?>
-
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/style.css">
@@ -37,21 +36,18 @@ $tabSelected['disc'] = "tab-selected";
 		<div class="parallax-window" data-parallax="scroll" data-image-src="./images/site/background.png">
 			<?php include("header.php"); ?>
 			<div id="content">
-				<div style="background-color: white; display:flex; margin-top: 40px;">
+				<div style="background-color: white; display:flex; margin-top: 40px; box-shadow: 10px 8px 30px black; margin-bottom: 70px;">
 					<div id="categ-desc">
 						<h1 style="background-color: <?php echo $color ?>" class="big-title" ><?php echo $categName ?></h1>
 					</div>
 					<div id="categ-info"><?php echo getCategInfo($categ); ?></div> 
 				</div>
-				<h1 class="categ-disc-big-title" >Disciplines associées</h1>
-				<div class="categ-boxu categ-disc-box">
-					<div id="disc-content-box" style="display:none"><?php echo getDiscWidget($categ, $nd) ?></div>
-					<div id="widg-arr-left" class="vertical-center pointer">left</div>
-					<div class="disc-widget">
-						<div class='widg-content wc-displayed'></div>
-					</div>
-					<div id="widg-arr-right" class="vertical-center pointer">right</div>
+				<div class="categ-disc-big-title" style="display:flex;">
+					<div id='widg-arr-left' class='arrow-widg vertical-center pointer'><img src="./images/icon/back.svg"></div>
+						<h1>Disciplines</h1>
+					<div id='widg-arr-right' class='arrow-widg vertical-center pointer'><img style="-webkit-transform: scaleX(-1); transform: scaleX(-1);" src="./images/icon/back.svg"></div>
 				</div>
+				<?php echo GetDiscWidget($categ, $nd) ?>
 				<?php include("footer.php"); ?>
 			</div>
 		</div>
@@ -62,6 +58,7 @@ $tabSelected['disc'] = "tab-selected";
 	 
 var nbd = <?php echo $nd ?>;
 var currd = 0;
+
 
 $(document).ready(function(){
 
