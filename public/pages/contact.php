@@ -21,17 +21,18 @@ $noheader = 1;
                 <div id="contact-content">
                     <div id="map" class="mapouter"><div class="gmap_canvas"><iframe width="780" height="563" id="gmap_canvas" src="https://maps.google.com/maps?q=69%20Rue%20Audibert%20et%20Lavirotte%2C%2069008%20&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.crocothemes.net"></a></div><style>.mapouter{text-align:right;height:563px;width:780px;}.gmap_canvas {overflow:hidden;background:none!important;height:563px;width:780px;}</style></div>
                     <div id="contact-info">
-                        <div style="padding: 20px">
+                        <div style="padding: 20px; margin: auto">
                             <img src="./images/icon/mail.svg" height="40px" width="40px">
                             <h2><?php echo MAIL ?></h2>
-                            <h2><?php echo TEL ?></h2>
-                            <h2><?php echo ADRESSE ?></h2>
+                            <img class="contact-icon" src="./images/icon/phone.svg" height="40px" width="40px">
+                            <h2 style="margin-top: 20px"><?php echo TEL ?></h2>
+                            <img class="contact-icon" src="./images/icon/placeholder.svg" height="40px" width="40px">
+                            <h2 style="margin-top: 20px"><?php echo ADRESSE ?></h2>
                         </div>
-                    </div>        
+                    </div> 
                 </div>
+                <?php include("footer.php"); ?>  
             </div>
-				<?php include("footer.php"); ?>
-			</div>
 		</div>
 	</body>
 </html>

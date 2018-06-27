@@ -1,13 +1,13 @@
 <?php
-//define("DATABASE_HOST", "mathiaskjgkz.mysql.db");
-//define("DATABASE_ADMIN_NAME", "mathiaskjgkz");
-//define("DATABASE_ADMIN_LOG", "mathiaskjgkz");
-//define("DATABASE_ADMIN_PASSWORD", "ThaLight69");
+define("DATABASE_HOST", "mathiaskjgkz.mysql.db");
+define("DATABASE_ADMIN_NAME", "mathiaskjgkz");
+define("DATABASE_ADMIN_LOG", "mathiaskjgkz");
+define("DATABASE_ADMIN_PASSWORD", "ThaLight69");
 
-define("DATABASE_HOST", "mysql");
-define("DATABASE_ADMIN_NAME", "dojo");
-define("DATABASE_ADMIN_LOG", "root");
-define("DATABASE_ADMIN_PASSWORD", "root");
+// define("DATABASE_HOST", "mysql");
+// define("DATABASE_ADMIN_NAME", "dojo");
+// define("DATABASE_ADMIN_LOG", "root");
+// define("DATABASE_ADMIN_PASSWORD", "root");
 
 define("ADMIN_LOG", "21232f297a57a5a743894a0e4a801fc3");
 define("ADMIN_PASSWORD", "9bea15890f18ef35a12767fef5d234b8");

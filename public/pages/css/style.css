@@ -327,7 +327,8 @@ h3
     width: -webkit-fill-available;
     height: 100px;
     background-color: #504741;
-    bottom:0;
+	bottom:0;
+	/* position: absolute; */
 }
 
 #footer-home
@@ -1045,6 +1046,7 @@ h1, h2
 }
 
 #contact-info {
+	display: flex;
 	width:100%;
 	color: white;
 	text-align: center;
@@ -1067,3 +1069,11 @@ h1, h2
 		display: none;
 	}
   }
+
+.contact-icon {
+	margin-top: 20px;
+}
+
+.parallax-slider {
+	height: 100%;
+}
