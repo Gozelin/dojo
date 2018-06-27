@@ -10,6 +10,8 @@ $dataBase = new cDataBase(DATABASE_HOST, DATABASE_ADMIN_LOG, DATABASE_ADMIN_PASS
 
 $tabSelected["horaire"] = "tab-selected";
 
+$noheader = 1;
+
 ?>
 
 <html>

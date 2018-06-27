@@ -102,21 +102,23 @@ function getHomeCateg() {
 	foreach ($categs as $categ) {
 		if ($i % 2 == 0) {
 			$content0 = "<div class='categ-content'>
-							<h2>".strtoupper($categ->getName())."</h2>
+							<h1>".strtoupper($categ->getName())."</h1>
 							".$categ->getDesc()."
 						</div>";
 			$content1 = "";
+			$attr = "";
 		} else {
 			$content1 = "<div class='categ-content'>
-							<h2>".strtoupper($categ->getName())."</h2>
+							<h1>".strtoupper($categ->getName())."</h1>
 							".$categ->getDesc()."
 						</div>";
 			$content0 = "";
+			$attr = "style='right: 50%'";
 		}
 		$str .= "<div class='categ-box' $margin_top>
 						$content0
 						<div class='categ-slider'>
-							<div class='categ-cover'></div>
+							<div class='categ-cover' ".$attr."></div>
 							<img src=./images/categorie/".$categ->getImage().">
 							<a href='categ.php?id=".$categ->getId()."'>
 							<div class='more-btn'>
@@ -196,7 +198,7 @@ function getQuill($name) {
 
 function GetDiscWidget($categ, &$nd) {
 	$content = getContentWidget($categ, $nd);
-	$str = "<div style='display:flex; box-shadow: 10px 8px 30px black; margin-bottom: 100px;'>
+	$str = "<div class='widget-wrapper'>
 	<div class='categ-boxu categ-disc-box'>
 		<div id='disc-content-box' style='display:none'>".$content."</div>
 		<div class='disc-widget'>
@@ -213,7 +215,7 @@ function getContentWidget($categ, &$nd) {
 	$discs = $categ->getDisciplines();
 	foreach($discs as $d) {
 		$nd++;
-		$str .= "	<div class='disc-content'>
+		$str .= "	<div id='disc-content-".$nd."' class='disc-content'>
 						<h1 class='disc-title'>".$d->getName()."</h1>
 						<img src=images/disciplines/".$d->getImage()[0].">
 						<div class='disc-desc'>".$d->getDesc()."</div>

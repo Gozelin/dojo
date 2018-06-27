@@ -36,16 +36,20 @@ $tabSelected['disc'] = "tab-selected";
 		<div class="parallax-window" data-parallax="scroll" data-image-src="./images/site/background.png">
 			<?php include("header.php"); ?>
 			<div id="content">
-				<div style="background-color: white; display:flex; margin-top: 40px; box-shadow: 10px 8px 30px black; margin-bottom: 70px;">
+				<div class="categ-wrapper">
 					<div id="categ-desc">
 						<h1 style="background-color: <?php echo $color ?>" class="big-title" ><?php echo $categName ?></h1>
 					</div>
 					<div id="categ-info"><?php echo getCategInfo($categ); ?></div> 
 				</div>
-				<div class="categ-disc-big-title" style="display:flex;">
-					<div id='widg-arr-left' class='arrow-widg vertical-center pointer'><img src="./images/icon/back.svg"></div>
-						<h1>Disciplines</h1>
-					<div id='widg-arr-right' class='arrow-widg vertical-center pointer'><img style="-webkit-transform: scaleX(-1); transform: scaleX(-1);" src="./images/icon/back.svg"></div>
+				<div class="widg-header">
+					<div class="categ-disc-big-title" style="display:flex;">
+						<div id='widg-arr-left' class='arrow-widg vertical-center pointer'><img src="./images/icon/back.svg"></div>
+							<h1>Disciplines</h1>
+						<div id='widg-arr-right' class='arrow-widg vertical-center pointer'><img style="-webkit-transform: scaleX(-1); transform: scaleX(-1);" src="./images/icon/back.svg"></div>
+					</div>
+					<div class="widg-dot-wrapper">
+					</div>
 				</div>
 				<?php echo GetDiscWidget($categ, $nd) ?>
 				<?php include("footer.php"); ?>
@@ -59,7 +63,6 @@ $tabSelected['disc'] = "tab-selected";
 var nbd = <?php echo $nd ?>;
 var currd = 0;
 
-
 $(document).ready(function(){
 
 	$("body").fadeIn();
@@ -69,5 +72,6 @@ $(document).ready(function(){
 	$("#categ-desc").append("<?php echo $desc ?>");
 
 	start_widget();
+
 });
 </script>

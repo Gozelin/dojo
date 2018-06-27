@@ -275,7 +275,7 @@ h3
     background: white;
     padding: 20px;
     margin: auto;
-    margin-top: 30px;
+    margin-top: 60px;
     text-align: center;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
@@ -321,7 +321,7 @@ h3
 
 #footer
 {
-	margin-top: 30px;
+	margin-top: 50px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     width: -webkit-fill-available;
@@ -386,12 +386,30 @@ h3
 	display:none;
 }
 
+@media screen and (min-width: 200px) and (max-width: 1000px) {
+	.categ-wrapper {
+		flex-direction: column;
+	}
+  }
+
+  @media screen and (min-width: 200px) and (max-width: 1000px) {
+	#categ-info {
+		width: 100% !important;
+	}
+}
+
+@media screen and (min-width: 200px) and (max-width: 1000px) {
+	#categ-desc {
+		width: 100% !important;
+	}
+}
+
 #categ-desc
 {
 	background-color: white;
 	text-align: center;
-	width: -webkit-fill-available;
-	padding: 20px;
+	width: 59%;
+	padding: 0.5%;
 }
 
 #categ-desc *
@@ -401,8 +419,8 @@ h3
 
 #categ-info
 {
-	width: fit-content;
-	background-color: lightgrey;
+	width: 40%;
+	background-color: white;
     display: flex;
 	flex-direction: column;
 	height: fit-content;
@@ -787,7 +805,7 @@ h3
 .prof-widget
 {
 	display: flex;
-	/* background-color: white; */
+	background-color: lightgrey;
 }
 
 .prof-widget img
@@ -820,6 +838,14 @@ h3
     margin-bottom: auto;
 }
 
+.categ-wrapper {
+	background-color: white;
+	display:flex;
+	margin-top: 40px;
+	box-shadow: 10px 8px 30px black;
+	margin-bottom: 70px;
+}
+
 /*HOME CATEGORIE WIDGET*/
 
 h1, h2
@@ -843,7 +869,7 @@ h1, h2
 	justify-content: center;
 	height: fit-content;
 	min-height: 150px;
-	margin-top: 40px;
+	margin-top: 60px;
 	color: whitesmoke;
 	box-shadow: 10px 8px 30px black;
 	z-index: 1;
@@ -942,6 +968,32 @@ h1, h2
 	min-height: 700px;
 }
 
+.widg-header {
+    display: flex;
+	flex-direction: column;
+	background: white;
+}
+
+.widg-dot-wrapper {
+	display: flex;
+	flex-flow: row;
+	margin: auto;
+	margin-bottom: 20px;
+}
+
+.widg-dot {
+	height: 10px;
+	width: 10px;
+	background: lightgrey;
+	padding: 5px;
+	border-radius: 50%;
+	margin: 2px;
+}
+
+.widg-dot-activ {
+	background: #267191;
+}
+
 .disc-content {
 	text-align: center;
 	padding: 30px;
@@ -977,3 +1029,41 @@ h1, h2
 #widg-arr-right {
 	margin-right: auto;
 }
+
+.widget-wrapper {
+	display:flex;
+	box-shadow: 10px 8px 30px black;
+	margin-bottom: 100px;
+}
+
+/* CONTACT.PHP */
+
+#contact-content {
+	display: flex;
+	flex-direction: row;
+	background: #00000073;
+}
+
+#contact-info {
+	width:100%;
+	color: white;
+	text-align: center;
+}
+
+@media screen and (min-width: 200px) and (max-width: 1180px) {
+	#contact-content {
+		flex-direction: column;
+	}
+  }
+
+  @media screen and (min-width: 200px) and (max-width: 1180px) {
+	#map {
+		margin: auto;
+	}
+  }
+
+  @media screen and (min-width: 200px) and (max-width: 780px) {
+	#map {
+		display: none;
+	}
+  }
