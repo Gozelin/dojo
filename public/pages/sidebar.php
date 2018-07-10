@@ -6,12 +6,12 @@
 
 <script>
 	var sb = $("#sidebar");
-	sb.css("left", -sb.width());
+	sb.css("left", -sb.width() + 2);
 	$(document).on("click", "#sidebar", function(){
 		if (sb.position().left == 0)
 		{
 			sb.children("img").css("transform", "rotate(0deg)");
-			sb.css("left", -sb.width());
+			sb.css("left", -sb.width() + 2);
 		}
 		else
 		{
