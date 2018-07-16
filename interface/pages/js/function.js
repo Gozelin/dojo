@@ -552,6 +552,7 @@ $(".submit-btn").click(function(){
 		case "home":
 			descDelta = aQuill["home"].getContents();
 			descDelta = JSON.stringify(descDelta);
+			console.log(descDelta);
 		break;
 		case "disc":
 			descDelta = aQuill["disc"].getContents();

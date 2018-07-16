@@ -89,14 +89,15 @@ function generateRandomString($length = 10) {
 function get_header($categs) {
 	$str = "";
 	foreach ($categs as $categ) {
-		$str .= "<a class='tab' href='categ.php?id=".$categ->getId()."'><h3>".strtoupper($categ->getName())."</h3></a>";
+		$str .= "<a id='".$categ->getId()."' class='tab' href='categ.php?id=".$categ->getId()."'><h3>".strtoupper($categ->getName())."</h3></a>";
 	}
+	$str .= "<a class='tab tab2' href='horaire.php'><h3>HORAIRE</h3></a>";
+	$str .= "<a class='tab tab2' href='contact.php'><h3>CONTACT</h3></a>";
 	return ($str);
 }
 
 function getHomeCateg() {
 	$str = "";
-	$margin_top = "style='margin-top:100px'";
 	$categs = getAllCategs();
 	$i = 0;
 	foreach ($categs as $categ) {
@@ -115,7 +116,7 @@ function getHomeCateg() {
 			$content0 = "";
 			$attr = "style='right: 50%'";
 		}
-		$str .= "<div class='categ-box' $margin_top>
+		$str .= "<div class='categ-box'>
 						$content0
 						<div class='categ-slider'>
 							<div class='categ-cover' ".$attr."></div>
@@ -217,7 +218,7 @@ function getContentWidget($categ, &$nd) {
 		$nd++;
 		$str .= "	<div id='disc-content-".$nd."' class='disc-content'>
 						<h1 class='disc-title'>".$d->getName()."</h1>
-						<img src=images/disciplines/".$d->getImage()[0].">
+						<img src=images/discipline/".$d->getImage()[0].">
 						<div class='disc-desc'>".$d->getDesc()."</div>
 					</div>";
 	}

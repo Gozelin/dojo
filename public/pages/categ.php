@@ -19,8 +19,8 @@ $desc = htmlspecialchars_decode($desc);
 $desc = str_replace('"', "'", $desc);
 
 $tabSelected['disc'] = "tab-selected";
-
 ?>
+
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/style.css">
@@ -70,6 +70,8 @@ $(document).ready(function(){
 	$('.parallax-window').parallax({imageSrc: "./images/site/background.png"});
 
 	$("#categ-desc").append("<?php echo $desc ?>");
+
+	$("#"+<?php echo $_GET["id"]; ?>).css("background-color", "#5fb3d8");
 
 	start_widget();
 
