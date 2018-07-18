@@ -50,7 +50,7 @@ foreach ($imgCount as $key => $img) {
 
 	$name[$img] = $name[$img].".".$extension_upload;
 
-	$dest = "../../../public/pages/images/disciplines/".$name[$img];
+	$dest = "../../../public/pages/images/discipline/".$name[$img];
 
 	$res = move_uploaded_file($_FILES['image']['tmp_name'][$img], $dest);
 }

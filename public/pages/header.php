@@ -4,7 +4,10 @@ if (!isset($noheader))
 ?>
 
 <div id="header">
-	<?php include("sidebar.php"); ?>
+	<div id="social-bar">
+		<a href="http://www.facebook.com"><img src="images/icon/fb.svg" width="50" height="50"></a>
+		<a href="http://www.youtube.com"><img src="images/icon/yt.svg" width="50" height="50"></a>
+	</div>
 	<div id="nav-bar">
 		<div id="banner-container"><a href="home.php"><img src="./images/site/banner.png" id="banner-img"></a></div>
 		<?php if (!isset($noheader)) echo "<div id='nav-container'>".get_header($categs)."</div>"; ?>

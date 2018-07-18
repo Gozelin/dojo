@@ -216,13 +216,13 @@ class cDiscipline {
 		if($imgNo !== NULL)
 		{
 			$imgName = $this->_image[$imgNo];
-			unlink(PATH_DOJO."pages/images/disciplines/$imgName");
+			unlink(PATH_DOJO."pages/images/discipline/$imgName");
 		}
 		else
 		{
 			foreach ($this->_image as $key => $img) 
 			{
-				unlink(PATH_DOJO."pages/images/disciplines/$img");
+				unlink(PATH_DOJO."pages/images/discipline/$img");
 			}
 		}
 	}
