@@ -51,7 +51,7 @@ $profs = getAllProfs();
 				<input type="hidden" name="descDelta">
 				<input type="text" name="title" placeholder="Titre"/>
 				<?php echo getQuill("home"); ?>
-				<input class="submit-btn" type="submit">
+				<input class="submit-btn" type="suit">
 			</form>
 		</div>
 		<!-- DISC FORM -->
