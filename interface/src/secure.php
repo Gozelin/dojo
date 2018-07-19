@@ -16,7 +16,7 @@ if(isset($_SESSION["token"]) && isset($_SESSION["token_time"]))
 	//si le token a plus de 15mn : retour à la page login sinon on refresh le token
 	if(intval($dateDiffM) > $time_expire && intval($dateDiffH) < 1)
 	{
-		header("Location: ../pages/login.php");
+		header("Location: ".PATH_DOJO."interface/pages/login.php");
 		exit();
 	}
 	else
@@ -26,7 +26,7 @@ if(isset($_SESSION["token"]) && isset($_SESSION["token_time"]))
 }
 else
 {
-	header("Location: ../pages/login.php");
+	header("Location: ".PATH_DOJO."interface/pages/login.php");
 	exit();
 }
 

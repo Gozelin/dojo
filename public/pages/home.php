@@ -10,6 +10,11 @@ $tabSelected['home'] = "tab-selected";
 $disciplines = getAllDiscs();
 $home = new cHome();
 
+if (isset($_POST["desc"])) {
+	include("../../interface/src/secure.php");
+	$desc = $_POST["desc"];
+}
+
 $desc = $home->getDesc();
 $desc = htmlspecialchars_decode($desc);
 $desc = str_replace('"', "'", $desc);
