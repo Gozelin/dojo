@@ -122,7 +122,7 @@ function displayAddForm(type)
 		//DISCIPLINE
 		case "disc" :
 			$(form).attr("action", "../src/disc/addDisc.php");
-			addLinkInput();
+			// addLinkInput();
 			$(form).children(".file-input-container").children(".file-input-box").children(".image-preview").addClass("undisplayed");
 			$(".categ-input-box").children("label").first().addClass("label-radio-categ-activ");
 			$(".categ-input-box").children("input").first().prop("checked", true);
@@ -182,12 +182,13 @@ function displayModifForm(type, id)
 
 			function load_home(home)
 			{
+				console.log(home);
 				home = JSON.parse(home)
 				$(popup).removeClass("undisplayed");
 				$(form).attr("action", "../src/home/modifHome.php");
 				$(form).children("input[name=title]").val(home["title"]);
 				aQuill["home"].setContents(home["descDelta"]);
-				$(form).children("input[type=submit]").val("modifier");
+				$(form).children(".submit-btn").val("modifier");
 			}
 		break;
 		//DISCIPLINE
@@ -215,12 +216,13 @@ function displayModifForm(type, id)
 				aQuill["disc"].setContents(disc["descDelta"]);
 
 				if (disc["link"] != "undefined")
-					addLinkInput();
+					console.log(" ");
+					// addLinkInput();
 				else {
 					linkNo = disc["link"].length;
 					for(i=0;i<linkNo;i++)
 					{
-						addLinkInput();
+						// addLinkInput();
 						$("#link-"+i).val(disc["link"][i]);
 					}
 				}
@@ -235,7 +237,7 @@ function displayModifForm(type, id)
 				$(form).children(".file-input-container").children(".file-input-box").children(".image-preview").each(function(index){
 					if(disc["image"][index] != "")
 					{
-						$(this).children("img").attr("src", "../../public/pages/images/disciplines/"+disc["image"][index]);
+						$(this).children("img").attr("src", "../../public/pages/images/discipline/"+disc["image"][index]);
 						$(this).siblings(".label-file").html(disc["image"][index]);
 						$(this).removeClass("undisplayed");
 					}

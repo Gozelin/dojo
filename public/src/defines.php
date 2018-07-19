@@ -10,6 +10,8 @@ define("PATH_FILES", PATH_SRC."files/");
 
 define("PATH_PAGE", PATH_DOJO."pages/");
 
+define("PATH_INTER", $_SERVER['DOCUMENT_ROOT']."/dojo/interface/");
+
 include(PATH_DOJO.'../config/log.php.sample');
 ?>
 

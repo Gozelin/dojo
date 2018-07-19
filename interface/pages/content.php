@@ -34,7 +34,7 @@ $profs = getAllProfs();
 				<li id="deco-btn" class="menu-tab"><a href="../src/deconnect.php" text="deconnect">Deconnexion</a></li>
 				<li id="home" class="menu-tab" >Accueil</li>
 				<li id="horaire" class="menu-tab" >Horaire</li>
-				<li id="categ" class="menu-tab" >Catégories</li>
+				<li id="categ" class="menu-tab" >Sections</li>
 				<li id="disc" class="menu-tab" >Disciplines</li>
 				<li id="prof" class="menu-tab" >Profs</li>
 			</ul>
@@ -49,9 +49,10 @@ $profs = getAllProfs();
 			<form id="home-form" method="POST" enctype="multipart/form-data"/>
 				<input type="hidden" name="desc">
 				<input type="hidden" name="descDelta">
-				<input type="text" name="title" placeholder="Titre"/>
+				<!-- <input type="text" name="title" placeholder="Titre"/> -->
 				<?php echo getQuill("home"); ?>
-				<input class="submit-btn" type="suit">
+				<input class="submit-btn" type="submit">
+				<input class="previ-btn" type="submit" value="Previsualiser">
 			</form>
 		</div>
 		<!-- DISC FORM -->
@@ -68,7 +69,7 @@ $profs = getAllProfs();
 					<?php
 						//AJOUTE UN RADIO POUR CHAQUE CATEG
 						echo "<div class='categ-input-box'>";
-						echo "<h3>Catégories</h3>";
+						echo "<h3>Sections</h3>";
 						foreach ($categs as $key => $categ) {
 							$id = $categ->getId();
 							$name = $categ->getName();
@@ -243,6 +244,10 @@ $(document).ready(function(){
 
 	$("#prof").on("click", function(){
 		prof_click();
+	});
+
+	$(".previ-btn").on("click", function() {
+		$("#home-form").attr("action", "../../public/pages/home.php");
 	});
 
 });

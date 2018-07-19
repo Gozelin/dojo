@@ -4,6 +4,7 @@
 // define("DATABASE_ADMIN_LOG", "mathiaskjgkz");
 // define("DATABASE_ADMIN_PASSWORD", "ThaLight69");
 
+// define("DATABASE_HOST", "127.1.1.1");
 define("DATABASE_HOST", "mysql");
 define("DATABASE_ADMIN_NAME", "dojo");
 define("DATABASE_ADMIN_LOG", "root");

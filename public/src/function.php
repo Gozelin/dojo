@@ -88,11 +88,23 @@ function generateRandomString($length = 10) {
 
 function get_header($categs) {
 	$str = "";
+	$str .= "<div id='nav-container'>";
 	foreach ($categs as $categ) {
 		$str .= "<a id='".$categ->getId()."' class='tab' href='categ.php?id=".$categ->getId()."'><h3>".strtoupper($categ->getName())."</h3></a>";
 	}
 	$str .= "<a class='tab tab2' href='horaire.php'><h3>HORAIRE</h3></a>";
 	$str .= "<a class='tab tab2' href='contact.php'><h3>CONTACT</h3></a>";
+	$str .= "</div>";
+	return ($str);
+}
+
+function get_header_light() {
+	$str = "";
+	$str .= "<div id='nav-container'>";
+	$str .= "<a id='return-link' href='home.php'><h2>Retour</h2></a>";
+	$str .= "<a class='tab tab2' href='horaire.php'><h3>HORAIRE</h3></a>";
+	$str .= "<a class='tab tab2' href='contact.php'><h3>CONTACT</h3></a>";
+	$str .= "</div>";
 	return ($str);
 }
 
@@ -193,7 +205,7 @@ function getQuill($name) {
 				  	<button style='display:none' class='ql-color'></button>
 				</div>
 				<div id='editor-".$name."' class='editor'></div>
-				<input name='color' class='jscolor'></input>";
+				<input name='color' class='jscolor' type='hidden'></input>";
 	return ($str);
 }
 

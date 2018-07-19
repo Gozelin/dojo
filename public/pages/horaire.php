@@ -36,7 +36,6 @@ $noheader = 1;
 						<img data-lightbox="horaire" class="horaire-img" src="./images/horaire/horaire1.jpg">
 					</a>
 				</div>
-				<a id="horaire-return-link" href="home.php"><h2>Retour</h2></a>
 				<?php include("footer.php"); ?>
 			</div>
 		</div>

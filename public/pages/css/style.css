@@ -28,7 +28,7 @@ body
 	/*overflow-x: hidden;*/
 	background-color: white;
 	padding-top: 0px;
-	user-select: none;	
+	user-select: none;
 }
 
 a
@@ -843,23 +843,23 @@ h3
 	color: white;
 }
 
-#horaire-return-link
+#return-link
 {
+	width: 300%;
 	display: flex;
 	background: white;
 }
 
-#horaire-return-link h2
+#return-link h2
 {
 	background-color: rgb(252, 194, 50);
-	margin: auto;
-	margin-top: 15px;
-	margin-bottom: 15px;
-	border-radius: 15px;
-	padding: 15px;
+    margin: 1px;
+    margin-left: 10px;
+    border-radius: 15px;
+    padding: 10px;
 }
 
-#horaire-return-link h2:hover
+#return-link h2:hover
 {
 	background-color: rgb(191, 146, 33);
 }

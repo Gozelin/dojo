@@ -11,8 +11,9 @@ require_once(PATH_CLASS."Prof.Class.php");
 
 $dataBase = new cDataBase(DATABASE_HOST, DATABASE_ADMIN_LOG, DATABASE_ADMIN_PASSWORD, DATABASE_ADMIN_NAME);
 
-header('Location: ../../pages/content.php');
+// header('Location: ../../pages/content.php');
 
+$link = NULL;
 $title = $_POST["title"];
 $desc = $_POST["desc"];
 $descDelta = ($_POST["descDelta"] != NULL) ? $_POST["descDelta"] : "none";
@@ -71,7 +72,7 @@ $dId = strval($dId);
 
 $_SESSION["tab-click"] = "disc";
 
-exit();
+// exit();
 
 ?>
 
