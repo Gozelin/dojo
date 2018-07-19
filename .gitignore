@@ -1,4 +1,4 @@
-~/public/pages/images/categorie/*
-~/public/pages/images/discipline/*
-~/public/pages/images/prof/*
-~/public/pages/images/horaire/*
+public/pages/images/categorie/*
+public/pages/images/discipline/*
+public/pages/images/profs/*
+public/pages/images/horaire/*
