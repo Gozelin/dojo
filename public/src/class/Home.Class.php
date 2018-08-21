@@ -22,7 +22,9 @@ class cHome{
 	public function getTitle() { return $this->_title; }
 	public function setTitle($value) { $this->_title = $value; }
 
-	public function getDesc() { return $this->_desc; }
+	public function getDesc() {
+		return str_replace('"', "'", htmlspecialchars_decode($this->_desc));
+	}
 	public function setDesc($value) { $this->_desc = $value; }
 
 	public function getDescDelta() { return $this->_descDelta; }
@@ -98,15 +100,18 @@ class cHome{
 		$ho_title = 		$dataBase->protect($this->_title, _STRING_);
 		$ho_desc = 			$dataBase->protect($this->_desc, _STRING_);
 		$ho_descDelta = 	$dataBase->protect($this->_descDelta, _ARRAY_);
-		$ho_headerColor =	$dataBase->protect($this->_headerColor, _STRING_);
+		$ho_headerColor =	$dataBase->protect("#FFFFFF", _STRING_);
 
-		echo $ho_descDelta;
+		$query = "SELECT * FROM home";
 
-		$query = "
-		UPDATE home
-		SET title = $ho_title, Hdesc = $ho_desc, Hdesc_delta = $ho_descDelta, headerColor = $ho_headerColor";
+		$get = $dataBase->query($query, FETCH_ARRAY);
 
-		$dataBase->query($query);	
-		// echo $query;	
+		if ($get) {
+			$query = "UPDATE home SET title = $ho_title, Hdesc = $ho_desc, Hdesc_delta = $ho_descDelta, headerColor = $ho_headerColor";
+		} else {
+			$query = "INSERT INTO home (title, Hdesc, Hdesc_delta, headerColor)
+									VALUES ($ho_title, $ho_desc, $ho_descDelta, $ho_headerColor)";
+		}
+		$dataBase->query($query);
 	}
 }

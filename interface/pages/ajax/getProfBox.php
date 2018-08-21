@@ -14,23 +14,25 @@ $profs = getAllProfs();
 
 $send = ""; 
 
-foreach ($profs as $key => $prof) {
-	$name = $prof->getName();
-	$surname = $prof->getSurname();
-	$image = $prof->getImage();
-	$id = $prof->getId();
+if ($profs) { 
+	foreach ($profs as $key => $prof) {
+		$name = $prof->getName();
+		$surname = $prof->getSurname();
+		$image = $prof->getImage();
+		$id = $prof->getId();
 
-	echo "<div data-id=$id id='$name' class='prof item-box'>
-				<img class='prof-image' src='../../public/pages/images/profs/".$image[0]."'>
-				<h1 class='item-title'>".$name." ".$surname."</h1>
-				<div class='button-box'>
-					<h3 class='button-title modif-btn'>modif</h3>
-					<form method='POST' action='../src/prof/supprProf.php'>
-						<input type='hidden' name='id' value=$id></input>
-						<input type='submit' value='suppr' class='button-title suppr-btn'></input>
-					</form>
-				</div>
-			</div>";
+		echo "<div data-id=$id id='$name' class='prof item-box'>
+					<img class='prof-image' src='../../public/pages/images/profs/".$image[0]."'>
+					<h1 class='item-title'>".$name." ".$surname."</h1>
+					<div class='button-box'>
+						<h3 class='button-title modif-btn'>modif</h3>
+						<form method='POST' action='../src/prof/supprProf.php'>
+							<input type='hidden' name='id' value=$id></input>
+							<input type='submit' value='suppr' class='button-title suppr-btn'></input>
+						</form>
+					</div>
+				</div>";
+	}
 }
 
 echo "<div id='prof' class='item-box add-btn prof-add-btn'><h1 class='add-title'>ADD</h1></div>";

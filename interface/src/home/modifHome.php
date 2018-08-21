@@ -12,11 +12,9 @@ $dataBase = new cDataBase(DATABASE_HOST, DATABASE_ADMIN_LOG, DATABASE_ADMIN_PASS
 
 header('Location: ../../pages/content.php');
 
-$title = $_POST["title"];
+$title = isset($_POST["title"]) ? $_POST["title"] : "";
 $desc = $_POST["desc"];
 $descDelta = $_POST["descDelta"];
-
-var_dump($_POST["descDelta"]);
 
 $descDelta = json_decode($descDelta);
 
@@ -27,7 +25,6 @@ $home->setDesc($desc);
 $home->setDescDelta($descDelta);
 
 $home->update();
-
 
 $_SESSION["tab-click"] = "home";
 

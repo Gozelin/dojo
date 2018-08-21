@@ -40,7 +40,6 @@ function displayPost(limit, type)
 //récup et affiche le html des box : ajax getDiscBox.php
 function getDiscBox()
 {
-
 	var promise = $.ajax({
 		url : "./ajax/getDiscBox.php",
 		dataType : "html",

@@ -1,3 +1,18 @@
+/*
+TRIGGER
+*/
+
+$(document).ready(function(){
+	$(document).on("click", ".tab-wrapper", function(){
+		// console.log($(this).children(".list-tab").css("display"));
+		if ($(this).children(".list-wrapper").css("display") == "none") {
+			$(this).children(".list-wrapper").css("display", "block");
+			// $(this).children(".list-wrapper").css("margin-top", $(this).css("height"));
+		} else
+			$(this).children(".list-wrapper").css("display", "none");
+	});
+});
+
 
 function toggleProfOnglet(Pcontent)
 {

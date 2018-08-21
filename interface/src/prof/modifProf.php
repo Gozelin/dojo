@@ -10,7 +10,7 @@ require_once(PATH_CLASS."Prof.Class.php");
 
 $dataBase = new cDataBase(DATABASE_HOST, DATABASE_ADMIN_LOG, DATABASE_ADMIN_PASSWORD, DATABASE_ADMIN_NAME);
 
-// header('Location: ../../pages/content.php');
+header('Location: ../../pages/content.php');
 
 $id = $_POST["id"];
 $name = $_POST["name"];
@@ -62,7 +62,7 @@ $prof->update();
 
 $_SESSION["tab-click"] = "prof";
 
-// exit();
+exit();
 
 ?>
 

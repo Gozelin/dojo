@@ -2,7 +2,7 @@
 // define("DATABASE_HOST", "mathiaskjgkz.mysql.db");
 // define("DATABASE_ADMIN_NAME", "mathiaskjgkz");
 // define("DATABASE_ADMIN_LOG", "mathiaskjgkz");
-// define("DATABASE_ADMIN_PASSWORD", "ThaLight69");
+// define("DATABASE_ADMIN_PASSWORD", "ThaRaito101");
 
 // define("DATABASE_HOST", "127.1.1.1");
 define("DATABASE_HOST", "mysql");

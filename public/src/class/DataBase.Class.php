@@ -1,13 +1,4 @@
 <?php
-/****************************************************************************************************
-*                                                      :::::::::          :::          :::::::::    *
-*        DIGITAL GEARS                                :+:    :+:         :+:         :+:            *
-*                                                    +:+    +:+         +:+         +:+             *
-*                                                   +#+    +:+         +:+         :#:    +#+       *
-*                                                         +#+         +#+         +#+    #+#        *
-*        DataBase.Class.php                              #+#         #+#         #+#    #+#         *
-*                                                #########          ###          #########          *
-****************************************************************************************************/
 define("FETCH_ARRAY", "FETCH_ARRAY");
 define("FETCH_ALL", "FETCH_ALL");
 define("FETCH_ASSOC", "FETCH_ASSOC");
@@ -38,6 +29,8 @@ class cDataBase extends mysqli {
 	public function query($query, $flag = NULL, $constant = NULL)
 	{
 		$result = parent::query($query);
+		if (!$result)
+			$this->log($query);
 		if (is_bool($result))
 			return ($result);
 		switch ($flag) {
@@ -46,33 +39,73 @@ class cDataBase extends mysqli {
 				break;
 			case "FETCH_ARRAY":
 				if ($constant !== NULL)
-					return ($result->fetch_array($constant));
+					$ret =  $result->fetch_array($constant);
 				else
-					return ($result->fetch_array());
+					$ret =  $result->fetch_array();
 				break;
 			case "FETCH_ALL":
 				if ($constant !== NULL)
-					return ($result->fetch_all($constant));
+					$ret =  $result->fetch_all($constant);
 				else
-					return ($result->fetch_all());
+					$ret =  $result->fetch_all();
 				break;
 			case "FETCH_ASSOC":
-				return ($result->fetch_assoc());
+				$ret =  $result->fetch_assoc();
 				break;
 			case "FETCH_OBJECT":
-				return ($result->fetch_object());
+				$ret =  $result->fetch_object();
 				break;
 			case "FETCH_FIELD":
-				return ($result->fetch_field());
+				$ret =  $result->fetch_field();
 				break;
 			case "FETCH_FIELDS":
-				return ($result->fetch_fields());
+				$ret =  $result->fetch_fields();
 				break;
 			default:
-				return ($result);
+				$ret =  $result;
 				break;
 		}
+		return ($ret);
 	}
+
+	// public function query($query, $flag = NULL, $constant = NULL)
+	// {
+	// 	$result = parent::query($query);
+	// 	if (is_bool($result))
+	// 		return ($result);
+	// 	switch ($flag) {
+	// 		case NULL:
+	// 			return ($result);
+	// 			break;
+	// 		case "FETCH_ARRAY":
+	// 			if ($constant !== NULL)
+	// 				return ($result->fetch_array($constant));
+	// 			else
+	// 				return ($result->fetch_array());
+	// 			break;
+	// 		case "FETCH_ALL":
+	// 			if ($constant !== NULL)
+	// 				return ($result->fetch_all($constant));
+	// 			else
+	// 				return ($result->fetch_all());
+	// 			break;
+	// 		case "FETCH_ASSOC":
+	// 			return ($result->fetch_assoc());
+	// 			break;
+	// 		case "FETCH_OBJECT":
+	// 			return ($result->fetch_object());
+	// 			break;
+	// 		case "FETCH_FIELD":
+	// 			return ($result->fetch_field());
+	// 			break;
+	// 		case "FETCH_FIELDS":
+	// 			return ($result->fetch_fields());
+	// 			break;
+	// 		default:
+	// 			return ($result);
+	// 			break;
+	// 	}
+	// }
 
 	public function protect($value, $type = _STRING_) {
 		if ($value === NULL)
@@ -132,6 +165,12 @@ class cDataBase extends mysqli {
 
 	public function changeDatabase($database) {
 		return (parent::select_db($database));
+	}
+
+	private function log($query) {
+		$handle = fopen($_SERVER['DOCUMENT_ROOT']."/dojo/interface/log/log.txt", 'a');
+		fwrite($handle, date("Y-m-d H:i:s").": \n");
+		fwrite($handle, trim($query)."\n".$this->error."\n------------------------------------------------------------------------------------\n");
 	}
 
 }
