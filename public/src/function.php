@@ -227,8 +227,8 @@ function getQuill($name) {
 	return ($str);
 }
 
-function GetDiscWidget($categ, &$nd) {
-	$content = getContentWidget($categ, $nd);
+function getDiscWidget($categ, &$nd, $dId = NULL) {
+	$content = getContentWidget($categ, $nd, $dId);
 	$str = "<div class='widget-wrapper'>
 	<div class='categ-boxu categ-disc-box'>
 		<div id='disc-content-box' style='display:none'>".$content."</div>
@@ -240,17 +240,31 @@ function GetDiscWidget($categ, &$nd) {
 	return ($str);
 }
 
-function getContentWidget($categ, &$nd) {
+function getContentWidget($categ, &$nd, $dId = NULL) {
 	$str = "";
-	$nd = -1;
+	$nd = 0;
 	$discs = $categ->getDisciplines();
+	if ($dId != NULL) {
+		foreach($discs as $d) {
+			if ($d->getId() == $dId) {
+				$str .= "	<div id='disc-content-".$nd."' class='disc-content'>
+								<h1 style='display:none' class='disc-title'>".$d->getName()."</h1>
+								<img src=images/discipline/".$d->getImage()[0].">
+								<div class='disc-desc'>".$d->getDesc()."</div>
+							</div>";
+				$nd++;
+			}
+		}
+	}
 	foreach($discs as $d) {
-		$nd++;
-		$str .= "	<div id='disc-content-".$nd."' class='disc-content'>
-						<h1 class='disc-title'>".$d->getName()."</h1>
-						<img src=images/discipline/".$d->getImage()[0].">
-						<div class='disc-desc'>".$d->getDesc()."</div>
-					</div>";
+		if ($dId != $d->getId()) {
+			$str .= "	<div id='disc-content-".$nd."' class='disc-content'>
+							<h1 style='display:none' class='disc-title'>".$d->getName()."</h1>
+							<img src=images/discipline/".$d->getImage()[0].">
+							<div class='disc-desc'>".$d->getDesc()."</div>
+						</div>";
+			$nd++;
+		}
 	}
 	return ($str);
 }

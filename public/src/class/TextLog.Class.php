@@ -2,7 +2,7 @@
 
 class cTextLog {
 
-    protected $_path = "/gallery_app/log/";
+    protected $_path = "/dojo/log/";
 
     public function __construct($details = NULL) {
         $this->_path = $_SERVER["DOCUMENT_ROOT"].$this->_path;

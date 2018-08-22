@@ -167,9 +167,26 @@ h4 {
 	}
 }
 
+.disc-link h2 {
+    color: #efcb89;
+    width: fit-content;
+    margin: auto;
+}
+
+.disc-link h2:hover {
+	transition-duration: 0.2s;
+	color: orange;
+}
+
+.discLink-wrapper {
+	/* text-align: left; */
+	border-top: solid 2px grey;
+}
+
 .list-wrapper {
 	display: none;
 	z-index: 1;
+	box-shadow: 0px 4px 10px;
 }
 
 .list-wrapper:hover {
@@ -181,11 +198,16 @@ h4 {
 	
 }
 
+.list-tab h4:hover {
+	background: orange;
+}
+
 .list-tab h4
 {
 	margin: 0;
 	margin-top: 0%;
 	background-color: white;
+	padding: 15px;
 }
 
 .tab-wrapper
@@ -898,7 +920,9 @@ h4 {
     margin: 1px;
     margin-left: 10px;
     border-radius: 15px;
-    padding: 10px;
+	padding: 10px;
+	margin-top: auto;
+    margin-bottom: auto;
 }
 
 #return-link h2:hover
@@ -1008,7 +1032,7 @@ h1, h2
     z-index:0;
 }
 
-.categ-cover:hover, .categ-box:hover .categ-cover
+.categ-cover:hover, .categ-cover
 {
     width: 0%;
 }
@@ -1130,10 +1154,18 @@ h1, h2
 
 #widg-arr-left {
 	margin-left: auto;
+	position: absolute;
+	left: 35%;
 }
 
 #widg-arr-right {
 	margin-right: auto;
+	position: absolute;
+	right: 35%;
+}
+
+#widg-title {
+	margin:auto;
 }
 
 .widget-wrapper {

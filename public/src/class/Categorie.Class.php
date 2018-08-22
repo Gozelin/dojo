@@ -172,7 +172,7 @@ class cCategorie {
 		$discs = $this->getDisciplines();
 		$str = "<div class='discLink-wrapper'>";
 		foreach($discs as $d) {
-			$str .= "<a class='disc-link' href='categ.php?id=".$this->getId()."&dId=".$d->getId()."'><h3>".$d->getName()."</h3></a>";
+			$str .= "<a class='disc-link' href='categ.php?id=".$this->getId()."&dId=".$d->getId()."'><h2>".$d->getName()."</h2></a>";
 		}
 		$str .= "</div>";
 		return ($str);

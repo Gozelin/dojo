@@ -4,15 +4,39 @@ TRIGGER
 
 $(document).ready(function(){
 	$(document).on("click", ".tab-wrapper", function(){
-		// console.log($(this).children(".list-tab").css("display"));
 		if ($(this).children(".list-wrapper").css("display") == "none") {
+			$(".list-wrapper").css("display", "none");
+			$(".tab-wrapper").css("background", "#96bdce");
+			$(this).css("background", "#5fb3d8");
 			$(this).children(".list-wrapper").css("display", "block");
-			// $(this).children(".list-wrapper").css("margin-top", $(this).css("height"));
-		} else
+		} else {
+			$(".tab-wrapper").css("background", "#96bdce");
 			$(this).children(".list-wrapper").css("display", "none");
+		}
 	});
 });
 
+$("#more-post").click(function(){
+	type = $(this).data("type");
+	limit = limit+4;
+	displayPost(limit, type);
+});
+
+$(document).on("click", ".right-arrow", function(){
+	container = $(this).siblings(".post-image");
+	scrollPos = $(container).scrollLeft()+300;
+	$(container).animate({
+		scrollLeft:scrollPos
+	}, 500);
+});
+
+$(document).on("click", ".left-arrow", function(){
+	container = $(this).siblings(".post-image");
+	scrollPos = $(container).scrollLeft()-300;
+	$(container).animate({
+		scrollLeft: scrollPos
+	}, 500);
+});
 
 function toggleProfOnglet(Pcontent)
 {
@@ -65,25 +89,3 @@ function displayPost(limit, type)
 		}
 	}
 }
-
-$("#more-post").click(function(){
-	type = $(this).data("type");
-	limit = limit+4;
-	displayPost(limit, type);
-});
-
-$(document).on("click", ".right-arrow", function(){
-	container = $(this).siblings(".post-image");
-	scrollPos = $(container).scrollLeft()+300;
-	$(container).animate({
-		scrollLeft:scrollPos
-	}, 500);
-});
-
-$(document).on("click", ".left-arrow", function(){
-	container = $(this).siblings(".post-image");
-	scrollPos = $(container).scrollLeft()-300;
-	$(container).animate({
-		scrollLeft: scrollPos
-	}, 500);
-});
