@@ -5,41 +5,41 @@ class cDiscipline {
 	/*
 	ATTRIBUTS
 	*/
-	
+
 	//int
 	protected $_id = NULL;
-	
+
 	//string
 	protected $_name = NULL;
-	
+
 	//string
 	protected $_desc = NULL;
 
 	//array
 	protected $_descDelta = NULL;
-	
+
 	//array
 	protected $_link = array();
 
 	//string
 	protected $_categ = NULL;
-	
+
 	//array(int)
 	protected $_profs = array();
 
 	//array(string)
 	protected $_image = array();
-	
+
 	/*
 	ACCESSORS
 	*/
-	
+
 	public function getId() { return $this->_id; }
 	public function setId(int $value) { $this->_id = $value; }
-	
+
 	public function getName() { return $this->_name; }
 	public function setName($value) { $this->_name = $value; }
-	
+
 	public function getDesc() {
 		return str_replace('"', "'", htmlspecialchars_decode($this->_desc));
 	}
@@ -47,23 +47,23 @@ class cDiscipline {
 
 	public function getDescDelta() { return $this->_descDelta; }
 	public function setDescDelta($value) { $this->_descDelta = $value; }
-	
+
 	public function getLink() { return $this->_link; }
 	public function setLink($value) { $this->_link = $value; }
 
 	public function getCateg() { return $this->_categ; }
 	public function setCateg($value) { $this->_categ = $value; }
-	
+
 	public function getProfs() { return $this->_profs; }
 	public function setProfs(array $value) { $this->_profs = $value; }
 
 	public function getImage() { return $this->_image; }
 	public function setImage(array $value) { $this->_image = $value; }
-	
+
 	/*
 	CONSTRUCTOR
 	*/
-	
+
 	public function __construct($details = NULL)
 	{
 		//importe l'objet depuis la BDD grâce à l'ID
@@ -133,11 +133,9 @@ class cDiscipline {
 		$this->_profs = $dataBase->unprotect($data["profs"], _ARRAY_);
 		$this->_image = $dataBase->unprotect($data["image"], _ARRAY_);
 
-		for($i=0;$i<count($this->_image);$i++)
-		{
+		for($i=0;$i<count($this->_image);$i++) {
 			$this->_image[$i] = $dataBase->unprotect($this->_image[$i]);
 		}
-
 	}
 
 	/*
@@ -187,8 +185,8 @@ class cDiscipline {
 		UPDATE discipline
 		SET name = $di_name, Ddesc = $di_desc, Ddesc_delta = $di_descDelta, link = $di_link, categ =$di_categ, profs = $di_profs, image = $di_image
 		WHERE id = $di_id";
-		$dataBase->query($query);	
-		echo $query;	
+		$dataBase->query($query);
+		echo $query;
 	}
 
 	/*
@@ -220,7 +218,7 @@ class cDiscipline {
 		}
 		else
 		{
-			foreach ($this->_image as $key => $img) 
+			foreach ($this->_image as $key => $img)
 			{
 				unlink(PATH_DOJO."pages/images/discipline/$img");
 			}
