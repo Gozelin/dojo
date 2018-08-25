@@ -52,7 +52,7 @@ $profs = getAllProfs();
 				<!-- <input type="text" name="title" placeholder="Titre"/> -->
 				<?php echo getQuill("home"); ?>
 				<input class="submit-btn" type="submit">
-				<input class="previ-btn" type="submit" value="Previsualiser">
+				<!-- <input class="previ-btn" type="submit" value="Previsualiser"> -->
 			</form>
 		</div>
 		<!-- DISC FORM -->
@@ -83,13 +83,15 @@ $profs = getAllProfs();
 						//AJOUTE UNE CHKBOX POUR CHAQUE PROF
 							echo "<h3>Profs</h3>";
 							echo "<div class='prof-slider' >";
-							foreach ($profs as $key => $prof) {
-							 	$id = $prof->getId();
-							 	$name = $prof->getName();
-							 	$surname = $prof->getSurname();
-							 	echo "<label class='prof-label' for='$id-prof'>$name $surname</label>";
-								echo "<input class='prof-chkbox' value=$id type='checkbox' id='$id-prof' name='profs[]'>";
-							 }
+							if ($profs) { 
+								foreach ($profs as $key => $prof) {
+									$id = $prof->getId();
+									$name = $prof->getName();
+									$surname = $prof->getSurname();
+									echo "<label class='prof-label' for='$id-prof'>$name $surname</label>";
+									echo "<input class='prof-chkbox' value=$id type='checkbox' id='$id-prof' name='profs[]'>";
+									}
+								}
 							 echo "</div>";
 						?>
 					</div>

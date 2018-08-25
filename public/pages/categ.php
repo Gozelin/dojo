@@ -8,6 +8,9 @@ $dataBase = new cDataBase(DATABASE_HOST, DATABASE_ADMIN_LOG, DATABASE_ADMIN_PASS
 
 $categ = new cCategorie($_GET["id"]);
 
+if (isset($_GET["dId"]))
+	$dId = $_GET["dId"];
+
 $color = $categ->getColor();
 
 $categName = $categ->getName();
@@ -36,22 +39,22 @@ $tabSelected['disc'] = "tab-selected";
 		<div class="parallax-window" data-parallax="scroll" data-image-src="./images/site/background.png">
 			<?php include("header.php"); ?>
 			<div id="content">
+				<div class="widg-header">
+					<div class="categ-disc-big-title" style="display:flex;">
+						<div id='widg-arr-left' class='arrow-widg vertical-center pointer'><img src="./images/icon/back.svg"></div>
+							<h1 id='widg-title'>Disciplines</h1>
+						<div id='widg-arr-right' class='arrow-widg vertical-center pointer'><img style="-webkit-transform: scaleX(-1); transform: scaleX(-1);" src="./images/icon/back.svg"></div>
+					</div>
+					<div class="widg-dot-wrapper">
+					</div>
+				</div>
+				<?php echo getDiscWidget($categ, $nd, $dId) ?>
 				<div class="categ-wrapper">
 					<div id="categ-desc">
 						<h1 style="background-color: <?php echo $color ?>" class="big-title" ><?php echo $categName ?></h1>
 					</div>
 					<div id="categ-info"><?php echo getCategInfo($categ); ?></div> 
 				</div>
-				<div class="widg-header">
-					<div class="categ-disc-big-title" style="display:flex;">
-						<div id='widg-arr-left' class='arrow-widg vertical-center pointer'><img src="./images/icon/back.svg"></div>
-							<h1>Disciplines</h1>
-						<div id='widg-arr-right' class='arrow-widg vertical-center pointer'><img style="-webkit-transform: scaleX(-1); transform: scaleX(-1);" src="./images/icon/back.svg"></div>
-					</div>
-					<div class="widg-dot-wrapper">
-					</div>
-				</div>
-				<?php echo GetDiscWidget($categ, $nd) ?>
 				<?php include("footer.php"); ?>
 			</div>
 		</div>
@@ -61,7 +64,6 @@ $tabSelected['disc'] = "tab-selected";
 <script>
 	 
 var nbd = <?php echo $nd ?>;
-var currd = 0;
 
 $(document).ready(function(){
 

@@ -40,7 +40,6 @@ function displayPost(limit, type)
 //récup et affiche le html des box : ajax getDiscBox.php
 function getDiscBox()
 {
-
 	var promise = $.ajax({
 		url : "./ajax/getDiscBox.php",
 		dataType : "html",
@@ -182,6 +181,7 @@ function displayModifForm(type, id)
 
 			function load_home(home)
 			{
+				console.log(home);
 				home = JSON.parse(home)
 				$(popup).removeClass("undisplayed");
 				$(form).attr("action", "../src/home/modifHome.php");
@@ -548,35 +548,47 @@ $(".submit-btn").click(function(){
 	type = $(this).parent().attr("id");
 	type = type.split("-");
 	desc = document.querySelector("#editor-"+type[0]+">.ql-editor").innerHTML;
-	switch(type[0])
-	{
-		case "home":
-			descDelta = aQuill["home"].getContents();
-			descDelta = JSON.stringify(descDelta);
-			console.log(descDelta);
-		break;
-		case "disc":
-			descDelta = aQuill["disc"].getContents();
-			descDelta = JSON.stringify(descDelta);
-		break;
-		case "categ":
-			descDelta = aQuill["categ"].getContents();
-			descDelta = JSON.stringify(descDelta);
-		break;
-		case "prof":
-			descDelta = aQuill["prof"].getContents();
-			descDelta = JSON.stringify(descDelta);
-		break;
-		case "post":
-			descDelta = aQuill["post"].getContents();
-			descDelta = JSON.stringify(descDelta);
-		break;
-	}
-
-	console.log(desc);
+	desc = parseQuillDesc(desc);
+	descDelta = aQuill[type[0]].getContents();
+	descDelta = parseQuillDelta(descDelta);
+	// console.log(JSON.parse(descDelta));
 	$(this).siblings("input[name=desc]").val(desc);
 	$(this).siblings("input[name=descDelta]").val(descDelta);
+	//^{"insert":"[\\n]+"}]}$
 });
+
+function parseQuillDelta(arr) {
+	// var i = arr["ops"].length;
+
+	// console.log(i);
+	// while (i >= 0) {
+	// 	console.log(arr["ops"][i]);
+	// 	i--;
+	// }
+	return (JSON.stringify(arr));
+}
+
+function parseQuillDesc(str){
+	var i = str.length;
+
+	while (i >= 0) {
+		var j = i - 11;
+		var j_ = j;
+		var word = "";
+		while (j < i) { 
+			word += str[j];
+			j++;
+		}
+		if (word == "<p><br></p>") {
+			str = str.substr(0, j_);
+			i -= 10;
+		}
+		else
+			break;
+		i--;
+	}
+	return (str);
+}
 
 //style les inputs file
 $(document).on("change", ".input-file", function(){

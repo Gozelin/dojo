@@ -5,6 +5,7 @@ require_once(PATH_CLASS.'Discipline.Class.php');
 require_once(PATH_CLASS.'Categorie.Class.php');
 require_once(PATH_CLASS.'Home.Class.php');
 require_once(PATH_CLASS.'Post.Class.php');
+require_once(PATH_CLASS.'TextLog.Class.php');
 
 function getAllCategs()
 {
@@ -13,6 +14,9 @@ function getAllCategs()
 	$query = "SELECT id FROM categorie";
 
 	$ca_ids = $dataBase->query($query, FETCH_ALL);
+
+	if ($ca_ids == NULL)
+		return (0);
 
 	$categs = array();
 
@@ -31,6 +35,9 @@ function getAllDiscs()
 	$query = "SELECT id FROM discipline";
 
 	$di_ids = $dataBase->query($query, FETCH_ALL);
+
+	if ($di_ids == NULL)
+		return (0);
 
 	$disciplines = array();
 
@@ -51,6 +58,9 @@ function getAllProfs()
 	$query = "SELECT id FROM prof";
 
 	$pr_ids = $dataBase->query($query, FETCH_ALL);
+
+	if ($pr_ids == NULL)
+		return (0);
 
 	$profs = array();
 
@@ -90,7 +100,13 @@ function get_header($categs) {
 	$str = "";
 	$str .= "<div id='nav-container'>";
 	foreach ($categs as $categ) {
-		$str .= "<a id='".$categ->getId()."' class='tab' href='categ.php?id=".$categ->getId()."'><h3>".strtoupper($categ->getName())."</h3></a>";
+		$str .= "<div class='tab-wrapper'><a style='width:100%;height:100%;display:flex;' id='".$categ->getId()."'><h3 style='margin:auto'>".strtoupper($categ->getName())."</h3></a>";
+		$str .= "<div class='list-wrapper'>";
+		$discs = $categ->getDisciplines();
+		foreach ($discs as $d) {
+			$str .= "<a class='list-tab' href='categ.php?id=".$categ->getId()."&dId=".$d->getId()."'><h4>".$d->getName()."</h4></a>";
+		}
+		$str .= "</div></div>";
 	}
 	$str .= "<a class='tab tab2' href='horaire.php'><h3>HORAIRE</h3></a>";
 	$str .= "<a class='tab tab2' href='contact.php'><h3>CONTACT</h3></a>";
@@ -117,6 +133,7 @@ function getHomeCateg() {
 			$content0 = "<div class='categ-content'>
 							<h1>".strtoupper($categ->getName())."</h1>
 							".$categ->getDesc()."
+							".$categ->getDiscLink()."
 						</div>";
 			$content1 = "";
 			$attr = "";
@@ -124,6 +141,7 @@ function getHomeCateg() {
 			$content1 = "<div class='categ-content'>
 							<h1>".strtoupper($categ->getName())."</h1>
 							".$categ->getDesc()."
+							".$categ->getDiscLink()."
 						</div>";
 			$content0 = "";
 			$attr = "style='right: 50%'";
@@ -205,12 +223,12 @@ function getQuill($name) {
 				  	<button style='display:none' class='ql-color'></button>
 				</div>
 				<div id='editor-".$name."' class='editor'></div>
-				<input name='color' class='jscolor' type='hidden'></input>";
+				<input name='color' class='jscolor' value='#FFFFFF' type='hidden'></input>";
 	return ($str);
 }
 
-function GetDiscWidget($categ, &$nd) {
-	$content = getContentWidget($categ, $nd);
+function getDiscWidget($categ, &$nd, $dId = NULL) {
+	$content = getContentWidget($categ, $nd, $dId);
 	$str = "<div class='widget-wrapper'>
 	<div class='categ-boxu categ-disc-box'>
 		<div id='disc-content-box' style='display:none'>".$content."</div>
@@ -222,17 +240,31 @@ function GetDiscWidget($categ, &$nd) {
 	return ($str);
 }
 
-function getContentWidget($categ, &$nd) {
+function getContentWidget($categ, &$nd, $dId = NULL) {
 	$str = "";
-	$nd = -1;
+	$nd = 0;
 	$discs = $categ->getDisciplines();
+	if ($dId != NULL) {
+		foreach($discs as $d) {
+			if ($d->getId() == $dId) {
+				$str .= "	<div id='disc-content-".$nd."' class='disc-content'>
+								<h1 style='display:none' class='disc-title'>".$d->getName()."</h1>
+								<img src=images/discipline/".$d->getImage()[0].">
+								<div class='disc-desc'>".$d->getDesc()."</div>
+							</div>";
+				$nd++;
+			}
+		}
+	}
 	foreach($discs as $d) {
-		$nd++;
-		$str .= "	<div id='disc-content-".$nd."' class='disc-content'>
-						<h1 class='disc-title'>".$d->getName()."</h1>
-						<img src=images/discipline/".$d->getImage()[0].">
-						<div class='disc-desc'>".$d->getDesc()."</div>
-					</div>";
+		if ($dId != $d->getId()) {
+			$str .= "	<div id='disc-content-".$nd."' class='disc-content'>
+							<h1 style='display:none' class='disc-title'>".$d->getName()."</h1>
+							<img src=images/discipline/".$d->getImage()[0].">
+							<div class='disc-desc'>".$d->getDesc()."</div>
+						</div>";
+			$nd++;
+		}
 	}
 	return ($str);
 }

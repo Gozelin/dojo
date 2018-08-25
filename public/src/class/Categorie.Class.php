@@ -140,7 +140,6 @@ class cCategorie {
 		SET name = $ca_name, Ddesc = $ca_desc, Ddesc_delta = $ca_descDelta, color = $ca_color, image = $ca_image
 		WHERE $ca_id = id";
 		$dataBase->query($query);
-		// echo $query;
 	}
 
 	public function delete()
@@ -167,6 +166,16 @@ class cCategorie {
 				array_push($arr, $d);
 		}
 		return ($arr);
+	}
+
+	public function getDiscLink() {
+		$discs = $this->getDisciplines();
+		$str = "<div class='discLink-wrapper'>";
+		foreach($discs as $d) {
+			$str .= "<a class='disc-link' href='categ.php?id=".$this->getId()."&dId=".$d->getId()."'><h2>".$d->getName()."</h2></a>";
+		}
+		$str .= "</div>";
+		return ($str);
 	}
 
 	private function deleteDisciplines()

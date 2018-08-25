@@ -20,10 +20,6 @@ $color = $_POST["color"];
 
 $descDelta = json_decode($descDelta);
 
-echo "<pre>";
-var_dump($_FILES);
-echo "</pre>";
-
 $categ = new cCategorie($id);
 
 if ($_FILES["image"]["name"] != "") {
@@ -35,11 +31,6 @@ $categ->setName($title);
 $categ->setDesc($desc);
 $categ->setDescDelta($descDelta);
 $categ->setColor($color);
-
-
-echo "<pre>";
-var_dump($categ);
-echo "</pre>";
 
 $categ->update();
 

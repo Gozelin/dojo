@@ -13,10 +13,11 @@ $dataBase = new cDataBase(DATABASE_HOST, DATABASE_ADMIN_LOG, DATABASE_ADMIN_PASS
 
 header('Location: ../../pages/content.php');
 
+$link = array();
 $title = $_POST["title"];
 $desc = $_POST["desc"];
 $descDelta = ($_POST["descDelta"] != NULL) ? $_POST["descDelta"] : "none";
-$link = $_POST["link"];
+// $link = $_POST["link"];
 $categ = $_POST["categ"];
 
 if(isset($_POST["profs"]))

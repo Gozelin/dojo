@@ -3,7 +3,7 @@ session_start();
 
 include("../secure.php");
 
-// header('Location: ../../pages/content.php');
+header('Location: ../../pages/content.php');
 
 require_once("../../../public/src/defines.php");
 require_once(PATH_SRC.'function.php');
@@ -41,4 +41,4 @@ $categ->insert();
 
 $_SESSION["tab-click"] = "categ";
 
-// exit();
+exit();
