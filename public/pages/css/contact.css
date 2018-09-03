@@ -1,0 +1,30 @@
+body {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+/*
+CONTENT
+*/
+#content {
+	display: flex;
+	flex-direction: row;
+	margin-top: 60px;
+	background-color: lightgray;
+}
+
+#contact-info {
+	text-align: center;
+	margin: auto;
+}
+
+#contact-info div {
+	display: flex;
+	flex-direction: column;
+}
+
+#contact-info div img {
+	margin: 15px auto;
+	user-select: none;
+}

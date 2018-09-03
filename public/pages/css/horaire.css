@@ -1,0 +1,24 @@
+body {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+/*
+CONTENT
+*/
+
+#content {
+	display: flex;
+	height: 100%;
+}
+
+#horaireWrapper {
+	margin: 45px auto;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	background-color: #dbdbdb;
+	justify-content: space-around;
+	padding: 50px;
+}

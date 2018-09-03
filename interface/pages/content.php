@@ -61,8 +61,11 @@ $profs = getAllProfs();
 				<input type="hidden" name="id">
 				<input type="hidden" name="desc">
 				<input type="hidden" name="descDelta">
+				<input type="hidden" name="horaire">
+				<input type="hidden" name="horaireDelta">
 				<input type="text" name="title" placeholder="Intitulé"/>
 				<?php echo getQuill("disc"); ?>
+				<?php echo getQuill("horaire"); ?>
 				<div id="link-input-container">
 				</div>
 				<div class="info-input-container">
@@ -191,7 +194,7 @@ $(document).ready(function(){
 	SizeStyle.whitelist = ['15px', '20px', '25px', '30px'];
 	Quill.register(SizeStyle, true);
 
-	aQuill = ["home", "disc", "categ", "prof"];
+	aQuill = ["home", "disc","horaire", "categ", "prof"];
 
 	aQuill.forEach(function(ar) {
 		console.log('#editor-'+ar);

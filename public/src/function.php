@@ -7,6 +7,10 @@ require_once(PATH_CLASS.'Home.Class.php');
 require_once(PATH_CLASS.'Post.Class.php');
 require_once(PATH_CLASS.'TextLog.Class.php');
 
+/*
+CLASS GET
+*/
+
 function getAllCategs()
 {
 	global $dataBase;
@@ -86,6 +90,20 @@ function getCategColor($id)
 	return $color;
 }
 
+/*
+MISC
+*/
+
+function send_file($fname, $ftmp_name) {
+	$name = "";
+	$extension_upload = strtolower(  substr(  strrchr($fname, '.') ,1) );
+	$name = generateRandomString();
+	$name = $name.".".$extension_upload;
+	$dest = "../../../public/pages/images/categorie/".$name;
+	$res = move_uploaded_file($ftmp_name, $dest);
+	return ($name);
+}
+
 function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
@@ -96,82 +114,46 @@ function generateRandomString($length = 10) {
     return $randomString;
 }
 
-function get_header($categs) {
-	$str = "";
-	$str .= "<div id='nav-container'>";
-	foreach ($categs as $categ) {
-		$str .= "<div class='tab-wrapper'><a style='width:100%;height:100%;display:flex;' id='".$categ->getId()."'><h3 style='margin:auto'>".strtoupper($categ->getName())."</h3></a>";
-		$str .= "<div class='list-wrapper'>";
-		$discs = $categ->getDisciplines();
-		foreach ($discs as $d) {
-			$str .= "<a class='list-tab' href='categ.php?id=".$categ->getId()."&dId=".$d->getId()."'><h4>".$d->getName()."</h4></a>";
-		}
-		$str .= "</div></div>";
-	}
-	$str .= "<a class='tab tab2' href='horaire.php'><h3>HORAIRE</h3></a>";
-	$str .= "<a class='tab tab2' href='contact.php'><h3>CONTACT</h3></a>";
+/*
+HTML GENERATING FUNCTION
+*/
+function getAdress() {
+	$str = 	"<div id='adressInfo'>";
+	$str .= "<h2>
+				69 rue Audibert et Lavirotte<br>
+				69008 Lyon<br>
+				<a href='tel:0472732894'>0472732894</a><br>
+				<a href='tel:0614833181'>0614833181</a><br>
+				</h2>";
 	$str .= "</div>";
 	return ($str);
 }
 
-function get_header_light() {
-	$str = "";
-	$str .= "<div id='nav-container'>";
-	$str .= "<a id='return-link' href='home.php'><h2>Retour</h2></a>";
-	$str .= "<a class='tab tab2' href='horaire.php'><h3>HORAIRE</h3></a>";
-	$str .= "<a class='tab tab2' href='contact.php'><h3>CONTACT</h3></a>";
-	$str .= "</div>";
+function getAccroche() {
+	$home = new cHome();
+	$str = "<div id='accroche'><h3>";
+	$str .= $home->getDesc();
+	$str .= "</h3></div>";
 	return ($str);
 }
 
-function getHomeCateg() {
-	$str = "";
+function getNavBar() {
 	$categs = getAllCategs();
-	$i = 0;
-	foreach ($categs as $categ) {
-		if ($i % 2 == 0) {
-			$content0 = "<div class='categ-content'>
-							<h1>".strtoupper($categ->getName())."</h1>
-							".$categ->getDesc()."
-							".$categ->getDiscLink()."
-						</div>";
-			$content1 = "";
-			$attr = "";
-		} else {
-			$content1 = "<div class='categ-content'>
-							<h1>".strtoupper($categ->getName())."</h1>
-							".$categ->getDesc()."
-							".$categ->getDiscLink()."
-						</div>";
-			$content0 = "";
-			$attr = "style='right: 50%'";
+	$str = "";
+	$str .= "<div id='nav-bar'>";
+	foreach ($categs as $c) {
+		$str .= "<div class='primary-tab'><h1>".strtoupper($c->getName())."</h1><div class='triangle no-opacity'></div></div>";
+		$discs = $c->getDisciplines();
+		$str .= "<div class='secondary-tab'>";
+		foreach($discs as $d) {
+			$str .= "<a id='d-".$d->getId()."' class='disc-link' href='discipline.php?id=".$d->getId()."'><h3>".$d->getName()."</h3></a>";
+			$str .= "<img class='disc-img' src='../pages/images/discipline/".$d->getImage()[0]."'>";
 		}
-		$str .= "<div class='categ-box'>
-						$content0
-						<div class='categ-slider'>
-							<div class='categ-cover' ".$attr."></div>
-							<img src=./images/categorie/".$categ->getImage().">
-							<a href='categ.php?id=".$categ->getId()."'>
-							<div class='more-btn'>
-								<h1>Decouvrir</h1>
-							</div></a>
-						</div>
-						$content1
-					</div>";
-		$margin_top = "";
-		// $i++; //DECOMMENT POUR ALTERNER
+		$str .= "</div>";
 	}
+	$str .= "<div id='tab-display'></div>";
+	$str .= "</div>";
 	return ($str);
-}
-
-function send_file($fname, $ftmp_name) {
-	$name = "";
-	$extension_upload = strtolower(  substr(  strrchr($fname, '.') ,1) );
-	$name = generateRandomString();
-	$name = $name.".".$extension_upload;
-	$dest = "../../../public/pages/images/categorie/".$name;
-	$res = move_uploaded_file($ftmp_name, $dest);
-	return ($name);
 }
 
 function getCategInfo($categ) {
@@ -203,6 +185,20 @@ function getCategInfo($categ) {
 	return ($str);
 }
 
+function getProfHTML($profs) {
+	$str = "<div class='prof-info'>";
+	foreach($profs as $p) {
+		$str .= "<img src=images/profs/".$p->getImage()[0].">";
+		$str .= "<div class='p-desc'><h2>".$p->getName()." ".$p->getSurname()."</h2></br>".$p->getDesc()."</div>";
+	}
+	$str .= "</div>";
+	return ($str);
+}
+
+/*
+???
+*/
+
 function getQuill($name) {
 	$str = "<div id='toolbar-".$name."'>
 					<select class='ql-size'>
@@ -226,47 +222,4 @@ function getQuill($name) {
 				<input name='color' class='jscolor' value='#FFFFFF' type='hidden'></input>";
 	return ($str);
 }
-
-function getDiscWidget($categ, &$nd, $dId = NULL) {
-	$content = getContentWidget($categ, $nd, $dId);
-	$str = "<div class='widget-wrapper'>
-	<div class='categ-boxu categ-disc-box'>
-		<div id='disc-content-box' style='display:none'>".$content."</div>
-		<div class='disc-widget'>
-			<div class='widg-content wc-displayed'></div>
-		</div>
-	</div>
-	</div>";
-	return ($str);
-}
-
-function getContentWidget($categ, &$nd, $dId = NULL) {
-	$str = "";
-	$nd = 0;
-	$discs = $categ->getDisciplines();
-	if ($dId != NULL) {
-		foreach($discs as $d) {
-			if ($d->getId() == $dId) {
-				$str .= "	<div id='disc-content-".$nd."' class='disc-content'>
-								<h1 style='display:none' class='disc-title'>".$d->getName()."</h1>
-								<img src=images/discipline/".$d->getImage()[0].">
-								<div class='disc-desc'>".$d->getDesc()."</div>
-							</div>";
-				$nd++;
-			}
-		}
-	}
-	foreach($discs as $d) {
-		if ($dId != $d->getId()) {
-			$str .= "	<div id='disc-content-".$nd."' class='disc-content'>
-							<h1 style='display:none' class='disc-title'>".$d->getName()."</h1>
-							<img src=images/discipline/".$d->getImage()[0].">
-							<div class='disc-desc'>".$d->getDesc()."</div>
-						</div>";
-			$nd++;
-		}
-	}
-	return ($str);
-}
-
 ?>

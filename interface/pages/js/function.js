@@ -121,7 +121,7 @@ function displayAddForm(type)
 		//DISCIPLINE
 		case "disc" :
 			$(form).attr("action", "../src/disc/addDisc.php");
-			// addLinkInput();
+			addLinkInput();
 			$(form).children(".file-input-container").children(".file-input-box").children(".image-preview").addClass("undisplayed");
 			$(".categ-input-box").children("label").first().addClass("label-radio-categ-activ");
 			$(".categ-input-box").children("input").first().prop("checked", true);
@@ -207,25 +207,20 @@ function displayModifForm(type, id)
 
 			function load_disc(disc)
 			{
+				// console.log(disc);
 				disc = JSON.parse(disc);
 				$(popup).removeClass("undisplayed");
 				$(form).attr("action", "../src/disc/modifDisc.php");
 				$(form).children("input[name=id]").val(disc["id"]);
 				$(form).children("input[name=title]").val(disc["name"]);
 				aQuill["disc"].setContents(disc["descDelta"]);
-
-				if (disc["link"] != "undefined")
-					console.log(" ");
-					// addLinkInput();
-				else {
-					linkNo = disc["link"].length;
-					for(i=0;i<linkNo;i++)
-					{
-						// addLinkInput();
-						$("#link-"+i).val(disc["link"][i]);
-					}
+				aQuill["horaire"].setContents(disc["horaireDelta"]);
+				linkNo = disc["link"].length;
+				for(i=0;i<linkNo;i++) {
+					addLinkInput();
+					$("#link-"+i).val(disc["link"][i]);
 				}
-
+				addLinkInput();
 				$(form).children(".info-input-container").children(".categ-input-box").children("input[value="+disc["categ"]+"]").prop("checked", true);
 				$(form).children(".info-input-container").children(".categ-input-box").children("input[value="+disc["categ"]+"]").trigger("change");
 				for(i=0;i<disc["profs"].length;i++)
@@ -401,6 +396,7 @@ function undisplayForm()
 			case "disc":
 				$(form).children("input[type=text]").val("");
 				aQuill["disc"].setContents(" ");
+				aQuill["horaire"].setContents(" ");
 				$("#link-input-container").empty();
 				resetFileInput($(form).children(".file-input-container").children(".file-input-box"));
 				$(form).children(".info-input-container").children(".categ-input-box").children("input[type=radio]").prop("checked", false);
@@ -546,12 +542,19 @@ $(".jscolor").on("change", function(){
 //rempli les hidden input avec les donné quill avant l'envoi vers le php
 $(".submit-btn").click(function(){
 	type = $(this).parent().attr("id");
-	type = type.split("-");
-	desc = document.querySelector("#editor-"+type[0]+">.ql-editor").innerHTML;
+	type = type.split("-")[0];
+	desc = document.querySelector("#editor-"+type+">.ql-editor").innerHTML;
 	desc = parseQuillDesc(desc);
-	descDelta = aQuill[type[0]].getContents();
+	descDelta = aQuill[type].getContents();
 	descDelta = parseQuillDelta(descDelta);
-	// console.log(JSON.parse(descDelta));
+	if (type == "disc") {
+		horaire = document.querySelector("#editor-horaire>.ql-editor").innerHTML;
+		horaire = parseQuillDesc(horaire);
+		horaireDelta = aQuill["horaire"].getContents();
+		horaireDelta = parseQuillDelta(horaireDelta);
+		$(this).siblings("input[name=horaire]").val(horaire);
+		$(this).siblings("input[name=horaireDelta]").val(horaireDelta);
+	}
 	$(this).siblings("input[name=desc]").val(desc);
 	$(this).siblings("input[name=descDelta]").val(descDelta);
 	//^{"insert":"[\\n]+"}]}$
