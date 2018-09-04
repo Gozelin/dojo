@@ -30,6 +30,15 @@ class cDiscipline {
 	//array(string)
 	protected $_image = array();
 
+<<<<<<< HEAD
+=======
+	//string
+	protected $_horaire = NULL;
+
+	//string
+	protected $_horaireDelta = NULL;
+	
+>>>>>>> ae5599b045acd3a01013e0c4d6bf256134283bb6
 	/*
 	ACCESSORS
 	*/
@@ -60,6 +69,15 @@ class cDiscipline {
 	public function getImage() { return $this->_image; }
 	public function setImage(array $value) { $this->_image = $value; }
 
+<<<<<<< HEAD
+=======
+	public function getHoraire() { return $this->_horaire; }
+	public function setHoraire($val) { $this->_horaire = $val; }
+
+	public function getHoraireDelta() { return $this->_horaireDelta; }
+	public function setHoraireDelta($val) { $this->_horaireDelta = $val; }
+	
+>>>>>>> ae5599b045acd3a01013e0c4d6bf256134283bb6
 	/*
 	CONSTRUCTOR
 	*/
@@ -105,6 +123,12 @@ class cDiscipline {
 						case "image":
 							$this->_image = $detail;
 							break;
+						case "horaire":
+							$this->_horaire = $detail;
+							break;
+						case "horairedelta":
+							$this->_horaireDelta = $detail;
+							break;
 					}
 				}
 			}
@@ -132,6 +156,8 @@ class cDiscipline {
 		$this->_categ = $dataBase->unprotect($data["categ"], _STRING_);
 		$this->_profs = $dataBase->unprotect($data["profs"], _ARRAY_);
 		$this->_image = $dataBase->unprotect($data["image"], _ARRAY_);
+		$this->_horaire = $dataBase->unprotect($data["horaire"], _STRING_);
+		$this->_horaireDelta = $dataBase->unprotect($data["horaireDelta"], _ARRAY_);
 
 		for($i=0;$i<count($this->_image);$i++) {
 			$this->_image[$i] = $dataBase->unprotect($this->_image[$i]);
@@ -153,9 +179,11 @@ class cDiscipline {
 		$di_categ = 		$dataBase->protect($this->_categ, _STRING_);
 		$di_profs = 		$dataBase->protect($this->_profs, _ARRAY_);
 		$di_image = 		$dataBase->protect($this->_image, _ARRAY_);
+		$di_horaire = 		$dataBase->protect($this->_horaire, _STRING_);
+		$di_horaireDelta = 	$dataBase->protect($this->_horaireDelta, _ARRAY_);
 
-		$query = "INSERT INTO discipline (name, Ddesc, Ddesc_delta, link, categ, profs, image)
-		VALUES ($di_name, $di_desc, $di_descDelta, $di_link, $di_categ, $di_profs, $di_image)";
+		$query = "INSERT INTO discipline (name, Ddesc, Ddesc_delta, link, categ, profs, image, horaire, horaireDelta)
+		VALUES ($di_name, $di_desc, $di_descDelta, $di_link, $di_categ, $di_profs, $di_image, $di_horaire, $di_horaireDelta)";
 		$dataBase->query($query);
 
 		echo $query;
@@ -180,10 +208,12 @@ class cDiscipline {
 		$di_categ = 		$dataBase->protect($this->_categ, _STRING_);
 		$di_profs = 		$dataBase->protect($this->_profs, _ARRAY_);
 		$di_image = 		$dataBase->protect($this->_image, _ARRAY_);
+		$di_horaire = 		$dataBase->protect($this->_horaire, _STRING_);
+		$di_horaireDelta =	$dataBase->protect($this->_horaireDelta, _ARRAY_);
 
 		$query = "
 		UPDATE discipline
-		SET name = $di_name, Ddesc = $di_desc, Ddesc_delta = $di_descDelta, link = $di_link, categ =$di_categ, profs = $di_profs, image = $di_image
+		SET name = $di_name, Ddesc = $di_desc, Ddesc_delta = $di_descDelta, link = $di_link, categ =$di_categ, profs = $di_profs, image = $di_image, horaire = $di_horaire, horaireDelta = $di_horaireDelta
 		WHERE id = $di_id";
 		$dataBase->query($query);
 		echo $query;

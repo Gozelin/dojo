@@ -13,20 +13,19 @@ $dataBase = new cDataBase(DATABASE_HOST, DATABASE_ADMIN_LOG, DATABASE_ADMIN_PASS
 
 header('Location: ../../pages/content.php');
 
-echo "<pre>";
-
 $id = $_POST["id"];
 $title = $_POST["title"];
 $desc = $_POST["desc"];
-$link = NULL;
+$horaire = $_POST["horaire"];
+$horaireDelta = $_POST["horaireDelta"];
 $descDelta = $_POST["descDelta"];
 $categ = $_POST["categ"];
+$link = NULL;
 
 if (!empty($_POST["link"][0])) {
 	unset($_POST["link"][count($_POST["link"]) - 1]);
 	$link = $_POST["link"];
 }
-var_dump($_POST);
 
 if($_POST["profs"] != NULL)
 	$profs = $_POST["profs"];
@@ -34,6 +33,7 @@ else
 	$profs = array();
 
 $descDelta = json_decode($descDelta);
+$horaireDelta = json_decode($horaireDelta);
 
 $discipline = new cDiscipline($id);
 
@@ -43,6 +43,8 @@ $discipline->setDescDelta($descDelta);
 $discipline->setLink($link);
 $discipline->setCateg($categ);
 $discipline->setProfs($profs);
+$discipline->setHoraire($horaire);
+$discipline->setHoraireDelta($horaireDelta);
 
 $image = $discipline->getImage();
 
@@ -77,8 +79,6 @@ foreach ($imgCount as $key => $img) {
 $discipline->setImage($image);
 
 $discipline->update();
-
-echo "</pre>";
 
 $_SESSION["tab-click"] = "disc";
 

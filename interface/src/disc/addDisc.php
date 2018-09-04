@@ -16,7 +16,9 @@ header('Location: ../../pages/content.php');
 $link = array();
 $title = $_POST["title"];
 $desc = $_POST["desc"];
-$descDelta = ($_POST["descDelta"] != NULL) ? $_POST["descDelta"] : "none";
+$horaire = $_POST["horaire"];
+$descDelta = $_POST["descDelta"];
+$horaireDelta = $_POST["horaireDelta"];
 // $link = $_POST["link"];
 $categ = $_POST["categ"];
 
@@ -26,6 +28,7 @@ else
 	$profs = array();
 
 $descDelta = json_decode($descDelta);
+$horaireDelta = json_decode($horaireDelta);
 
 $numberImg = count($_FILES["image"]["name"]);
 
@@ -60,6 +63,8 @@ $data = array(
 	"name"=>$title,
 	"desc"=>$desc,
 	"descDelta"=>$descDelta,
+	"horaire"=>$horaire,
+	"horaireDelta"=>$horaireDelta,
 	"link"=>$link,
 	"image"=>$name,
 	"categ"=>$categ,
@@ -67,6 +72,7 @@ $data = array(
 	);
 
 $discipline = new cDiscipline($data);
+
 $dId = $discipline->insert();
 $dId = strval($dId);
 
