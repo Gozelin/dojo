@@ -146,7 +146,7 @@ function getNavBar() {
 		$discs = $c->getDisciplines();
 		$str .= "<div class='secondary-tab'>";
 		foreach($discs as $d) {
-			$str .= "<a id='d-".$d->getId()."' class='disc-link' href='discipline.php?id=".$d->getId()."'><h3>".$d->getName()."</h3></a>";
+			$str .= "<a id='d-".$d->getId()."' class='disc-link' href='discipline.php?id=".$d->getId()."'><h3>".strtoupper($d->getName())."</h3></a>";
 			$str .= "<img class='disc-img' src='../pages/images/discipline/".$d->getImage()[0]."'>";
 		}
 		$str .= "</div>";

@@ -16,7 +16,7 @@ $dataBase = new cDataBase(DATABASE_HOST, DATABASE_ADMIN_LOG, DATABASE_ADMIN_PASS
 	<body>
 		<?php include("header.php"); ?>
 		<div id="content">
-			<div id="map" class="mapouter"><div class="gmap_canvas"><iframe width="780" height="563" id="gmap_canvas" src="https://maps.google.com/maps?q=69%20Rue%20Audibert%20et%20Lavirotte%2C%2069008%20&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.crocothemes.net"></a></div><style>.mapouter{text-align:right;height:563px;width:780px;}.gmap_canvas {overflow:hidden;background:none!important;height:563px;width:780px;}</style></div>
+			<div id="map"><div class="gmap_canvas"><iframe width="100%" height="100%" id="gmap_canvas" src="https://maps.google.com/maps?q=69%20Rue%20Audibert%20et%20Lavirotte%2C%2069008%20&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.crocothemes.net"></a></div><style>.mapouter{text-align:right;height:563px;width:780px;}.gmap_canvas {overflow:hidden;background:none!important;height:563px;width:780px;}</style></div>
 			<div id="contact-info">
 				<div style="margin: auto">
 					<img src="./images/icon/mail.svg" height="40px" width="40px">
@@ -38,7 +38,10 @@ $dataBase = new cDataBase(DATABASE_HOST, DATABASE_ADMIN_LOG, DATABASE_ADMIN_PASS
 $(document).ready(function(){
 
 	$("#banner").append("<div id='page-title'><h1>CONTACT</h1></div>");
-	
+
+	console.log($("#map").height());
+
+	$(".gmap_canvas").css("height", $("#map").height());
 });
 
 

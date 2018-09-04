@@ -12,6 +12,9 @@ require_once(PATH_CLASS."Categorie.Class.php");
 $dataBase = new cDataBase(DATABASE_HOST, DATABASE_ADMIN_LOG, DATABASE_ADMIN_PASSWORD, DATABASE_ADMIN_NAME);
 
 $disciplines = getAllDiscs();
+
+// var_dump($disciplines);
+
 $categs = getAllCategs();
 
 $send = "";
@@ -24,6 +27,8 @@ if ($categs && $disciplines) {
 		echo "<div id='$categId' class='categ-box'>";
 		foreach ($disciplines as $key => $disc) {
 			$discCategId = $disc->getCateg();
+			// echo $categId."<br>";
+			// echo $discCategId."<br>";
 			if($categId == $discCategId)
 			{
 				$name = $disc->getName();

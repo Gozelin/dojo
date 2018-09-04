@@ -20,6 +20,9 @@ $horaire = $_POST["horaire"];
 $horaireDelta = $_POST["horaireDelta"];
 $descDelta = $_POST["descDelta"];
 $categ = $_POST["categ"];
+
+// var_dump($categ);
+
 $link = NULL;
 
 if (!empty($_POST["link"][0])) {
@@ -27,7 +30,7 @@ if (!empty($_POST["link"][0])) {
 	$link = $_POST["link"];
 }
 
-if($_POST["profs"] != NULL)
+if(isset($_POST["profs"]))
 	$profs = $_POST["profs"];
 else
 	$profs = array();
@@ -64,7 +67,7 @@ for($i=0;$i<$numberImg;$i++)
 foreach ($imgCount as $key => $img) {
 
 	$discipline->deleteImage($img);
-	
+
 	$extension_upload = strtolower(  substr(  strrchr($_FILES['image']['name'][$img], '.')  ,1)  );
 
 	$image[$img] = generateRandomString();

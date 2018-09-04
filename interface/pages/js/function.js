@@ -53,6 +53,7 @@ function getDiscBox()
 
 	function load_data(data)
 	{
+		console.log(data);
 		$("#container").append(data);
 		$("#container").attr("style","flex-direction:column");
 	}
@@ -207,7 +208,7 @@ function displayModifForm(type, id)
 
 			function load_disc(disc)
 			{
-				// console.log(disc);
+				console.log(disc);
 				disc = JSON.parse(disc);
 				$(popup).removeClass("undisplayed");
 				$(form).attr("action", "../src/disc/modifDisc.php");
@@ -215,7 +216,7 @@ function displayModifForm(type, id)
 				$(form).children("input[name=title]").val(disc["name"]);
 				aQuill["disc"].setContents(disc["descDelta"]);
 				aQuill["horaire"].setContents(disc["horaireDelta"]);
-				linkNo = disc["link"].length;
+				linkNo = (jQuery.inArray("link", disc) > -1) ? disc["link"].length : 0;
 				for(i=0;i<linkNo;i++) {
 					addLinkInput();
 					$("#link-"+i).val(disc["link"][i]);
@@ -578,7 +579,7 @@ function parseQuillDesc(str){
 		var j = i - 11;
 		var j_ = j;
 		var word = "";
-		while (j < i) { 
+		while (j < i) {
 			word += str[j];
 			j++;
 		}

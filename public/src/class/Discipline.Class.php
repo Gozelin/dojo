@@ -30,15 +30,12 @@ class cDiscipline {
 	//array(string)
 	protected $_image = array();
 
-<<<<<<< HEAD
-=======
 	//string
 	protected $_horaire = NULL;
 
 	//string
 	protected $_horaireDelta = NULL;
-	
->>>>>>> ae5599b045acd3a01013e0c4d6bf256134283bb6
+
 	/*
 	ACCESSORS
 	*/
@@ -69,15 +66,12 @@ class cDiscipline {
 	public function getImage() { return $this->_image; }
 	public function setImage(array $value) { $this->_image = $value; }
 
-<<<<<<< HEAD
-=======
 	public function getHoraire() { return $this->_horaire; }
 	public function setHoraire($val) { $this->_horaire = $val; }
 
 	public function getHoraireDelta() { return $this->_horaireDelta; }
 	public function setHoraireDelta($val) { $this->_horaireDelta = $val; }
-	
->>>>>>> ae5599b045acd3a01013e0c4d6bf256134283bb6
+
 	/*
 	CONSTRUCTOR
 	*/
