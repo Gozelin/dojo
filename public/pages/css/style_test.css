@@ -11,13 +11,9 @@ FONT FACE
 NATIVE DOM ELEMENT
 */
 
-html {
-	min-height: 100%;
-}
-
 body {
 	font-family: "Comfortaa";
-	margin: 0 5% 0 5%;
+	margin: 0;
 }
 
 h1, h2, h3, h4, p {
@@ -91,6 +87,7 @@ HEADER STYLE
 #upper-bar {
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 	width: 100%;
 	position: absolute;
 	z-index: 4;
@@ -105,6 +102,8 @@ HEADER STYLE
 .upper-link {
 	margin-left: auto !important;
 	margin-right: 10px !important;
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .upper-link * {
@@ -129,7 +128,7 @@ HEADER STYLE
 	position: absolute;
 	object-fit: cover;
 	height: 60%;
-	width: 90%;
+	width: 100%;
 	transition-duration: 0.3s;
 	z-index: 1;
 }
@@ -138,7 +137,7 @@ HEADER STYLE
 	position: absolute;
 	top: 10%;
 	height: 43%;
-	width: 90%;
+	width: 100%;
 	transition-duration: 0.3s;
 	z-index: 2;
 }
@@ -159,7 +158,7 @@ HEADER STYLE
 	position: absolute;
 	object-fit: cover;
 	height: 60%;
-	width: 90%;
+	width: 100%;
 	transition-duration: 0.2s;
 	z-index: 1;
 }
@@ -168,7 +167,7 @@ HEADER STYLE
 	position: absolute;
 	object-fit: cover;
 	height: 60%;
-	width: 90%;
+	width: 100%;
 	transition-duration: 0.2s;
 	z-index: 2;
 }
@@ -228,11 +227,15 @@ HEADER STYLE
 	display: flex;
 	flex-direction: row;
 	flex: 0 1 100%;
-	justify-content: center;
 	background-color: rgb(179, 179, 179);
 	height: 0px;
 	opacity: 1;
 	transition-duration: 0.15s;
+}
+
+.vert-line
+{
+	border-left: solid 1px black;
 }
 
 /*
@@ -267,9 +270,9 @@ HOME STYLE
 }
 
 #adressInfo {
-	width: 29%;
-	padding-left: 1%;
-	padding-top: 1%;
+	width: 30%;
+	margin: auto;
+	text-align: center;
 	display: flex;
 }
 
@@ -285,6 +288,7 @@ HOME STYLE
 
 #accroche * {
 	width: 100%;
+	text-align: center;
 }
 
 #plan-btn {

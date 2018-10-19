@@ -27,8 +27,8 @@ $dataBase = new cDataBase(DATABASE_HOST, DATABASE_ADMIN_LOG, DATABASE_ADMIN_PASS
 	<body>
 		<nav id="side-menu">
 			<ul>
-				<li id="retour-btn" class="menu-tab"><a href="./interface.php" text="retour">Retour</a></li>
 				<li id="deco-btn" class="menu-tab"><a href="../src/deconnect.php" text="deconnect">Deconnexion</a></li>
+				<li id="retour-btn" class="menu-tab"><a href="./interface.php" text="retour">Retour</a></li>
 				<li id="post" class="menu-tab" >post</li>
 			</ul>
 		</nav>

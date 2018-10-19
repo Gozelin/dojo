@@ -17,10 +17,10 @@ $dataBase = new cDataBase(DATABASE_HOST, DATABASE_ADMIN_LOG, DATABASE_ADMIN_PASS
 		<?php include("header.php"); ?>
 		<div id="content">
 			<div id="horaireWrapper">
-				<a href="./images/horaire/horaire0.jpg">
+				<a class="link-img" href="./images/horaire/horaire0.jpg">
 					<img class="horaire-img" src="./images/horaire/horaire0.jpg">
 				</a>
-				<a href="./images/horaire/horaire1.jpg">
+				<a class="link-img" href="./images/horaire/horaire1.jpg">
 					<img class="horaire-img" src="./images/horaire/horaire1.jpg">
 				</a>
 			</div>

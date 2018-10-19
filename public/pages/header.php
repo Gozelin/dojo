@@ -4,9 +4,13 @@
 		<a href="https://www.youtube.com/user/GILLESMORARD" target="_blank"><img style="padding: 2px" src="images/icon/yt.ico" width="46" height="46"></a>
 		<div class='upper-link'>
 			<a href="./news.php">News</a>
+			<div class='vert-line'></div>
 			<a href="./location.php">Location</a>
-			<a href="./assoc.php">l'Association</a>
+			<div class='vert-line'></div>
+			<a href="./assoc.php">Association</a>
+			<div class='vert-line'></div>
 			<a href="./horaire.php">Horaires/Tarifs</a>
+			<div class='vert-line'></div>
 			<a href="./contact.php">Contact</a>
 		</div>
 	</div>
@@ -25,9 +29,10 @@
 	$(document).ready(function(){
 
 		/*
-		primary tab nav-bar trigger
+		primary tab nav-bar hover trigger
 		*/
 		$(document).on("mouseenter", ".primary-tab", function(){
+			$("#tab-display").css("padding-left", $(this).offset().left);
 			$(".triangle").addClass("no-opacity");
 			$(this).children(".triangle").removeClass("no-opacity");
 			tab = $(this).next(".secondary-tab").html();
@@ -38,10 +43,11 @@
 			$(".triangle").addClass("no-opacity");
 			$("#tab-display").html("");
 			$("#tab-display").css("height", 0);
+			$("#tab-display").css("padding-left", 0);
 		});
 
 		/*
-		nav-bar link trigger
+		nav-bar link hover trigger
 		*/
 		if (window.location.href.split("/").reverse()[0] == "home.php") {
 			$(document).on("mouseenter", ".disc-link", function(){

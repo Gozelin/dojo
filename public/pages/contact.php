@@ -39,9 +39,8 @@ $(document).ready(function(){
 
 	$("#banner").append("<div id='page-title'><h1>CONTACT</h1></div>");
 
-	console.log($("#map").height());
-
-	$(".gmap_canvas").css("height", $("#map").height());
+	$(".gmap_canvas").css("width", "100%");
+	$(".gmap_canvas").css("height", "100%");
 });
 
 

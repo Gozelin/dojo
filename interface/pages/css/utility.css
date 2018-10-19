@@ -1,0 +1,59 @@
+ul {
+    padding: 0;
+}
+
+p {
+    margin: 0;
+}
+
+#font-manager {
+    margin: 3%;
+    width: 15%;
+}
+
+#font-manager h2 {
+    text-align: center;
+}
+
+#font-manager input {
+    display: none;
+}
+
+#font-wrap {
+    max-height: 200px;
+    overflow-y: auto; 
+    border: solid 1px #adbede;
+}
+
+.font-tab {
+    cursor: pointer;
+    display: flex;
+}
+
+.font-tab:hover {
+    background-color: #86a4de;
+}
+
+.font-tab:hover > .font-del-btn {
+    display: block;
+}
+
+.font-del-btn {
+    display: none;
+    margin-left: auto;
+    color: red;
+}
+
+.font-del-btn:hover {
+    color: rgb(255, 100, 100);
+}
+
+#font-add-btn {
+    width: fit-content;
+    cursor: pointer;
+    color: green;
+}
+
+#font-add-btn:hover {
+    color: rgb(100, 255, 100);
+}

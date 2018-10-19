@@ -1,9 +1,6 @@
 <?php
-
 session_start();
-
 include("../src/secure.php");
-
 ?>
 
 <html>
@@ -17,6 +14,7 @@ include("../src/secure.php");
 				<li id="deco-btn"><a href="../src/deconnect.php" text="Deconnexion">Deconnexion</a></li>
 				<li class="menu-tab"><a href="content.php" text="">Contenu</a></li>
 				<li class="menu-tab"><a href="blog.php" text="">Blog</a></li>
+				<li class="menu-tab"><a href="utility.php" text="">Paramètres</a></li>
 			</ul>
 		</nav>
 		<div id="interface-content">

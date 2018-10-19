@@ -1,5 +1,6 @@
 body {
 	height: 100%;
+	width: 100%;
 }
 
 /*
@@ -7,23 +8,24 @@ CONTENT
 */
 
 #content {
-	/*display: flex;*/
-	height: 60%;
-	margin-bottom: 6%;
+	margin-bottom: 3%;
 	margin-top: 3%;
 }
 
 #horaireWrapper {
-	height: 100%;
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 	justify-content: space-around;
 	margin: auto;
 	padding: 30px;
 	background-color: #dbdbdb;
 }
 
-.horaire-img {
-	height: 100%;
+@media screen and (max-width: 1200px) {
+	.link-img {
+		margin: 2%;
+	}
+
 }
 

@@ -22,3 +22,7 @@ $dataBase = new cDataBase(DATABASE_HOST, DATABASE_ADMIN_LOG, DATABASE_ADMIN_PASS
 		</div>
 	</body>
 </html>
+
+<script>
+	
+</script>

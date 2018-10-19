@@ -30,8 +30,8 @@ $profs = getAllProfs();
 	<body>
 		<nav id="side-menu">
 			<ul>
-				<li id="retour-btn" class="menu-tab"><a href="./interface.php" text="retour">Retour</a></li>
 				<li id="deco-btn" class="menu-tab"><a href="../src/deconnect.php" text="deconnect">Deconnexion</a></li>
+				<li id="retour-btn" class="menu-tab"><a href="./interface.php" text="retour">Retour</a></li>
 				<li id="home" class="menu-tab" >Accueil</li>
 				<li id="horaire" class="menu-tab" >Horaire</li>
 				<li id="categ" class="menu-tab" >Sections</li>
