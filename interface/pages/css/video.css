@@ -1,0 +1,145 @@
+
+.addVideo {
+	width: 15px;
+	height: 15px;
+	background-color: green;
+	cursor: pointer;
+	margin: auto 10px;
+}
+
+.addVideo:hover {
+	background-color: lightgreen;
+}
+
+.watch-btn {
+	object-fit: cover;
+	cursor: pointer;
+}
+
+.watch-btn:hover {
+	background-color: cornflowerblue;
+}
+
+#video-input-container {
+	display: flex;
+	flex-direction: column;
+    background-color: lightgrey;
+    border: solid 1px white;
+	padding: 10px;
+	width: fit-content;
+}
+.single-input-container {
+	display: flex;
+	width: 100%;
+}
+
+.video-td {
+	text-align: start;
+	width: 300px;
+	height: fit-content;
+}
+
+.vInput {
+	height: 30px;
+	font-size: 12px;
+}
+
+#vPreview-popup {
+	position: absolute;
+	left: 50%;
+	z-index: 100;
+}
+
+.closePreview-btn {
+	width: 15px;
+	height: 15px;
+	background-color: red;
+	cursor: pointer;
+	float: right;
+}
+
+.closePreview-btn:hover {
+	background-color: lightcoral;
+}
+
+.video-input-container {
+	display: flex;
+    flex-direction: column;
+}
+
+.linkInputWrapper {
+	display: flex;
+	flex-direction: row;
+}
+
+.linkSuprrBtn {
+	width: 19px;
+	height: 19px;
+	background-color: red;
+	cursor: pointer;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.linkSuprrBtn:hover {
+	background-color: #721111;
+}
+
+#video-popup {
+    display: flex;
+    height: 30px;
+}
+
+.video-file-label {
+    display: flex;
+    cursor: pointer;
+    background-color: whitesmoke;
+}
+
+.video-file-label:hover {
+    background-color: lightgrey;
+}
+
+.video-file-label h4 {
+    margin: auto;
+    padding: 3px;
+}
+
+#video-popup .vfile {
+    display: none;
+}
+
+.validVideo {
+    height: 15px;
+    width: 15px;
+    background-color: yellow;
+    cursor: pointer;
+}
+
+.validVideo:hover {
+    background-color: lightgoldenrodyellow;
+}
+
+#upload-vid {
+    height: 15px;
+    width: fit-content;
+    background-color: blue;
+    cursor: pointer;
+}
+
+#upload-vid:hover {
+    background-color: lightblue;
+}
+
+.sort-icon {
+	display: flex;
+}
+
+.sort-icon img {
+	margin: auto;
+	cursor: pointer;
+}
+
+.sort-icon img:hover {
+	background-color: white;
+}

@@ -21,7 +21,7 @@ class cProf {
 	//array(int)
 	protected $_descDelta = array();
 
-	//array(string)
+	//string
 	protected $_image = array();
 	
 	/*
@@ -46,7 +46,7 @@ class cProf {
 	public function setDescDelta($value) { $this->_descDelta = $value; }
 
 	public function getImage() { return $this->_image; }
-	public function setImage(array $value) { $this->_image = $value; }
+	public function setImage($value) { $this->_image = $value; }
 	
 	/*
 	CONSTRUCTOR
@@ -112,7 +112,7 @@ class cProf {
 		$this->_surname = $dataBase->unprotect($data["surname"], _STRING_);
 		$this->_desc = $dataBase->unprotect($data["Pdesc"], _STRING_);
 		$this->_descDelta = $dataBase->unprotect($data["Pdesc_delta"], _ARRAY_);
-		$this->_image = $dataBase->unprotect($data["image"],_ARRAY_);
+		$this->_image = $dataBase->unprotect($data["image"],_STRING_);
 	}
 
 	/*
@@ -127,11 +127,11 @@ class cProf {
 		$pr_surname = 		$dataBase->protect($this->_surname, _STRING_);
 		$pr_desc = 			$dataBase->protect($this->_desc, _STRING_);
 		$pr_descDelta = 	$dataBase->protect($this->_descDelta, _ARRAY_);
-		$pr_image = 		$dataBase->protect($this->_image, _ARRAY_);
+		$pr_image = 		$dataBase->protect($this->_image, _STRING_);
 
 		$query = "INSERT INTO prof (name, surname, Pdesc, Pdesc_Delta, image)
 		VALUES ($pr_name, $pr_surname, $pr_desc, $pr_descDelta, $pr_image)";
-		$dataBase->query($query);
+		echo $dataBase->query($query);
 	}
 
 	/*
@@ -146,12 +146,12 @@ class cProf {
 		$pr_surname = 		$dataBase->protect($this->_surname, _STRING_);
 		$pr_desc = 			$dataBase->protect($this->_desc, _STRING_);
 		$pr_descDelta = 	$dataBase->protect($this->_descDelta, _ARRAY_);
-		$pr_image = 		$dataBase->protect($this->_image, _ARRAY_);
+		$pr_image = 		$dataBase->protect($this->_image, _STRING_);
 
 		$query = "
-		UPDATE prof
-		SET name = $pr_name, surname = $pr_surname, Pdesc = $pr_desc, Pdesc_Delta = $pr_descDelta, image = $pr_image
-		WHERE $pr_id = id";
+			UPDATE prof
+			SET name = $pr_name, surname = $pr_surname, Pdesc = $pr_desc, Pdesc_Delta = $pr_descDelta, image = $pr_image
+			WHERE id = $pr_id ";
 
 		$dataBase->query($query);
 			
@@ -180,18 +180,8 @@ class cProf {
 	//supprime une image, si pas de param, supprime TOUTE les images
 	public function deleteImage($imgNo = NULL)
 	{
-		if($imgNo !== NULL)
-		{
-			$imgName = $this->_image[$imgNo];
-			unlink(PATH_DOJO."pages/images/profs/$imgName");
-		}
-		else
-		{
-			foreach ($this->_image as $key => $img) 
-			{
-				unlink(PATH_DOJO."pages/images/profs/$img");
-			}
-		}
+		if(isset($this->_image))
+			unlink(PATH_DOJO."pages/images/profs/$this->_image");
 	}
 
 	public function deleteFromDisc()
@@ -209,6 +199,56 @@ class cProf {
 			$disc->setProfs($profs);
 			$disc->update();
 		}
+	}
+
+	/*
+	HTML GENERATION FUNCTIONS
+	*/
+
+	public function getForm($mod = NULL) {
+		$str = "";
+
+		$str .= "<div id='prof-form-box' class='form-popup undisplayed'>
+				<form id='prof-form' method='POST' enctype='multipart/form-data'>
+					<input type='hidden' name='id' value=".$this->_id.">
+					<input type='hidden' name='desc' class='quillInput'>
+					<input type='hidden' name='descDelta' class='quillInput'>
+					<input type='text' name='name' placeholder='prénom' value='".$this->_name."' />
+					<input type='text' name='surname' placeholder='nom' value='".$this->_surname."'/>";
+		$str .= getQuill('desc');
+		$str .=		"<div class='file-input-container'>
+						<div class='file-input-box'>
+							<label for='prof-image' class='label-file'>Choisir une image</label>
+							<input id='prof-image' class='input-file' type='file' name='image'/>
+							<div class='image-preview'><img width='200px' height='200px' src='/dojo/public/pages/images/prof/".$this->_image."'></div>
+						</div>
+					</div>";
+		if ($mod)
+			$str .= "<div id='upload-btn' class='update'>UPLOAD</div>";
+		else
+			$str .= "<div id='upload-btn' class='insert'>INSERT</div>";
+		$str .=	"</form>
+				<div class='close-btn'><img src='../../public/pages/images/icon/cross.svg'></div>
+				</div>";
+		return ($str);
+	}
+
+	public function getBox() {
+		$str = "";
+
+		$str .= "<div data-id='".$this->_id."' id='".$this->_name."' class='prof item-box'>
+					<img class='prof-image' src='../../public/pages/images/prof/".$this->_image."'>
+					<h1 class='item-title'>".$this->_name." ".$this->_surname."</h1>
+					<div class='button-box'>
+						<h3 class='button-title modif-btn'>modif</h3>
+						<form method='POST' action='../src/prof/supprProf.php'>
+							<input type='hidden' name='id' value='".$this->_id."'></input>
+							<input type='submit' value='suppr' class='button-title suppr-btn'></input>
+						</form>
+					</div>
+				</div>";
+
+		return ($str);
 	}
 }
 

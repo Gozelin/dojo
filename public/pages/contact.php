@@ -1,6 +1,6 @@
 <?php
 require_once('../src/defines.php');
-require_once(PATH_SRC.'function.php');
+require_once(PATH_P_SRC.'function.php');
 require_once('./content/content.php');
 $dataBase = new cDataBase(DATABASE_HOST, DATABASE_ADMIN_LOG, DATABASE_ADMIN_PASSWORD, DATABASE_ADMIN_NAME);
 ?>
@@ -16,16 +16,51 @@ $dataBase = new cDataBase(DATABASE_HOST, DATABASE_ADMIN_LOG, DATABASE_ADMIN_PASS
 	<body>
 		<?php include("header.php"); ?>
 		<div id="content">
-			<div id="map"><div class="gmap_canvas"><iframe width="100%" height="100%" id="gmap_canvas" src="https://maps.google.com/maps?q=69%20Rue%20Audibert%20et%20Lavirotte%2C%2069008%20&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.crocothemes.net"></a></div><style>.mapouter{text-align:right;height:563px;width:780px;}.gmap_canvas {overflow:hidden;background:none!important;height:563px;width:780px;}</style></div>
-			<div id="contact-info">
-				<div style="margin: auto">
-					<img src="./images/icon/mail.svg" height="40px" width="40px">
-					<h2><?php echo MAIL ?></h2>
-					<img class="contact-icon" src="./images/icon/phone.svg" height="40px" width="40px">
-					<a style="margin-bottom: 15px" href="tel:<?php echo TEL0?>"><h2><?php echo TEL0 ?></h2></a>
-					<a href="tel:<?php echo TEL1?>"><h2><?php echo TEL1 ?></h2></a>
-					<img class="contact-icon" src="./images/icon/placeholder.svg" height="40px" width="40px">
-					<h2><?php echo ADRESSE ?></h2>
+			<div id="left-frame" class="contact-info">
+				<div class="left-wrapper">
+					<div class="info-wrapper">
+						<img src="./images/icon/mail.svg" height="40px" width="40px">
+						<a href="mailto:"<?php echo MAIL ?>><h2><?php echo MAIL ?></h2></a>
+					</div>
+					<div class="info-wrapper">
+						<img class="contact-icon" src="./images/icon/phone.svg" height="40px" width="40px">
+						<div style="display: flex; flex-direction: column;">
+							<a style="margin-bottom: 15px" href="tel:<?php echo TEL0?>"><h2><?php echo TEL0 ?></h2></a>
+							<a href="tel:<?php echo TEL1?>"><h2><?php echo TEL1 ?></h2></a>
+						</div>
+					</div>
+					<div class="info-wrapper">
+						<img class="contact-icon" src="./images/icon/placeholder.svg" height="40px" width="40px">
+						<h2><?php echo ADRESSE ?></h2>
+					</div>
+				</div>
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2784.7685089442944!2d4.85481811589086!3d45.73573707910503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4ea37ba52cbd9%3A0xfbf4f833d64c5a17!2sDojo+Yoseikan+Budo!5e0!3m2!1sfr!2sfr!4v1540050532002" width="100%" height="60%" frameborder="0" style="border:0" allowfullscreen></iframe>
+			</div>
+			<div id="right-frame">
+				<div id="form-wrapper">
+					<h3 style="margin-bottom: 20px;color: #043465;">CONTACTEZ-NOUS:</h3>
+					<form action="../../interface/pages/utility/mail-manager.php" method="POST">
+						<input type="hidden" name="action" value="insert">
+						<div class="input-wrapper">
+							<label for=name>Nom:</label>
+							<input required type="text" name="name">
+						</div>
+						<div class="input-wrapper">
+							<label for=usermail>Adresse mail:</label>
+							<input required type="text" name="usermail">
+						</div>
+						<div class="input-wrapper">
+							<label for=object>Objet:</label>
+							<input required type="text" name="object">
+						</div>
+						<div class="input-wrapper" style="margin-bottom: 0px!important">
+							<label for=mail>Message:</label>
+							<textarea required rows="15" maxlength="512" name="mail"></textarea>
+						</div>
+						<div class="input-wrapper submit-btn">
+							<input type="submit" value="Envoyer">
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -37,11 +72,19 @@ $dataBase = new cDataBase(DATABASE_HOST, DATABASE_ADMIN_LOG, DATABASE_ADMIN_PASS
 
 $(document).ready(function(){
 
-	$("#banner").append("<div id='page-title'><h1>CONTACT</h1></div>");
+	$("#form-wrapper form").submit(function(e){
+		usermail = $("input[name='usermail']");
+		if (!validateEmail($(usermail).val())) {
+			$(usermail).css("background-color", "red");
+			e.preventDefault();
+		}
+	});
 
-	$(".gmap_canvas").css("width", "100%");
-	$(".gmap_canvas").css("height", "100%");
+	$("input[name='usermail']").on("change", function(){
+		if (validateEmail($(this).val()))
+			$(this).css("background-color", "white");
+	});
+
 });
-
 
 </script>

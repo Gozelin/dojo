@@ -1,0 +1,29 @@
+@font-face {
+	font-family: 'LOVES';
+	src: url('../../../public/pages/fonts/LOVES.ttf');
+}
+
+.ql-font-LOVES {
+	font-family: 'LOVES';
+}
+
+@font-face {
+	font-family: 'MyriadPro_Semibold';
+	src: url('../../../public/pages/fonts/MyriadPro_Semibold.otf');
+}
+
+.ql-font-MyriadPro_Semibold {
+	font-family: 'MyriadPro_Semibold';
+}
+
+@font-face {
+	font-family: 'BebasNeue-Regular';
+	src: url('../../../public/pages/fonts/BebasNeue-Regular.ttf');
+}
+
+.ql-font-BebasNeue-Regular {
+	font-family: 'BebasNeue-Regular';
+}
+
+
+

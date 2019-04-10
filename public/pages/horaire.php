@@ -1,6 +1,6 @@
 <?php
 require_once('../src/defines.php');
-require_once(PATH_SRC.'function.php');
+require_once(PATH_P_SRC.'function.php');
 require_once('./content/content.php');
 $dataBase = new cDataBase(DATABASE_HOST, DATABASE_ADMIN_LOG, DATABASE_ADMIN_PASSWORD, DATABASE_ADMIN_NAME);
 ?>
@@ -24,13 +24,14 @@ $dataBase = new cDataBase(DATABASE_HOST, DATABASE_ADMIN_LOG, DATABASE_ADMIN_PASS
 					<img class="horaire-img" src="./images/horaire/horaire1.jpg">
 				</a>
 			</div>
+			<div class="up-btn"><h3>Remonter</h3></div>
 		</div>
 		<?php include("footer.php"); ?>
 	</body>
 </html>
 
 <script>
-$(document).ready(function(){
-	$("#banner").append("<div id='page-title'><h1>HORAIRES/TARIFS</h1></div>");
+$(".up-btn").on("click", function(){
+	$('html, body').animate({ scrollTop: 0 }, 'fast');
 });
 </script>

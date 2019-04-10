@@ -1,0 +1,43 @@
+.upper-link {
+    flex-direction: column;
+}
+
+#resp-dropdown {
+    flex-direction: column;
+    z-index: 5;
+    overflow: hidden;
+    background-color: #d8d8d8;
+}
+
+#upper-bar a:not(.media-logo, .logo-img) {
+    padding: 0px !important;
+}
+
+.upper-link a h3 {
+    margin: 0 !important;
+    width: 100%;
+    padding: 5px 5px;
+    text-align: center;
+}
+
+#resp-dropdown a h3:hover {
+    background-color: #efefef;
+}
+
+.vert-line {
+    display: none;
+}
+
+.resp-btn {
+    margin: auto !important;
+    display: block;
+    cursor: pointer;
+}
+
+.dd-closed {
+    height: 0px !important;
+}
+
+.resp-btn-wrapper {
+    width: 100%;
+}

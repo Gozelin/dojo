@@ -1,8 +1,7 @@
-/*
-TRIGGER
-*/
-
 $(document).ready(function(){
+	/*
+	TRIGGER
+	*/
 	$(document).on("click", ".tab-wrapper", function(){
 		if ($(this).children(".list-wrapper").css("display") == "none") {
 			$(".list-wrapper").css("display", "none");
@@ -14,78 +13,91 @@ $(document).ready(function(){
 			$(this).children(".list-wrapper").css("display", "none");
 		}
 	});
-});
 
-$("#more-post").click(function(){
-	type = $(this).data("type");
-	limit = limit+4;
-	displayPost(limit, type);
-});
-
-$(document).on("click", ".right-arrow", function(){
-	container = $(this).siblings(".post-image");
-	scrollPos = $(container).scrollLeft()+300;
-	$(container).animate({
-		scrollLeft:scrollPos
-	}, 500);
-});
-
-$(document).on("click", ".left-arrow", function(){
-	container = $(this).siblings(".post-image");
-	scrollPos = $(container).scrollLeft()-300;
-	$(container).animate({
-		scrollLeft: scrollPos
-	}, 500);
-});
-
-function toggleProfOnglet(Pcontent)
-{
-	onglet = Pcontent.parent().parent();
-	if(Pcontent.hasClass("Pcontent-closed"))
-	{
-		$('html, body').animate({
-			scrollTop: onglet.offset().top-30
-		}, 500);
-		Pcontent.removeClass("Pcontent-closed");
-		Pcontent.removeClass("undisplayed");
-	}
-	else
-	{
-		$('html, body').animate({
-			scrollTop: onglet.offset().top-200
-		}, 500);
-		Pcontent.addClass("Pcontent-closed");
-		setTimeout(function() {
-    		Pcontent.addClass('undisplayed');
-		}, 300);
-	}
-
-}
-
-function displayPost(limit, type)
-{
-	var promise = $.ajax({
-		url : "../src/ajax/getPosts.php",
-		dataType : "html",
-		type : "POST",
-		data : { 'limit' : limit, "type" : type },
-		success : function(status)
-		{
-			return status;
-		}
+	$("#more-post").click(function(){
+		type = $(this).data("type");
+		limit = limit+4;
+		displayPost(limit, type);
 	});
 
-	promise.done(data => load_data(data));
+	$(document).on("click", ".right-arrow", function(){
+		container = $(this).siblings(".post-image");
+		scrollPos = $(container).scrollLeft()+300;
+		$(container).animate({
+			scrollLeft:scrollPos
+		}, 500);
+	});
 
-	function load_data(data)
+	$(document).on("click", ".left-arrow", function(){
+		container = $(this).siblings(".post-image");
+		scrollPos = $(container).scrollLeft()-300;
+		$(container).animate({
+			scrollLeft: scrollPos
+		}, 500);
+	});
+
+	function toggleProfOnglet(Pcontent)
 	{
-		if(data == 0)
+		onglet = Pcontent.parent().parent();
+		if(Pcontent.hasClass("Pcontent-closed"))
 		{
-			$("#more-post h2").html("Plus de posts disponible");
+			$('html, body').animate({
+				scrollTop: onglet.offset().top-30
+			}, 500);
+			Pcontent.removeClass("Pcontent-closed");
+			Pcontent.removeClass("undisplayed");
 		}
 		else
 		{
-			$("#post-item-container").append(data);
+			$('html, body').animate({
+				scrollTop: onglet.offset().top-200
+			}, 500);
+			Pcontent.addClass("Pcontent-closed");
+			setTimeout(function() {
+				Pcontent.addClass('undisplayed');
+			}, 300);
+		}
+
+	}
+
+	function displayPost(limit, type)
+	{
+		var promise = $.ajax({
+			url : "../src/ajax/getPosts.php",
+			dataType : "html",
+			type : "POST",
+			data : { 'limit' : limit, "type" : type },
+			success : function(status)
+			{
+				return status;
+			}
+		});
+
+		promise.done(data => load_data(data));
+
+		function load_data(data)
+		{
+			if(data == 0)
+			{
+				$("#more-post h2").html("Plus de posts disponible");
+			}
+			else
+			{
+				$("#post-item-container").append(data);
+			}
 		}
 	}
+	/*
+	ESTHETIC
+	*/
+	$(document).on("error", "img", function(){ // ne marche pas (?)
+		console.log("img not found\n");
+		$(this).attr("src", "../images/site/default.png");
+	});
+
+});
+
+function validateEmail(email) {
+	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	return re.test(email);
 }

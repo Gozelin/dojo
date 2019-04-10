@@ -1,0 +1,34 @@
+
+#content {
+	display: flex;
+	background-color: #a5d1ff87;
+	margin-top: 1%;
+	width: 100%;
+}
+
+#c-left {
+	width: -webkit-fill-available;
+	display: flex;
+	margin: 30px;
+}
+
+#c-left * {
+	margin: auto;
+	margin-top: 30px;
+	width: 60%;
+}
+
+#c-right {
+	display: flex;
+	flex-direction: column;
+	background-color: #043465;
+	padding: 20px;
+	padding-top: 50px;
+	width: 40%;
+	min-width: 300px;
+}
+
+.c-right-title {
+	color: white;
+	margin-bottom: 30px;
+}

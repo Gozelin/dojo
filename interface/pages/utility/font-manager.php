@@ -1,43 +1,42 @@
 <?php
     include("../src/secure.php");
-
-    fopen("./utility/font.json", "c");
-    $f = file_get_contents("./utility/font.json");
-    if($f)
-        $fonts = json_decode($f);
 ?>
 
 <div id="font-manager">
     <h2>Polices</h2>
     <input type="file" name="font-input" id="font-input">
-    <label id="font-add-btn" for="font-input">add</label>
+	<label id="font-add-btn" for="font-input">Ajout</label>
     <ul id="font-wrap">
-        <?php
-            foreach($fonts as $font)
-            {
-                echo "<li class='font-tab'>";
-                echo "<p>" . $font . "</p>";
-                echo "<div class='font-del-btn'>del</div>";
-                echo "</li>";
-            }
-        ?>
     </ul>
 </div>
 
 <script>
 $(document).ready(function(){
-    addInput = $("#font-add-btn");
-    addInput.on("click", function(){
-        console.log("trigger");
-    });
-    $("#font-input").on("change", function(){
-        console.log("on change");
-        var file = $(this)[0].files[0];
-        var upload = new Upload(file);
-        upload.doUpload("./ajax/addFont.php");
+
+	parseFontHMTL();
+
+	//ADD
+    $(document).on("change", "#font-input", function(){
+		var file = $(this)[0].files[0];
+		var upload = new Upload(file);
+		upload.doUpload("./ajax/addFont.php");
+	});
+	//DEL
+	$(document).on("click", ".font-del-btn", function(){
+		var name = $(this).siblings("p").text();
+		$.ajax({
+			type: "POST",
+			url: "./ajax/delFont.php",
+			success: function (data) {
+				parseFontHMTL();
+				return (data);
+			},
+			data: {"name":name},
+		});
     });
 });
 
+//copy/pasted code for uploading the font file
 var Upload = function (file) {
     this.file = file;
 };
@@ -70,10 +69,11 @@ Upload.prototype.doUpload = function (path) {
             return myXhr;
         },
         success: function (data) {
-            console.log(data);
+			parseFontHMTL();
+            return (data);
         },
         error: function (error) {
-            console.log("error");
+            return (false);
         },
         async: true,
         data: formData,
@@ -84,16 +84,15 @@ Upload.prototype.doUpload = function (path) {
     });
 };
 
-Upload.prototype.progressHandling = function (event) {
-    var percent = 0;
-    var position = event.loaded || event.position;
-    var total = event.total;
-    var progress_bar_id = "#progress-wrp";
-    if (event.lengthComputable) {
-        percent = Math.ceil(position / total * 100);
-    }
-    // update progressbars classes so it fits your code
-    $(progress_bar_id + " .progress-bar").css("width", +percent + "%");
-    $(progress_bar_id + " .status").text(percent + "%");
-};
+//parse font html into the page
+function parseFontHMTL() {
+	$("#font-wrap").empty();
+	var str = "";
+	jQuery.get("./utility/font.json", function(fonts) {
+		fonts.forEach(font => {
+			str += "<li class='font-tab'><p>"+font+"</p><div class='font-del-btn'>suppr</div></li>";
+		});
+		$("#font-wrap").append(str);
+	});
+}
 </script>

@@ -3,42 +3,40 @@ session_start();
 
 include("../secure.php");
 
-header('Location: ../../pages/content.php');
-
 require_once("../../../public/src/defines.php");
-require_once(PATH_SRC.'function.php');
+require_once(PATH_P_SRC.'function.php');
 require_once(PATH_CLASS."DataBase.Class.php");
 require_once(PATH_CLASS."Categorie.Class.php");
+require_once(PATH_CLASS."OrderManager.Class.php");
 
 $dataBase = new cDataBase(DATABASE_HOST, DATABASE_ADMIN_LOG, DATABASE_ADMIN_PASSWORD, DATABASE_ADMIN_NAME);
 
 $image = NULL;
-$title = $_POST["title"];
+$name = $_POST["name"];
 $desc = $_POST["desc"];
 $descDelta = $_POST["descDelta"];
 $color = $_POST["color"];
 
-$descDelta = json_decode($descDelta);
+$descDelta = ($descDelta) ? json_decode($descDelta) : [];
 
-$name = "";
-$extension_upload = strtolower(  substr(  strrchr($_FILES['image']['name'], '.') ,1) );
-$name = generateRandomString();
-$name = $name.".".$extension_upload;
-$dest = "../../../public/pages/images/categorie/".$name;
-$res = move_uploaded_file($_FILES['image']['tmp_name'], $dest);
+$image = "";
+if (isset($_FILES["image"]["name"]) && $_FILES["image"]["name"] != "") {
+	$image = send_file($_FILES["image"]["name"], $_FILES["image"]["tmp_name"], "categ");
+}
 
 $data = array(
-	"name"=>$title,
+	"name"=>$name,
 	"desc"=>$desc,
 	"descDelta"=>$descDelta,
 	"color"=>$color,
-	"image"=>$name,
-	);
-
+	"image"=>$image,
+);
 
 $categ = new cCategorie($data);
-$categ->insert();
+$id = $categ->insert();
 
-$_SESSION["tab-click"] = "categ";
-
-exit();
+//adding to order.json
+$om = new cOrderManager([	"action"=>"addOrder",
+							"file"=>"categ",
+							"arg"=>["id"=>$id]]);
+$om->execQuery();

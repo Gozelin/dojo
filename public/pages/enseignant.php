@@ -1,6 +1,6 @@
 <?php
 require_once('../src/defines.php');
-require_once(PATH_SRC.'function.php');
+require_once(PATH_P_SRC.'function.php');
 require_once('./content/content.php');
 require_once(PATH_CLASS.'DataBase.Class.php');
 require_once(PATH_CLASS.'Discipline.Class.php');
@@ -68,7 +68,7 @@ $profs = getAllProfs();
 						}
 					}
 
-					echo 
+					echo
 					"<div id='prof-$id' class='skew-box$reverse'>
 						<div class='prof-box$reverse click-box'>
 							<div class='prof-onglet$reverse'>
@@ -104,7 +104,7 @@ $(document).ready(function(){
 		toggleProfOnglet(Pcontent);
 	});
 
-	<?php 
+	<?php
 		foreach ($profs as $key => $prof) {
 			$id = $prof->getId();
 			$desc = $prof->getDesc();

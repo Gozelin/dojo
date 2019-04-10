@@ -19,7 +19,7 @@ $dataBase;
 
 class cDataBase extends mysqli {
 
-	public function	__construct($hostname = 'localhost', $user = 'root', $password = '' , $database = 'gearvisExample') {
+	public function	__construct($hostname = 'localhost', $user = 'root', $password = '' , $database = '') {
 		parent::__construct($hostname, $user, $password, $database);
 			if (mysqli_connect_error()) {
 				die('Erreur de connexion (' . mysqli_connect_errno() . ') ' . mysqli_connect_error());
@@ -168,7 +168,7 @@ class cDataBase extends mysqli {
 	}
 
 	private function log($query) {
-		$handle = fopen($_SERVER['DOCUMENT_ROOT']."/dojo/interface/log/log.txt", 'a');
+		$handle = fopen(PATH_INTER."log/log.txt", 'a');
 		fwrite($handle, date("Y-m-d H:i:s").": \n");
 		fwrite($handle, trim($query)."\n".$this->error."\n------------------------------------------------------------------------------------\n");
 	}

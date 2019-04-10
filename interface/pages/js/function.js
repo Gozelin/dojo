@@ -1,9 +1,14 @@
-//met le text de la tab en blanc et affiche le titre dans le container
+
+$(document).ajaxStart(function() {
+	$(".loading-gif").css("display", "block");
+}).ajaxStop(function() {
+	$(".loading-gif").css("display", "none");
+});
+
 function activateTab(tabId)
 {
 	$(".menu-tab").removeClass("tab-activ");
 	$("#interface-content h1").empty();
-
 	$("#"+tabId).addClass("tab-activ");
 	html = $("#"+tabId).html();
 	$("#interface-content h1").append(html);
@@ -11,447 +16,162 @@ function activateTab(tabId)
 
 function displayPost(limit, type)
 {
-	var promise = $.ajax({
+	$.ajax({
 		url : "./ajax/getPostBox.php",
 		dataType : "html",
 		type : "POST",
 		data : { 'limit' : limit, "type" : type },
-		success : function(status)
+		success : function(data)
 		{
-			return status;
+			if(data == 0) {
+				$("#more-post h2").html("Plus de posts disponible");
+			}
+			else {
+				$("#container").append(data);
+			}
 		}
 	});
+}
 
-	promise.done(data => load_data(data));
-
-	function load_data(data)
-	{
-		if(data == 0)
-		{
-			$("#more-post h2").html("Plus de posts disponible");
-		}
-		else
+function getBox(id)
+{
+	$.ajax({
+		url : "./ajax/getContent.php",
+		type : "POST",
+		dataType : "html",
+		data: {"action":id},
+		success : function(data)
 		{
 			$("#container").append(data);
+			initSort(id);
 		}
+	})
+}
+
+function initSort(id) {
+	switch (id) {
+		case "disc":
+			initDiscSort();
+		break;
+		case "categ":
+			initCategSort();
+		break;
+		case "salle":
+			initSalleSort();
+		break;
 	}
 }
 
-//récup et affiche le html des box : ajax getDiscBox.php
-function getDiscBox()
-{
-	var promise = $.ajax({
-		url : "./ajax/getDiscBox.php",
-		dataType : "html",
-		success : function(status)
-		{
-			return status;
-		}
-	});
-
-	promise.done(data => load_data(data));
-
-	function load_data(data)
-	{
-		console.log(data);
-		$("#container").append(data);
-		$("#container").attr("style","flex-direction:column");
-	}
-}
-
-//récup et affiche le html des box : ajax getCategBox.php
-function getCategBox()
-{
-	var promise = $.ajax({
-		url : "./ajax/getCategBox.php",
-		dataType : "html",
-		success : function(status)
-		{
-			return status;
-		}
-	});
-
-	promise.done(data => load_data(data));
-
-	function load_data(data)
-	{
-		$("#container").append(data);
-		$("#container").attr("style","flex-direction:initial")
-	}
-}
-
-function getProfBox()
-{
-
-	var promise = $.ajax({
-		url : "./ajax/getProfBox.php",
-		dataType : "html",
-		success : function(status)
-		{
-			return status;
+function initDiscSort() {
+	$(".categ-box").sortable({
+		scroll: false,
+		tolerance: "pointer",
+		containment: "parent",
+		placeholder: 'ui-state-highlight',
+		forcePlaceholderSize: true,
+		axis: "x",
+		update: function(event, ui) {
+			var disc_order = [];
+			$(this).children(".item-box").each(function(){
+				disc_order.push($(this).data("id"));
+			});
+			disc_order = JSON.stringify(disc_order);
+			categ_id = $(this).attr("id");
+			$.ajax({
+				url : "./ajax/orderManager.php",
+				type: "POST",
+				dataType : "text",
+				data: {	"action": "changeOrder",
+						"file": "disc",
+						"arg": categ_id,
+						"order": disc_order},
+				success : function(data) {
+					return data;
+				},
+				error : function (data) {
+					console.log("error on ajax call");
+				}
+			});
 		}
 	});
-
-	promise.done(data => load_data(data));
-
-	function load_data(data)
-	{
-		$("#container").append(data);
-		$("#container").attr("style","flex-direction:initial");
-	}
+	$("#container").attr("style","flex-direction:column");
 }
 
-//vide le container
+function initCategSort() {
+	$(".categBox-wrapper").sortable({
+		scroll: false,
+		tolerance: "pointer",
+		containment: "parent",
+		placeholder: 'ui-state-highlight',
+		forcePlaceholderSize: true,
+		axis: "x",
+		update: function(event, ui) {
+			var categ_order = [];
+			$(this).children(".item-box").each(function(){
+				categ_order.push($(this).data("id"));
+			});
+			categ_order = JSON.stringify(categ_order);
+			$.ajax({
+				url : "./ajax/orderManager.php",
+				type: "POST",
+				dataType : "text",
+				data: {	"action": "changeOrder",
+						"file": "categ",
+						"order": categ_order},
+				success : function(data) {
+					return data;
+				},
+				error : function (data) {
+					console.log("error on ajax call");
+				}
+			});
+		}
+	});
+}
+
+function initSalleSort() {
+	$(".salleBox-wrapper").sortable({
+		scroll: false,
+		tolerance: "pointer",
+		containment: "parent",
+		placeholder: 'ui-state-highlight',
+		forcePlaceholderSize: true,
+		axis: "x",
+		update: function(event, ui) {
+			var salle_order = [];
+			$(this).children(".item-box").each(function(){
+				salle_order.push($(this).data("id"));
+			});
+			salle_order = JSON.stringify(salle_order);
+			$.ajax({
+				url : "./ajax/orderManager.php",
+				type: "POST",
+				dataType : "text",
+				data: {	"action": "changeOrder",
+						"file": "salle",
+						"order": salle_order},
+				success : function(data) {
+					return data;
+				},
+				error : function (data) {
+					console.log("error on ajax call");
+				}
+			});
+		}
+	});
+}
+
 function emptyContainer()
 {
 	$("#container").empty();
 }
 
-//affiche le formulaire d'ajout correspondant au type d'objet en param
-function displayAddForm(type)
-{
-	type = type.split("-");
-	popup = "#"+type[0]+"-form-box";
-	form = "#"+type[0]+"-form";
-	$(popup).css("top", getScrollPos());
-	$(popup).removeClass("undisplayed");
-	$("#cache-container").removeClass("undisplayed");
-	$(form).children("input[type=submit]").val("ajouter");
-	switch(type[0])
-	{
-		//DISCIPLINE
-		case "disc" :
-			$(form).attr("action", "../src/disc/addDisc.php");
-			addLinkInput();
-			$(form).children(".file-input-container").children(".file-input-box").children(".image-preview").addClass("undisplayed");
-			$(".categ-input-box").children("label").first().addClass("label-radio-categ-activ");
-			$(".categ-input-box").children("input").first().prop("checked", true);
-		break;
-		//HORAIRE
-		case "horaire" :
-			$(form).attr("action", "../src/horaire/addHoraire.php");
-			$(form).children(".file-input-container").children(".file-input-box").children(".image-preview").children("img").each(function(index){
-				$(this).attr("src", "../../public/pages/images/horaire/horaire"+index+".jpg");
-			});
-			$(form).children(".file-input-container").children(".file-input-box").children(".image-preview").removeClass("undisplayed");
-		break;
-		//CATEG
-		case "categ" :
-			$(form).attr("action", "../src/categ/addCateg.php");
-			$(form).children(".file-input-box").children(".image-preview").addClass("undisplayed");
-		break;
-		//PROF
-		case "prof" :
-			$(form).attr("action", "../src/prof/addProf.php");
-			$(form).children(".file-input-box").children(".image-preview").addClass("undisplayed");
-			$(form).children(".file-input-box").children(".image-preview").children("img").attr("src", " ");
-			$(form).children(".file-input-box").children(".label-file").html("Choisir une image");
-		break;
-		case "post" :
-			$(form).attr("action", "../src/post/addPost.php");
-			$(form).children(".file-input-container").children(".file-input-box").children(".image-preview").addClass("undisplayed");
-			$(form).children(".file-input-container").children(".file-input-box").children(".image-preview").children("img").attr("src", " ");
-			$(form).children(".file-input-container").children(".file-input-box").children(".label-file").html("Choisir une image");
-		break;
-	}
-}
-
-//AFFICHE LE FORMULAIRE EN FONCTION DU TYPE ET DE L'OBJET
-//<!> A CHANGER : NAME EN ID <!>
-function displayModifForm(type, id)
-{
-	type = type.split("-");
-	popup = "#"+type[0]+"-form-box";
-	form = "#"+type[0]+"-form";
-	$(popup).css("top", getScrollPos());
-	$("#cache-container").removeClass("undisplayed");
-	switch(type[0])
-	{
-		//HOME
-		case "home":
-			var promise = $.ajax({
-					url : "../src/home/getHome.php",
-					dataType : "text",
-					success : function(home)
-					{
-						return home
-					}
-				});
-
-			promise.done(home => load_home(home));
-
-			function load_home(home)
-			{
-				console.log(home);
-				home = JSON.parse(home)
-				$(popup).removeClass("undisplayed");
-				$(form).attr("action", "../src/home/modifHome.php");
-				$(form).children("input[name=title]").val(home["title"]);
-				aQuill["home"].setContents(home["descDelta"]);
-				$(form).children(".submit-btn").val("modifier");
-			}
-		break;
-		//DISCIPLINE
-		case "disc":
-			var promise = $.ajax({
-					url : "../src/disc/getDisc.php",
-					dataType : "text",
-					type : "POST",
-					data : { 'id' : id },
-					success : function(disc)
-					{
-						return disc
-					}
-				});
-
-			promise.done(disc => load_disc(disc));
-
-			function load_disc(disc)
-			{
-				console.log(disc);
-				disc = JSON.parse(disc);
-				$(popup).removeClass("undisplayed");
-				$(form).attr("action", "../src/disc/modifDisc.php");
-				$(form).children("input[name=id]").val(disc["id"]);
-				$(form).children("input[name=title]").val(disc["name"]);
-				aQuill["disc"].setContents(disc["descDelta"]);
-				aQuill["horaire"].setContents(disc["horaireDelta"]);
-				linkNo = (jQuery.inArray("link", disc) > -1) ? disc["link"].length : 0;
-				for(i=0;i<linkNo;i++) {
-					addLinkInput();
-					$("#link-"+i).val(disc["link"][i]);
-				}
-				addLinkInput();
-				$(form).children(".info-input-container").children(".categ-input-box").children("input[value="+disc["categ"]+"]").prop("checked", true);
-				$(form).children(".info-input-container").children(".categ-input-box").children("input[value="+disc["categ"]+"]").trigger("change");
-				for(i=0;i<disc["profs"].length;i++)
-				{
-					$("#"+disc["profs"][i]+"-prof").prop("checked", true);
-					$("#"+disc["profs"][i]+"-prof").prev("label").addClass("prof-label-activ");
-				}
-				$(form).children(".file-input-container").children(".file-input-box").children(".image-preview").each(function(index){
-					if(disc["image"][index] != "")
-					{
-						$(this).children("img").attr("src", "../../public/pages/images/discipline/"+disc["image"][index]);
-						$(this).siblings(".label-file").html(disc["image"][index]);
-						$(this).removeClass("undisplayed");
-					}
-					else
-					{
-						$(this).addClass("undisplayed");
-					}
-				});
-				$(form).children("input[type=submit]").val("modifier");
-			}
-		break;
-		//CATEG
-		case "categ":
-			var promise = $.ajax({
-					url : "../src/categ/getCateg.php",
-					dataType : "text",
-					type : "POST",
-					data : { 'id' : id },
-					success : function(categ)
-					{
-						return categ
-					}
-				});
-
-			promise.done(categ => load_categ(categ));
-
-			function load_categ(categ)
-			{
-				categ = JSON.parse(categ);
-				$(popup).removeClass("undisplayed");
-				$(form).attr("action", "../src/categ/modifCateg.php");
-				$(form).children("input[name=id]").val(categ["id"]);
-				$(form).children("input[name=title]").val(categ["name"]);
-				aQuill["categ"].setContents(categ["descDelta"]);
-				$(form).children("input[name=color]").val(categ["color"]);
-				$(form).children("input[name=color]").css("background-color", categ["color"]);
-				$(form).children("input[type=submit]").val("modifier");
-				img = $(form).children(".file-input-box").children(".image-preview");
-				if(categ["image"] != "")
-				{
-					img.children("img").attr("src", "../../public/pages/images/categorie/"+categ["image"]);
-					img.siblings(".label-file").html(categ["image"]);
-					img.removeClass("undisplayed");
-				}
-				else
-				{
-					img.addClass("undisplayed");
-				}
-			}
-		break;
-		//PROF
-		case "prof":
-			var promise = $.ajax({
-					url : "../src/prof/getProf.php",
-					dataType : "text",
-					type : "POST",
-					data : { 'id' : id },
-					success : function(prof)
-					{
-						return prof
-					}
-				});
-
-			promise.done(prof => load_prof(prof));
-
-			function load_prof(prof)
-			{
-				prof = JSON.parse(prof);
-				$(popup).removeClass("undisplayed");
-				$(form).attr("action", "../src/prof/modifProf.php");
-				$(form).children("input[name=id]").val(prof["id"]);
-				$(form).children("input[name=name]").val(prof["name"]);
-				$(form).children("input[name=surname]").val(prof["surname"]);
-				aQuill["prof"].setContents(prof["descDelta"]);
-				$(form).children(".file-input-box").children(".image-preview").each(function(index){
-					if(prof["image"][index] != "")
-					{
-						$(this).children("img").attr("src", "../../public/pages/images/profs/"+prof["image"][index]);
-						$(this).siblings(".label-file").html(prof["image"][index]);
-						$(this).removeClass("undisplayed");
-					}
-					else
-					{
-						$(this).addClass("undisplayed");
-					}
-				});
-				$(form).children("input[type=submit]").val("modifier");
-			}
-		break;
-		//POST
-		case "post":
-			var promise = $.ajax({
-					url : "../src/post/getPost.php",
-					dataType : "text",
-					type : "POST",
-					data : { 'id' : id },
-					success : function(post)
-					{
-						return post
-					}
-				});
-
-			promise.done(post => load_post(post));
-
-			function load_post(post)
-			{
-				post = JSON.parse(post);
-				$(popup).removeClass("undisplayed");
-				$(form).attr("action", "../src/post/modifPost.php");
-				$(form).children("input[name=id]").val(post["id"]);
-				$(form).children("input[name=title]").val(post["title"]);
-				$(form).children("input[value="+post['type']+"]").attr("checked", "checked");
-				aQuill["post"].setContents(post["descDelta"]);
-
-				for(i=0;i<post["image"].length;i++)
-				{
-					console.log(i);
-					addFileInput(i-1);
-				}
-
-				$(form).children(".file-input-container").children(".file-input-box").children(".image-preview").each(function(index){
-					if(typeof post["image"][index] !== 'undefined')
-					{
-						$(this).children("img").attr("src", "../../public/pages/images/posts/"+post["image"][index]);
-						$(this).siblings(".label-file").html(post["image"][index]);
-						$(this).removeClass("undisplayed");
-					}
-					else
-					{
-						$(this).addClass("undisplayed");
-					}
-				});
-				$(form).children("input[type=submit]").val("modifier");
-			}
-		break;
-	}
-}
-
 function resetFileInput(fileInputBox)
 {
-	console.log(fileInputBox);
 	fileInputBox.children(".label-file").html("Choisir une image");
 	fileInputBox.children(".input-file").val("");
 	fileInputBox.children(".image-preview").children("img").attr("src", "");
 	fileInputBox.children(".image-preview").addClass("undisplayed");
-}
-
-//cache le formulaire affiché et vide ses inputs
-function undisplayForm()
-{
-	type = $(".form-popup").not(".undisplayed").attr("id");
-	$("#cache-container").addClass("undisplayed");
-	if(typeof  type !== 'undefined')
-	{
-		type = type.split("-");
-		popup = "#"+type[0]+"-form-box";
-		form = "#"+type[0]+"-form";
-		$(popup).addClass("undisplayed");
-		switch(type[0])
-		{
-			//DISCIPLINE
-			case "disc":
-				$(form).children("input[type=text]").val("");
-				aQuill["disc"].setContents(" ");
-				aQuill["horaire"].setContents(" ");
-				$("#link-input-container").empty();
-				resetFileInput($(form).children(".file-input-container").children(".file-input-box"));
-				$(form).children(".info-input-container").children(".categ-input-box").children("input[type=radio]").prop("checked", false);
-				$(form).children(".info-input-container").children(".categ-input-box").children(".label-radio-categ").removeClass("label-radio-categ-activ");
-				$(".prof-label").removeClass("prof-label-activ");
-				$(".prof-chkbox").prop("checked", false);
-				$(form).children("input[type=submit]").val("");
-			break;
-			//HORAIRE
-			case "horaire":
-				$(form).children(".file-input-container").children(".file-input-box").children(".label-file").html("Choisir une image");
-				$(form).children(".file-input-container").children(".file-input-box").children(".input-file").val("");
-				$(form).children(".file-input-container").children(".file-input-box").children(".image-preview").children("img").attr("src", "");
-				$(form).children(".file-input-container").children(".file-input-box").children(".image-preview").addClass("undisplayed");
-			break;
-			//CATEG
-			case "categ":
-				$(form).children("input[type=text]").val("");
-				aQuill["categ"].setContents(" ");
-				resetFileInput($(form).children(".file-input-box"));
-				$(form).children("input[type=submit]").val("");
-				$(form).children("input[name=color]").val("");
-				$(form).children("input[name=color]").css("background-color", "white");
-			break;
-			//PROF
-			case "prof":
-				$(form).children("input[type=text]").val("");
-				aQuill["prof"].setContents(" ");
-				$(form).children("input[type=submit]").val("");
-				$(form).children("input[name=color]").val("");
-				$(form).children("input[name=color]").css("background-color", "white");
-				$(form).children(".file-input-container").children(".file-input-box").children(".image-preview").children("img").attr("src", " ");
-				$(form).children(".file-input-container").children(".file-input-box").children(".image-preview").addClass("undisplayed");
-			break;
-			//POST
-			case "post":
-				$(form).children("input[type=text]").val("");
-				$(form).children(".link-input-container").children("input[type=text]").val("");
-				aQuill["post"].setContents(" ");
-				$(form).children("input[type=submit]").val("");
-				$(form).children("input[name=color]").val("");
-				$(form).children("input[name=color]").css("background-color", "white");
-				$(form).children(".file-input-container").children(".file-input-box").children(".label-file").html("Choisir une image");
-				$(form).children(".file-input-container").children(".file-input-box").children(".input-file").val("");
-				$(form).children(".file-input-container").children(".file-input-box").children(".image-preview").children("img").attr("src", " ");
-				$(form).children(".file-input-container").children(".file-input-box").children(".image-preview").addClass("undisplayed");
-				$(form).children(".file-input-container").children(".file-input-box").each(function(){
-					no = $(this).data("no");
-					removeFileInput(no);
-				});
-			break;
-		}
-	}
-
 }
 
 function getScrollPos()
@@ -459,40 +179,6 @@ function getScrollPos()
 	return $(window).scrollTop() + 70;
 }
 
-function home_click()
-{
-	emptyContainer();
-	undisplayForm();
-	displayModifForm("home");
-}
-
-function disc_click()
-{
-	emptyContainer();
-	undisplayForm();
-	getDiscBox();
-}
-
-function horaire_click()
-{
-	emptyContainer();
-	undisplayForm();
-	displayAddForm("horaire");
-}
-
-function categ_click()
-{
-	emptyContainer();
-	undisplayForm();
-	getCategBox();
-}
-
-function prof_click()
-{
-	emptyContainer()
-	undisplayForm();
-	getProfBox();
-}
 //----------------------------------------------------------------------------------------------
 //----------------------- BLOG FUNCTION --------------------------------------------------------
 //----------------------------------------------------------------------------------------------
@@ -500,7 +186,7 @@ function prof_click()
 function post_click()
 {
 	emptyContainer();
-	undisplayForm();
+	emptyForm();
 	resetMoreButton();
 	$("#container").append("<div id='post' class='item-box add-btn disc-add-btn'><h1 class='add-title'>ADD</h1></div>");
 	displayPost(0, "");
@@ -516,7 +202,6 @@ function resetMoreButton()
 //----------------------- CONTENT FUNCTION -----------------------------------------------------
 //----------------------------------------------------------------------------------------------
 
-//ITEM MANAGEMENT BUTTONS
 $(document).on("click",".add-btn", function(){
 	type = $(this).attr("id");
 	displayAddForm(type);
@@ -529,52 +214,105 @@ $(document).on("click",".modif-btn", function(){
 });
 
 $(document).on("click",".close-btn", function(){
-	type = $(this).parent().attr("id").split("-")[0];;
-	undisplayForm(type);
+	type = $(this).parent().attr("id").split("-")[0];
+	setNavTab();
+	emptyForm(type);
 });
 
-//initialise le color picker
 $(".jscolor").on("change", function(){
 	color = "#"+$(this).val();
 	$(this).siblings(".ql-color").val(color);
 	$(this).siblings(".ql-color").trigger("click");
 });
 
-//rempli les hidden input avec les donné quill avant l'envoi vers le php
-$(".submit-btn").click(function(){
-	type = $(this).parent().attr("id");
-	type = type.split("-")[0];
-	desc = document.querySelector("#editor-"+type+">.ql-editor").innerHTML;
-	desc = parseQuillDesc(desc);
-	descDelta = aQuill[type].getContents();
-	descDelta = parseQuillDelta(descDelta);
-	if (type == "disc") {
-		horaire = document.querySelector("#editor-horaire>.ql-editor").innerHTML;
-		horaire = parseQuillDesc(horaire);
-		horaireDelta = aQuill["horaire"].getContents();
-		horaireDelta = parseQuillDelta(horaireDelta);
-		$(this).siblings("input[name=horaire]").val(horaire);
-		$(this).siblings("input[name=horaireDelta]").val(horaireDelta);
+$(document).on('click', "#upload-btn", function() {
+	form = $(this).parent("form")[0];
+	data = fetchFormData(form);
+	$(form).append("<progress id='progress' value='0'></progress>");
+	var request = new XMLHttpRequest();
+	folder = $(form).attr("id").split("-")[0];
+	type = folder.charAt(0).toUpperCase() + folder.slice(1);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4) {
+			console.log(request.response);
+			if (request.response === 0) {
+				showReqParam(form);
+			} else {
+				$("#"+type.toLowerCase()).trigger("click");
+			}
+		}
 	}
-	$(this).siblings("input[name=desc]").val(desc);
-	$(this).siblings("input[name=descDelta]").val(descDelta);
-	//^{"insert":"[\\n]+"}]}$
+	if ($(this).attr("class") == "update")
+		request.open("POST", "../src/"+folder+"/modif"+type+".php");
+	else if ($(this).attr("class") == "insert")
+		request.open("POST", "../src/"+folder+"/add"+type+".php");
+	var progressBar = document.getElementById("progress");
+	request.upload.onprogress = function (e) {
+		if (e.lengthComputable) {
+			progressBar.max = e.total;
+			progressBar.value = e.loaded;
+		}
+	}
+	request.upload.onloadstart = function (e) {
+		progressBar.value = 0;
+	}
+	request.upload.onloadend = function (e) {
+		progressBar.value = e.loaded;
+	}
+	request.send(data);
 });
 
-function parseQuillDelta(arr) {
-	// var i = arr["ops"].length;
+function fetchFormData(form) {
+	data = new FormData(form);
+	for(i = 0; i < form.length; i++) {
+		if (form[i].name) {
+			switch (form[i].type) {
+				case "hidden":
+				if (form[i].className == 'quillInput') {
+					desc = parseQuillDesc(form[i].name);
+					descDelta = parseQuillDelta(form[i].name);
+					data.append(form[i].name, desc);
+					data.append(form[i].name+"Delta", descDelta);
+					i++;
+				}
+				break;
+				case "checkbox":
+				name = form[i].name;
+				while (i < form.length && form[i].name == name) {
+					if (form[i].checked) {
+						data.append(form[i].name, form[i].value);
+					}
+					i++;
+				}
+				case "radio":
+				name = form[i].name;
+				while (i < form.length && form[i].name == name) {
+					if (form[i].checked) {
+						data.append(form[i].name, form[i].value);
+					}
+					i++;
+				}
+				break;
+				case "file":
+				data.append(form[i].name, form[i].files, form[i].files.name);
+				break;
+				default:
+				data.append(form[i].name, form[i].value);
+				break;
+			}
+		}
+	}
+	return (data);
+}
 
-	// console.log(i);
-	// while (i >= 0) {
-	// 	console.log(arr["ops"][i]);
-	// 	i--;
-	// }
+function parseQuillDelta(type) {
+	arr = aQuill[type].getContents();
 	return (JSON.stringify(arr));
 }
 
-function parseQuillDesc(str){
+function parseQuillDesc(type){
+	str = document.querySelector("#editor-"+type+">.ql-editor").innerHTML;
 	var i = str.length;
-
 	while (i >= 0) {
 		var j = i - 11;
 		var j_ = j;
@@ -594,7 +332,32 @@ function parseQuillDesc(str){
 	return (str);
 }
 
-//style les inputs file
+function showReqParam(form) {
+	data = new FormData(form);
+	for(i = 0; i < form.length; i++) {
+		if (form[i].required) {
+			switch (form[i].type) {
+				case "hidden", "text":
+					if (form[i].value == "") {
+						input = $("input[name='"+form[i].name+"']");
+						showText(input);
+					}
+				break;
+			}
+		}
+	}
+
+	function showText(input) {
+		$(input).on("change", function(){
+			if ($(this).val() != "")
+				$(this).css("border", "none");
+			else
+				$(this).css("border", "solid 1px red");
+		});
+		$(input).trigger("change");
+	}
+} 
+
 $(document).on("change", ".input-file", function(){
 	fileName = $(this).val();
 	$(this).siblings(".image-preview").children("img").attr("src", "");
@@ -603,35 +366,6 @@ $(document).on("change", ".input-file", function(){
 	$(this).siblings("label").html(fileName[2]);
 });
 
-
-//sélectionne un menu au chargement de la page si demandé
-switch("<?php echo $_SESSION['tab-click'] ?>")
-{
-	case "home":
-		activateTab("home");
-		home_click();
-	break;
-	case "disc":
-		activateTab("disc");
-		disc_click();
-	break;
-	case "categ":
-		activateTab("categ");
-		categ_click();
-	break;
-	case "horaire":
-		activateTab("horaire");
-		horaire_click();
-	break;
-	case "prof":
-		activateTab("prof");
-		prof_click();
-	break;
-	case "post":
-		activateTab("post");
-		displayPost(0, "");
-	break;
-}
 
 $("#more-image").click(function(){
 	no = $(".file-input-container").children(".file-input-box").last().data("no");
@@ -648,7 +382,11 @@ $(document).on("click", ".remove-input", function(){
 function addFileInput(no)
 {
 	no = no+1;
-	inputBox = "<div data-no='"+no+"' class='file-input-box'><div class='remove-input'><h3 class='image-label'>X</h3></div><label for='post-image-"+no+"' class='label-file'>Choisir une image</label><input id='post-image-"+no+"' class='input-file' type='file' name='image[]'/><div class='image-preview undisplayed'><img width='200px' height='200px' src='' ></div></div>";
+	inputBox = "<div data-no='"+no+"' class='file-input-box'><div class='remove-input'><h3 class='image-label'>X</h3></div>\
+	<label for='post-image-"+no+"' class='label-file'>Choisir une image</label>\
+	<input id='post-image-"+no+"' class='input-file' type='file' name='image[]'/>\
+	<div class='image-preview undisplayed'><img width='200px' height='200px' src='' ></div></div>";
+
 	$(".hidden-input-box").append("<input class='hidden-input' type='hidden' value='"+no+"' name='hidden-image[]' >");
 	$("#more-image").before(inputBox);
 }
@@ -671,8 +409,13 @@ $(document).on("change", ".link-input", function(){
 	}
 	else
 	{
-		if($("#link-input-container").children(".link-input").last().val() != "")
+		let link = $("#link-input-container").children(".link-input").last().val();
+		if(link != "") {
+			let id = $("#link-input-container").children(".link-input").last().attr("id");
+			id = id.split("-")[1];
 			addLinkInput();
+			getYTTitle(link, id);
+		}
 	}
 });
 
@@ -692,7 +435,49 @@ function addLinkInput()
 
 function removeLinkInput(no)
 {
-	console.log(no);
+	$("#link-"+no).next("h3").remove();
 	$("#link-"+no).remove();
+}
+
+function getYTTitle(link) {
+	if (link != "") {
+		$.ajax({
+			url : "../src/getYTTitle.php",
+			dataType : "text",
+			type : "POST",
+			data : { 'link' : link },
+			success : function(str)
+			{
+				let matches = str.match(/(?<=\<title\>)(.+)(?=\<\/title\>)/i)
+				let title = matches.title;
+				title = matches[0].substring(0, matches[0].length - 10);
+				return (title);
+			}
+		});
+	}
+}
+
+function quillSetup(type) {
+		aQuill[type] = new Quill('#editor-'+type, {
+		modules: {
+			toolbar: '#toolbar-'+type
+		},
+		theme: 'snow'
+	 });
+}
+
+function setNavTab() {
+	$.ajax({
+		url: "./ajax/getSession.php",
+		dataType : "text",
+		type : "POST",
+		data : {'index': "nav-click"},
+		success : function(index) {
+			if (!index)
+				index = "0";
+			activateTab(index);
+			$("#"+index).trigger("click");
+		}
+	})
 }
 

@@ -4,7 +4,7 @@ session_start();
 include("../secure.php");
 
 require_once("../../../public/src/defines.php");
-require_once(PATH_SRC.'function.php');
+require_once(PATH_P_SRC.'function.php');
 require_once(PATH_CLASS."DataBase.Class.php");
 require_once(PATH_CLASS."Prof.Class.php");
 
@@ -19,34 +19,16 @@ $descDelta = $_POST["descDelta"];
 
 $descDelta = json_decode($descDelta);
 
-$numberImg = count($_FILES["image"]["name"]);
+$extension_upload = strtolower(  substr(  strrchr($_FILES['image']['name'], '.')  ,1)  );
 
-$imgCount = array();
+$imageName = generateRandomString();
 
-for($i=0;$i<$numberImg;$i++)
-{
-	if($_FILES['image']["size"][$i] !== 0)
-	{
-		$imgCount[] = $i;
-	}
-}
+$imageName = $imageName.".".$extension_upload;
 
-$imageName = array();
+$dest = PATH_IMAGES."prof/".$imageName;
 
-$imageName[] = "";
+$res = move_uploaded_file($_FILES['image']['tmp_name'], $dest);
 
-foreach ($imgCount as $key => $img) {
-	
-	$extension_upload = strtolower(  substr(  strrchr($_FILES['image']['name'][$img], '.')  ,1)  );
-
-	$imageName[$img] = generateRandomString();
-
-	$imageName[$img] = $imageName[$img].".".$extension_upload;
-
-	$dest = "../../../public/pages/images/profs/".$imageName[$img];
-
-	$res = move_uploaded_file($_FILES['image']['tmp_name'][$img], $dest);
-}
 
 $data = array(
 	"name"=>$name,
@@ -57,8 +39,6 @@ $data = array(
 	);
 
 $prof = new cProf($data);
-$prof->insert();
-
-$_SESSION["tab-click"] = "prof";
+echo $prof->insert();
 
 exit();

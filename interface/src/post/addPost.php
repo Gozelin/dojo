@@ -4,7 +4,7 @@ session_start();
 include("../secure.php");
 
 require_once("../../../public/src/defines.php");
-require_once(PATH_SRC.'function.php');
+require_once(PATH_P_SRC.'function.php');
 require_once(PATH_CLASS."DataBase.Class.php");
 require_once(PATH_CLASS."Discipline.Class.php");
 require_once(PATH_CLASS."Prof.Class.php");
@@ -36,7 +36,7 @@ for($i=0;$i<$numberImg;$i++)
 $name = array();
 
 foreach ($imgCount as $key => $img) {
-	
+
 	$extension_upload = strtolower(  substr(  strrchr($_FILES['image']['name'][$img], '.')  ,1)  );
 
 	$name[$img] = generateRandomString();

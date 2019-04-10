@@ -4,50 +4,132 @@ body {
 	flex-direction: column;
 }
 
+textarea {
+	resize: none;
+}
+
+iframe {
+	margin-top: auto;
+}
+
 /*
 CONTENT
 */
 #content {
+	font-family: 'MyriadPro_Semibold';
 	height: 100%;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap-reverse;
-	margin-bottom: 3%;
-	margin-top: 3%;
-	background-color: lightgray;
+	margin-bottom: 1%;
+	margin-top: 1%;
+	background-color: #cfd8dd;
 }
 
-#contact-info {
+.contact-info {
 	text-align: center;
-	margin: auto;
 }
 
-#contact-info div {
-	display: flex;
-	flex-direction: column;
-}
-
-#contact-info div img {
-	margin: 15px auto;
+.contact-info div img {
+	margin: auto 15px;
 	user-select: none;
 }
 
-#map {
+.contact-info div *:not(img) {
+	margin: auto;
+	color: white;
+}
+
+@media screen and (max-width: 1000px) {
+	body {
+		height: initial;
+	}
+	.info-wrapper {
+		flex-direction: column !important;
+		flex-wrap: nowrap;
+	}
+	.info-wrapper img {
+		margin: 15px auto !important;
+	}
+	#content {
+		flex-direction: column;
+		flex-wrap: nowrap;
+		font-size: 100%;
+	}
+	#left-frame, #right-frame {
+		width: 100% !important;
+	}
+	iframe ,.left-wrapper {
+		height: 100% !important;
+	}
+	#form-wrapper {
+		height: inherit !important;
+		width: 100% !important;
+		margin-bottom: 30px !important;
+	}
+}
+
+#left-frame {
+	display: flex;
+	flex-direction: column;
 	width: 50%;
+	background-color: #043465;
 }
 
-@media screen and (max-width: 1100px) {
-	#map {
-		width: 100%;
-		height: 50%;
-	}
-
-	#contact-info {
-		margin: 2% auto 5%;
-	}
+.left-wrapper {
+	display: flex;
+	flex-direction: column;
+	height: 50%;
 }
 
-#footer
-{
-	
+.info-wrapper {
+	display: flex;
+	flex-direction: row;
+}
+
+#right-frame {
+	width: 50%;
+	display: flex;
+}
+
+#form-wrapper {
+	margin: auto;
+	width:70%;
+	height: 75%;
+    padding: 30px;
+    background-color: white;
+}
+
+#form-wrapper form {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 0;
+}
+
+#form-wrapper h1 {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.input-wrapper {
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 20px;
+}
+
+.submit-btn {
+	margin: 15px 0 0 auto;
+}
+
+.submit-btn input {
+	cursor: pointer;
+	border: none;
+    padding: 5px;
+    background-color: #053171;
+    font-size: 20px;
+    color: white;
+}
+
+.submit-btn input:hover {
+	background-color: #2e6fce;
 }

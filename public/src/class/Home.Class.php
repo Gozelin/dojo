@@ -5,10 +5,10 @@ class cHome{
 	/*
 	ATTRIBUTS
 	*/
-	
+
 	//string
 	protected $_title = NULL;
-	
+
 	//string
 	protected $_desc = NULL;
 
@@ -45,7 +45,7 @@ class cHome{
 			$details = intval($details);
 			$this->import($details);
 		}
-	
+
 		//ou créé l'objet à partir des données en array
 		if(is_array($details))
 		{
@@ -113,5 +113,23 @@ class cHome{
 									VALUES ($ho_title, $ho_desc, $ho_descDelta, $ho_headerColor)";
 		}
 		$dataBase->query($query);
+	}
+
+	/*
+	HTML GENERATION
+	*/
+
+	public function getForm() {
+		$str = "";
+
+		$str .= "<div id='home-form-box' class='form-popup undisplayed'>
+					<form id='home-form' method='POST' enctype='multipart/form-data'>
+						<input type='hidden' name='home' class='quillInput'>
+						<input type='hidden' name='homeDelta' class='quillInput'>";
+		$str .= getQuill('home');
+		$str .= 		"<div id='upload-btn' class='update'>UPLOAD</div>
+					</form>
+				</div>";
+		return ($str);
 	}
 }

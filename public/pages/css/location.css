@@ -1,0 +1,67 @@
+#location-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.salle-wrapper {
+	overflow: hidden;
+	width: 33.33%;
+	height: 40%;
+	transition-duration: 0.3s;
+}
+
+.salle-title {
+	text-align: center;
+	height: 5%;
+}
+
+.loc-content {
+	position: relative;
+	overflow: hidden;
+	height: 100%;
+	cursor: pointer;
+}
+
+.salle-desc {
+	position: absolute;
+	display: none;
+	width: 96%;
+	height: 100%;
+	padding: 2%;
+	z-index: -1;
+	background-color: rgba(182, 207, 232, 0.5);
+}
+
+.salle-desc h3 {
+	margin: auto;
+}
+
+.salle-desc h3:hover {
+	color: rgb(182, 207, 232);
+}
+
+.loc-frontImg {
+	position: absolute;
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
+	transition-duration: 0.4s;
+	opacity: 1;
+}
+
+.loc-content:hover .loc-frontImg{
+	filter: blur(2px);
+	transform: scale(1.1);
+}
+
+.loc-content:hover .salle-desc {
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+.g-displayWrapper {
+	width: 50%;
+	float: right;
+}

@@ -41,19 +41,13 @@ class cCategorie {
 	public function getImage() { return (!$this->_image) ? "default.jpg" : $this->_image; }
 	public function setImage( $value) { $this->_image = $value; }
 
-
 	public function __construct($details = NULL)
 	{
-		//importe l'objet depuis la BDD grâce à l'ID
 		if(!is_array($details))
 		{
 			$details = intval($details);
 			$this->import($details);
-		}
-
-		//ou créé l'objet à partir des données en array
-		if(is_array($details))
-		{
+		} else {
 			if($details != NULL)
 			{
 				foreach($details as $key => $detail)
@@ -190,19 +184,65 @@ class cCategorie {
 		}
 	}
 
-	private function deleteImage($imgNo = NULL)
+	private function deleteImage()
 	{
-		if($imgNo !== NULL)
-		{
-			$imgName = $this->_image[$imgNo];
-			unlink(PATH_DOJO."pages/images/categorie/$imgName");
-		}
+		$imgName = $this->_image[$imgNo];
+		unlink(PATH_DOJO."pages/images/categorie/$imgName");
+	}
+
+	/*
+		HTML GENERATION
+	*/
+
+	public function getForm($mod = NULL) {
+		$str = "";
+
+		$str .= "<div id='categ-form-box' class='form-popup undisplayed'>
+		<form id='categ-form' method='POST' enctype='multipart/form-data'>
+			<input type='hidden' name='id' value='".$this->_id."'>
+			<input type='hidden' name='desc' class='quillInput'>
+			<input type='hidden' name='descDelta' class='quillInput'>
+			<input type='text' name='name' placeholder='Intitulé' value='".$this->_name."'/>";
+		$str .= getQuill("desc");
+		$str .= $this->getFileForm($mod);
+		if ($mod)
+			$str .= "<div id='upload-btn' class='update'>UPLOAD</div>";
 		else
-		{
-			foreach ($this->_image as $key => $img)
-			{
-				unlink(PATH_DOJO."pages/images/categorie/$img");
-			}
-		}
+			$str .= "<div id='upload-btn' class='insert'>INSERT</div>";
+		$str .= "</form>
+				<div class='close-btn'><img src='../../public/pages/images/icon/cross.svg'></div>";
+		return ($str);
+	}
+
+	public function getBox() {
+		$str = "";
+
+		$str .= "	<li data-id=".$this->_id." id='".$this->_name."' class='categ item-box ui-widget-content'>
+						<h1 class='item-title'>".$this->_name."</h1>
+						<div class='button-box'>
+							<h3 class='button-title modif-btn'>modif</h3>
+							<form method='POST' action='../src/categ/supprCateg.php'>
+								<input type='hidden' name='id' value='".$this->_id."'></input>
+								<input type='submit' value='suppr' class='button-title suppr-btn'></input>
+							</form>
+						</div>
+					</li>";
+		return ($str);
+	}
+
+	private function getFileForm($mod = NULL) {
+		$str = "";
+		$path = "";
+		if ($mod)
+			$path = "/dojo/public/pages/images/categ/".$this->_image;
+		$str .= "<div class='file-input-container'>
+					<div class='file-input-box'>
+						<h3>image home</h3>
+						<label for='categ-image-slider' class='label-file'>Choisir une image</label>
+						<input id='categ-image-slider' class='input-file' type='file' name='image'/>
+						<div class='image-preview'><img height='200px' width='200px' src='".$path."'></div>
+					</div>
+				</div>";
+		return ($str);
 	}
 }

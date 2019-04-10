@@ -1,6 +1,6 @@
 <?php
 require_once('../src/defines.php');
-require_once(PATH_SRC.'function.php');
+require_once(PATH_P_SRC.'function.php');
 require_once('./content/content.php');
 require_once(PATH_CLASS.'DataBase.Class.php');
 require_once(PATH_CLASS.'Discipline.Class.php');

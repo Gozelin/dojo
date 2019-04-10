@@ -1,0 +1,133 @@
+/*
+** BACK
+*/
+
+#assoc-form-box {
+}
+
+.gForm-wrapper {
+    display: flex;
+}
+
+.gForm-wrapper ul {
+    width: 70%;
+    margin: auto;
+    list-style-type: none;
+    padding: 0;
+}
+
+.insertImage {
+    margin: auto;
+}
+
+.img-wrapper {
+    cursor: pointer;
+    height: 100px;
+    width: 100px;
+    margin: 5px;
+    float: left;
+}
+
+.img-wrapper img {
+    height: 100px;
+    width: 100px;
+}
+
+.img-form {
+    height: 100%;
+    width: 20%;
+    margin-left: auto;
+    border-left: solid 1px black;
+}
+
+.img-form img {
+    object-fit: cover;
+}
+
+.img-activ {
+    box-shadow: 0px 4px 26px 3px;
+}
+
+/*
+** FRONT
+*/
+
+.gImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition-duration: 0.2s;
+}
+
+.gImage:hover {
+    filter: brightness(100%);
+}
+
+.gImage:hover + .expand-icon {
+    visibility: visible;
+}
+
+.g-displayWrapper a {
+    position: relative;
+    width: 33%;
+    min-width: 150px;
+    height: 150px;
+    overflow: hidden;
+}
+
+.gImage:hover {
+    transform: scale(1.1);
+}
+
+.g-displayWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    max-height: 65%;
+    min-width: 320px;
+}
+
+.expand-icon {
+    visibility: hidden;
+    z-index: 1;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    margin-left: -30px;
+    transition-duration: 0.1s;
+}
+
+@media screen and (min-width: 2200px) {
+    .g-displayWrapper a {
+        width: 25%;
+    }
+}
+
+@media screen and (max-width: 1700px) {
+    .g-displayWrapper a {
+        width: 50%;
+    }
+}
+
+/* width */
+.g-displayWrapper::-webkit-scrollbar {
+    width: 20px;
+}
+
+/* Track */
+.g-displayWrapper::-webkit-scrollbar-track {
+    background: rgb(123, 140, 187);
+    border-radius: 5px;
+}
+ 
+/* Handle */
+.g-displayWrapper::-webkit-scrollbar-thumb {
+    background: whitesmoke;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Handle on hover */
+.g-displayWrapper::-webkit-scrollbar-thumb:hover {
+    background: rgb(204, 204, 204);
+}

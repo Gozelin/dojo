@@ -4,7 +4,7 @@ session_start();
 include("../secure.php");
 
 require_once("../../../public/src/defines.php");
-require_once(PATH_SRC.'function.php');
+require_once(PATH_P_SRC.'function.php');
 require_once(PATH_CLASS."DataBase.Class.php");
 require_once(PATH_CLASS."Post.Class.php");
 
@@ -39,7 +39,7 @@ else
 	$numberImg = count($_FILES["image"]["name"]);
 
 	$imgCount = array();
-	
+
 	for($i=0;$i<$numberImg;$i++)
 	{
 		if($_FILES['image']["size"][$i] !== 0)
@@ -49,7 +49,7 @@ else
 	}
 
 	var_dump($imgCount);
-	
+
 	$imageName = $post->getImage();
 
 	var_dump($_POST["hidden-image"]);
@@ -57,7 +57,7 @@ else
 
 	echo "avant";
 	var_dump($imageName);
-	
+
 	for($i=0;$i<count($imageName);$i++)
 	{
 		if(!in_array ($i, $_POST["hidden-image"]))
@@ -66,30 +66,30 @@ else
 			unset($imageName[$i]);
 		}
 	}
-	
+
 	echo "après";
 	$imageName = array_values($imageName);
 	var_dump($imageName);
-	
+
 	foreach ($imgCount as $key => $img) {
 
 		echo "img :";
 		var_dump($img);
-		
+
 		$extension_upload = strtolower(  substr(  strrchr($_FILES['image']['name'][$img], '.')  ,1)  );
-	
+
 		$imageName[$img] = generateRandomString();
-	
+
 		$imageName[$img] = $imageName[$img].".".$extension_upload;
-	
+
 		$dest = "../../../public/pages/images/posts/".$imageName[$img];
-	
+
 		$res = move_uploaded_file($_FILES['image']['tmp_name'][$img], $dest);
 	}
-	
+
 	$post->setImage(array_values($imageName));
-	
-	
+
+
 }
 
 $post->update();

@@ -4,7 +4,7 @@ session_start();
 include("../secure.php");
 
 require_once("../../../public/src/defines.php");
-require_once(PATH_SRC."function.php");
+require_once(PATH_P_SRC."function.php");
 require_once(PATH_CLASS."DataBase.Class.php");
 require_once(PATH_CLASS."Categorie.Class.php");
 require_once(PATH_CLASS."Discipline.Class.php");
@@ -22,7 +22,10 @@ $categ = new cCategorie($id);
 
 $categ->delete();
 
-$_SESSION["tab-click"] = "categ";
+$om = new cOrderManager([	"action"=>"supprOrder",
+							"file"=>"categ",
+							"arg"=>["id"=>$id]]);
+$om->execQuery();
 
 exit();
 

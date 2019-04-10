@@ -4,13 +4,16 @@ session_start();
 include("../secure.php");
 
 require_once("../../../public/src/defines.php");
-require_once(PATH_SRC.'function.php');
+require_once(PATH_P_SRC.'function.php');
 require_once(PATH_CLASS."DataBase.Class.php");
 require_once(PATH_CLASS."Prof.Class.php");
 
 $dataBase = new cDataBase(DATABASE_HOST, DATABASE_ADMIN_LOG, DATABASE_ADMIN_PASSWORD, DATABASE_ADMIN_NAME);
 
-header('Location: ../../pages/content.php');
+var_dump($_FILES);
+
+if (isset($_POST["data"]))
+	$_POST = $_POST["data"];
 
 $id = $_POST["id"];
 $name = $_POST["name"];
@@ -39,31 +42,17 @@ for($i=0;$i<$numberImg;$i++)
 	}
 }
 
-$imageName = $prof->getImage();
-
-foreach ($imgCount as $key => $img) {
-	
-	$extension_upload = strtolower(  substr(  strrchr($_FILES['image']['name'][$img], '.')  ,1)  );
-
-	$imageName[$img] = generateRandomString();
-
-	$imageName[$img] = $imageName[$img].".".$extension_upload;
-
-	$dest = "../../../public/pages/images/profs/".$imageName[$img];
-
-	$res = move_uploaded_file($_FILES['image']['tmp_name'][$img], $dest);
+if (isset($_FILES["image"]["name"]) && $_FILES["image"]["name"] != "") {
+	$prof->deleteImage();
+	$extension_upload = strtolower(substr(strrchr($_FILES['image']['name'], '.'), 1));
+	$image = generateRandomString();
+	$image = $image.".".$extension_upload;
+	$dest = PATH_IMAGES."prof/".$image;
+	$res = move_uploaded_file($_FILES['image']['tmp_name'], $dest);
+	$prof->setImage($image);
 }
 
-$prof->setImage($imageName);
-
-var_dump($imageName);
-
-$prof->update();
-
-$_SESSION["tab-click"] = "prof";
-
-exit();
-
+echo $prof->update();
 ?>
 
 

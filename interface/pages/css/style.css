@@ -1,25 +1,41 @@
-@font-face {
- 	font-family: "Comfortaa";
- 	src: url("../../../public/pages/fonts/Comfortaa-Regular.ttf");
+
+#progress {
+	width: 100%;
+}
+
+.loading-gif {
+	height: 30px;
+	width: 30px;
+	z-index: 25;
+	position: fixed;
+	right: 0;
 }
 
 @font-face {
- 	font-family: "Jura";
- 	src: url("../../../public/pages/fonts/Jura-Regular.ttf");
+	font-family: "Comfortaa";
+	src: url("../../../public/pages/fonts/Comfortaa-Regular.ttf");
 }
 
 .ql-font-comfortaa {
-  font-family: "Comfortaa";
+	font-family: "Comfortaa";
 }
-.ql-font-jura {
-  font-family: "Jura";
+
+.ql-anchor {
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+	padding: 2px;
+}
+
+.ql-anchor:hover {
+	background-color: lightgrey;
 }
 
 .editor
 {
 	background-color: white;
 	height: fit-content!important;
-    min-height: 250px;
+	min-height: 250px;
 }
 
 .ql-toolbar
@@ -41,21 +57,51 @@ body
 	background: white;
 }
 
-a:link 
+h3
+{
+	margin: 0;
+}
+
+a:link
 {
 	text-decoration: none;
 	color:black;
 }
 
-a:hover 
+a:hover
 {
-    color:red;
+	color:red;
 }
 
 ul
 {
 	list-style-type: none;
 	padding-left:10px;
+}
+
+.fileInputLabel {
+	cursor: pointer;
+	transition-duration: 0.3s;
+}
+
+.fileInputLabel h2 {
+	width: min-content;
+	margin: 0;
+	float: left;
+}
+
+.fileInputLabel h2:hover {
+	color: white;
+	background-color: #043465;
+}
+
+.fileInput {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
 }
 
 #login-form
@@ -99,14 +145,90 @@ ul
 	display: none !important;
 }
 
+.bc-white {
+	background-color: white;
+}
+
+/*
+** SIDEMENU
+*/
+
+/* MAIL WIDGET */
+
+#inbox {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+
+.mailWrapper {
+	background-color: whitesmoke;
+	margin: 10px 0px;
+	display: flex;
+	flex-direction: column;
+	/* height: 50px; */
+	/* overflow: hidden; */
+}
+
+.mail-preview {
+	display: flex;
+	cursor: pointer;
+}
+
+.mail-content {
+	height: 0;
+	overflow: hidden;
+	transition-duration: 0.2s;
+}
+
+.mail-preview * {
+	padding: 5px 15px;
+}
+
+#mail-btn {
+	text-align: center;
+	cursor: pointer;
+}
+
+#mail-btn:hover {
+	background-color: white;
+}
+
+/* .mail-name {
+	display: none;
+}
+
+.mail-mail {
+	display: none;
+} */
+
+.mail-del-btn {
+	background-color: red;
+	cursor: pointer;
+	width: 15px;
+	height: 15px;
+}
+
+.mail-del-btn:hover {
+	background-color: rgb(180, 46, 46);
+}
+
+/* END */
+
 #side-menu
 {
 	background-color: #9ca1a8;
 	width:150px;
 	float: left;
-    height: 100%;
-    z-index: 15;
-    position: fixed;
+	height: 100%;
+	z-index: 20;
+	position: fixed;
+}
+
+#side-menu ul {
+	width: 150px;
+	height: 100%;
+	float: left;
 }
 
 .menu-tab
@@ -125,6 +247,8 @@ ul
 	margin-bottom: 15px;
 }
 
+/* end */
+
 #container
 {
 	display: flex;
@@ -139,21 +263,27 @@ ul
 	margin: 70px;
 	background-color: #86a4de;
 	padding: 20px;
+	width: 250px;
+	height: 200px;
+	text-align: center;
+	cursor: pointer;
+	
 }
 
 #disc-form
 {
-    display: flex;
-    flex-direction: column;
-    margin-left: 15%;
-    margin-right: 15%;
-    margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+	margin-left: 15%;
+	margin-right: 15%;
+	margin-top: 30px;
 }
 
 #disc-form input, textarea
 {
 	margin-top: 5px;
 	margin-bottom: 5px;
+	width: inherit;
 }
 
 #horaire-form
@@ -171,16 +301,21 @@ ul
 
 #categ-form
 {
-    display: flex;
-    flex-direction: column;
-    margin-left: 15%;
-    margin-right: 15%;
-    margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+	margin-left: 15%;
+	margin-right: 15%;
+	margin-top: 30px;
 }
 
 #categ-form input
 {
 	margin-top: 10px;
+}
+
+.categ-input-box {
+	display: flex;
+	flex-direction: column
 }
 
 .item-title
@@ -207,18 +342,18 @@ ul
 
 .button-title
 {
-    margin: 15px;
-    cursor: pointer;
-    border: 0;
-    font-size: 1.17em;
-    font-weight: bold;
-    background: none;
-    font-family: "Comfortaa";
+	margin: 15px;
+	cursor: pointer;
+	border: 0;
+	font-size: 1.17em;
+	font-weight: bold;
+	background: none;
+	font-family: "Comfortaa";
 }
 
 .button-title:hover
 {
-	color:white;
+	color:#9c9c9c;
 }
 
 .form-popup
@@ -342,18 +477,27 @@ ul
 	object-fit: cover;
 }
 
+.categBox-wrapper, .salleBox-wrapper {
+	display: inherit;
+	flex-wrap: inherit;
+}
+
 .categ-box
 {
 	display: flex;
-	width: fit-content;
-	margin:auto;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .categ-title
 {
-    margin: 0;
-    text-align: center;
-    background-color: white;
+	margin: 0;
+	text-align: center;
+	background-color: white;
+}
+
+.add-title {
+	margin: auto;	
 }
 
 #horaire-form-box
@@ -390,29 +534,29 @@ ul
 
 #home-form
 {
-    display: flex;
-    flex-direction: column;
-    margin-left: 15%;
-    margin-right: 15%;
-    margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+	margin-left: 15%;
+	margin-right: 15%;
+	margin-top: 30px;
 }
 
 #prof-form
 {
-    display: flex;
-    flex-direction: column;
-    margin-left: 15%;
-    margin-right: 15%;
-    margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+	margin-left: 15%;
+	margin-right: 15%;
+	margin-top: 30px;
 }
 
 .prof-image
 {
-    margin: auto;
-    padding: 20px;
+	margin: auto;
+	padding: 20px;
 	width: 200px;
-    height: 250px;
-    object-fit: cover;
+	height: 250px;
+	object-fit: cover;
 }
 
 .prof-add-btn
@@ -450,21 +594,21 @@ ul
 .file-input-container
 {
 	display: flex;
-	overflow-x: scroll;
 }
 
 .info-input-container
 {
 	display: flex;
-    justify-content: space-between;
+	justify-content: space-between;
+	margin-bottom: 20px;
 }
 
 .prof-slider
 {
 	display: flex;
-    flex-direction: column;
-    overflow-y: scroll;
-    max-height: 100px;
+	flex-direction: column;
+	overflow-y: scroll;
+	max-height: 100px;
 }
 
 .prof-slider-btn
@@ -504,7 +648,7 @@ ul
 	margin-bottom: 15px;
 	margin-left: auto;
 	margin-right: auto;
-    text-align: center;
+	text-align: center;
 	width: 90%;
 }
 
@@ -522,13 +666,13 @@ ul
 .more-post-btn
 {
 	background: antiquewhite;
-    padding: 20px;
-    text-align: center;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-    cursor: pointer;
-    margin-bottom: 30px;
+	padding: 20px;
+	text-align: center;
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	cursor: pointer;
+	margin-bottom: 30px;
 	margin-top: 30px;
 }
 
@@ -539,14 +683,14 @@ ul
 
 .image-btn
 {
-    width: 60px;
-    min-width: 60px;
-    font-size: 35px;
-    cursor:pointer;
-    border:none;
-    display: flex;
-    background-color: whitesmoke;
-    margin-right:2px;
+	width: 60px;
+	min-width: 60px;
+	font-size: 35px;
+	cursor:pointer;
+	border:none;
+	display: flex;
+	background-color: whitesmoke;
+	margin-right:2px;
 }
 
 .image-btn:hover
@@ -560,22 +704,29 @@ ul
 	padding: 1px;
 }
 
-.remove-input
-{
-	margin-left: auto;
-	font-size: 25px;
-	background-color: #e42b2b;
-	cursor:pointer;
+#upload-btn, #insert-btn {
+	cursor: pointer;
+	text-align: center;
+	background-color: white;
+	margin-top: 15px;
 }
 
-.remove-input:hover
-{
-	background-color: #fd1d1d;
+#upload-btn:hover {
+	background-color: lightgreen;
 }
 
-#link-input-container
-{
-	display: flex;
-	overflow-x: scroll;
+#insert-btn:hover {
+	background-color: lightgreen;
 }
 
+.del-btn {
+	height:20px;
+	width:20px;
+	background-color:red;
+	cursor: pointer;
+	margin: auto;
+}
+
+.del-btn:hover {
+	background-color: lightcoral;
+}

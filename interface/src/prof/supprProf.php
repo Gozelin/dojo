@@ -4,7 +4,7 @@ session_start();
 include("../secure.php");
 
 require_once("../../../public/src/defines.php");
-require_once(PATH_SRC."function.php");
+require_once(PATH_P_SRC."function.php");
 require_once(PATH_CLASS."DataBase.Class.php");
 require_once(PATH_CLASS."Prof.Class.php");
 require_once(PATH_CLASS."Discipline.Class.php");

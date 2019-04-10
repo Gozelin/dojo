@@ -15,7 +15,10 @@ $data = array(
 	"title"=>$home->getTitle(),
 	"desc"=>$home->getDesc(),
 	"descDelta"=>$home->getDescDelta(),
-	"headerColor"=>$home->getHeaderColor()
+	"headerColor"=>$home->getHeaderColor(),
+	"inputtype"=> [	"text"=>["title"],
+					"quill"=>["descDelta"=>"home"]],
+	"elemtype"=> "home"
 	);
 
 $send = json_encode($data);

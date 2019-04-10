@@ -19,7 +19,9 @@ include("../src/secure.php");
 		</nav>
 		<div id="interface-content">
 			<h1 class="interface-content-title" >Bienvenue dans l'interface de contenu</h1>
+			<h2 style="margin: auto">
+				TRAVAUX EN COURS: ne pas valider de formulaire  !
+			</h2>
 		</div>
 	</body>
 </html>
-

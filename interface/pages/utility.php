@@ -6,7 +6,7 @@ include("../src/secure.php");
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/style.css">
-        <link rel="stylesheet" type="text/css" href="css/utility.css">
+		<link rel="stylesheet" type="text/css" href="css/utility.css">
 		<script src="../../public/pages/js/jquery-3.1.1.min.js"></script>
 	</head>
 	<body>
@@ -20,7 +20,7 @@ include("../src/secure.php");
 		</nav>
 		<div id="interface-content">
 			<h1 class="interface-content-title" >Paramètres du CMS</h1>
-            <?php include("./utility/font-manager.php"); ?>
+			<?php include("./utility/font-manager.php"); ?>
 		</div>
 	</body>
 </html>
