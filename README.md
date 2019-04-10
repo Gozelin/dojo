@@ -2,13 +2,13 @@
 
 Entièrement codé à la main, pratiquement aucune librairie a été utilisé, ce qui comprend :
 
-Un site vitrine complet
+Un site vitrine complet dont le contenu est stocké en BDD
 
 Une interface administrateur permettant la gestion du contenu du site (PHP, Ajax)
 
 # Technologies utilisé :
 
-back-end : PHP/Ajax
+back-end : PHP/Ajax/SQL
 
 front : html/css
 
@@ -24,4 +24,4 @@ Tout cela sans framework et avec le minimum de librairie, le but étant de progr
 # Recul
 
 Ayant commencé ce projet avec peu de connaissance en matière d'architecture logiciel ainsi qu'en web, j'ai dû reprendre maintes fois l'organisation du code et renouveler ma vision du projet.
-À force d'erreur j'ai acquis une méthode de travail efficace et un regard critique lorsque je développe sur des technologies WEB. 
+À force d'erreur j'ai acquis une méthode de travail efficace et un regard critique lorsque je développe sur des technologies WEB.
